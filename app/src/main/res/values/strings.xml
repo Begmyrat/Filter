@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Filter</string>
+    <string name="title_activity_onboard">ActivityOnboard</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="social_medias">
+
+        <item>Facebook</item>
+        <item>Instagram</item>
+        <item>Snapchat</item>
+        <item>Tiktok</item>
+
+    </string-array>
+
+    <string-array name="locations">
+
+        <item>Seçiniz</item>
+        <item>Duraklar</item>
+        <item>Toplu taşıma</item>
+        <item>Hava limanı/Uçak</item>
+        <item>Kafe/Restoran</item>
+        <item>Bar/Eğlence mekanı</item>
+        <item>Spor(Jimnastik) Salonu</item>
+        <item>Sahil/Kumsal/Deniz</item>
+        <item>Sinema/Tiyatro</item>
+        <item>Konser</item>
+        <item>Kütüphane</item>
+        <item>Sanatsal Mekanlar</item>
+        <item>İş Yeri</item>
+        <item>Diğer/Outdoor</item>
+        <item>Diğer/Indoor</item>
+
+    </string-array>
+
+    <string-array name="activities">
+
+        <item>Seçiniz</item>
+        <item>Oturmak/Ayakta</item>
+        <item>Sadece Ayakta</item>
+        <item>Spor/Jimnastik</item>
+        <item>Yüzmek/Uzanmak</item>
+
+    </string-array>
+
+</resources>

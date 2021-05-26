@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="15dp"
+    android:layout_marginHorizontal="20dp"
+    android:paddingVertical="15dp"
+    android:background="@drawable/popup_info_background">
+
+    <RelativeLayout
+        android:id="@+id/r_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickArkadaslariListele"
+        android:background="@drawable/connect_background"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Arkadaşları Listele"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_extra_bold"
+            android:textSize="16sp"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r_connect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickGuncelle"
+        android:background="@drawable/connect_background"
+        android:paddingVertical="10dp"
+        android:layout_below="@+id/r_update"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Güncelle"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_extra_bold"
+            android:textSize="16sp"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

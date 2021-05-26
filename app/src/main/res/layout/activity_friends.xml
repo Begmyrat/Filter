@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/r_main"
+    android:background="@color/colorBackground"
+    tools:context=".ActivityFriends">
+
+    <RelativeLayout
+        android:id="@+id/r_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:onClick="clickBack"
+        android:layout_marginHorizontal="10dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/back_background">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/t_theCampusStars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sizin için önerdiklerimiz"
+        android:layout_marginHorizontal="10dp"
+        android:layout_below="@+id/r_back"
+        android:fontFamily="@font/nunitosans_extra_bold"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/t_theCampusStars"
+        android:scrollbarSize="0dp"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/l_shortButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="10dp"
+        android:layout_below="@+id/recycleView"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="clickFriends"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="#20aafa"
+                android:layout_marginRight="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/t_titleArkadaslarim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Arkadaşlarım"
+                        android:gravity="left"
+                        android:fontFamily="@font/nunitosans_bold"
+                        android:textColor="@color/colorWhite"
+                        android:layout_margin="10dp"/>
+
+                    <View
+                        android:id="@+id/v_1"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWhite"
+                        android:layout_toLeftOf="@+id/t_countArkadas"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginHorizontal="5dp"/>
+
+                    <TextView
+                        android:id="@+id/t_countArkadas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:gravity="left"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/nunitosans_bold"
+                        android:textColor="@color/colorWhite"
+                        android:layout_margin="10dp"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="#ff6b8b"
+                android:onClick="clickIstekGonderenler"
+                android:layout_marginRight="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/t_titleIstekler"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="İstek Gönderenler"
+                        android:fontFamily="@font/nunitosans_bold"
+                        android:textColor="@color/colorWhite"
+                        android:layout_margin="10dp"/>
+
+                    <View
+                        android:id="@+id/v_2"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWhite"
+                        android:layout_toLeftOf="@+id/t_countIstek"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginHorizontal="5dp"/>
+
+                    <TextView
+                        android:id="@+id/t_countIstek"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="78"
+                        android:gravity="left"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/nunitosans_bold"
+                        android:textColor="@color/colorWhite"
+                        android:layout_margin="10dp"/>
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Arkadaşlar"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/nunitosans_extra_bold"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_below="@+id/l_shortButtons"/>
+
+    <ListView
+        android:id="@+id/listview_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="10dp"
+        android:divider="@android:color/transparent"
+        android:layout_below="@+id/t_title"
+        android:layout_marginHorizontal="10dp"
+        android:scrollbarSize="0dp"/>
+
+    <ListView
+        android:id="@+id/listview_istekler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="10dp"
+        android:visibility="gone"
+        android:divider="@android:color/transparent"
+        android:layout_below="@+id/t_title"
+        android:layout_marginHorizontal="10dp"
+        android:scrollbarSize="0dp"/>
+
+</RelativeLayout>

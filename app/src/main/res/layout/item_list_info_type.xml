@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/r_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="6dp"
+    android:layout_marginRight="10dp">
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:gravity="top"
+        android:layout_centerInParent="true"
+        android:background="@drawable/category_item_background">
+
+        <ImageView
+            android:id="@+id/i_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            android:layout_above="@id/t_title"
+            android:src="@drawable/portrait"/>
+
+        <TextView
+            android:id="@+id/t_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Baş"
+            android:textSize="20sp"
+            android:textColor="@color/colorPurple"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

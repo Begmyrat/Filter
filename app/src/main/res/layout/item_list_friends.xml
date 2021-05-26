@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/r_box"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/category_item_background">
+
+        <RelativeLayout
+            android:id="@+id/r_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/i_back"
+                app:cardCornerRadius="30dp">
+
+                <ImageView
+                    android:id="@+id/i_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo1"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/r_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/r_icon"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/i_image_from"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/t_title_little"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filter"
+                android:fontFamily="@font/nunitosans_bold"
+                android:textSize="14sp"
+                android:alpha="0.7"
+                android:textColor="@color/colorPurple"/>
+
+            <TextView
+                android:id="@+id/t_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lisenin papatya"
+                android:fontFamily="@font/nunitosans_extra_bold"
+                android:textSize="18sp"
+                android:layout_below="@+id/t_title_little"
+                android:textColor="@color/colorPurple"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/i_image_from"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_balloon_colorful"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

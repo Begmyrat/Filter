@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:id="@+id/r_main"
+    tools:context=".ActivityCategory2">
+
+    <RelativeLayout
+        android:id="@+id/r_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/r_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:onClick="clickBack"
+            android:background="@drawable/back_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_back"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/r_back"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/t_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arananlar"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/nunitosans_extra_bold"
+                android:textSize="22sp"
+                android:textColor="@color/colorPurple"/>
+
+            <TextView
+                android:id="@+id/t_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tarif ettikleriniz"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/nunitosans_bold"
+                android:textColor="@color/colorPurple"
+                android:textSize="14sp"
+                android:layout_below="@+id/t_title"
+                android:alpha="0.85"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview_searchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:dividerHeight="15dp"
+        android:divider="@android:color/transparent"
+        android:scrollbarSize="0dp"
+        android:listSelector="@android:color/transparent"
+        android:layout_below="@+id/r_top"
+        android:layout_marginTop="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:elevation="3dp"
+        android:background="@drawable/circle_background"
+        android:onClick="clickInsertWanted"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_plus"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

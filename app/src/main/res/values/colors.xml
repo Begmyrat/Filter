@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#26495c</color>
+    <color name="colorPrimaryDark">#077b8a</color>
+    <color name="colorAccent">#F13C20</color>
+
+    <color name="colorWhiteLight">#fefeff</color>
+    <color name="colorTextColor">#CC000000</color>
+    <color name="colorTextColorLight">#993E3E3E</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorRed">#ed332e</color>
+    <color name="colorPalet1">#e52165</color>
+    <color name="colorPalet2">#077b8a</color>
+    <color name="colorPalet3">#FF9800</color>
+    <color name="colorPalet4">#26495c</color>
+    <color name="colorPalet5">#8a307f</color>
+    <color name="colorPalet6">#F13C20</color>
+    <color name="colorPalet7">#E85A4F</color>
+    <color name="colorPalet8">#88BDBC</color>
+    <color name="colorPalet9">#2E9CCA</color>
+    <color name="colorForgotPassword">#feffff</color>
+
+    <color name="colorDarkGray">#373c44</color>
+    <color name="colorYellow">#ffa54c</color>
+    <color name="colorBlue">#37b8e2</color>
+    <color name="colorBlue2">#619df5</color>
+
+    <color name="colorBackground">#fafafc</color>
+    <color name="colorPurple">#322751</color>
+    <color name="colorButtonBackBackground">#f4f5fa</color>
+    <color name="colorInfoBoxSoluk">#ABAFC1</color>
+    <color name="colorOrange">#fc7555</color>
+    <color name="colorInfoTextSoluk">#AFB5D1</color>
+
+<!--    // chat colors-->
+    <color name="colorChatLeftBox">#ebeffe</color>
+    <color name="colorChatRightBox">#03334c</color>
+    <color name="colorChatTop">#083349</color>
+    <color name="colorChatYellow">#ffe8c7</color>
+    <color name="colorSnapchat">#FFFC00</color>
+    <color name="colorTiktok">#EE1D52</color>
+    <color name="colorFacebook">#4267B2</color>
+    <color name="colorInstagram">#C13584</color>
+
+
+    <color name="colorChatBackground">#f6f6f6</color>
+    <color name="colorChatRight2">#26a2bc</color>
+    <color name="colorChatLeft2">#ffffff</color>
+
+    <color name="colorBlue1">#0244a1</color>
+    <color name="colorBlue22">#0234d2</color>
+    <color name="colorBlue3">#0763e5</color>
+    <color name="colorBlue4">#0993f3</color>
+    <color name="colorBlue5">#17d4fc</color>
+    <color name="colorBlue6">#a9d1f6</color>
+
+    <color name="colorRed1">#dc143c</color>
+    <color name="colorRed22">#ff0000</color>
+    <color name="colorRed3">#ff355e</color>
+    <color name="colorRed4">#ff5349</color>
+    <color name="colorRed5">#fa8072</color>
+    <color name="colorRed6">#ff9999</color>
+
+    <color name="colorGreen1">#1e5631</color>
+    <color name="colorGreen2">#68bb59</color>
+    <color name="colorGreen3">#a4de02</color>
+    <color name="colorGreen4">#607d3b</color>
+    <color name="colorGreen5">#a4de02</color>
+    <color name="colorGreen6">#99ebc3</color>
+
+
+    <color name="gradient_start_color">#4c84ff</color>
+    <color name="gradient_end_color">#18a3fe</color>
+    <color name="tab_indicator_gray">#c0c0c0</color>
+    <color name="intro_title_color">#000000</color>
+    <color name="intro_description_color">#656565 </color>
+
+
+</resources>

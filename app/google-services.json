@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "977636910693",
+    "project_id": "filterapp-eeabc",
+    "storage_bucket": "filterapp-eeabc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977636910693:android:001382e1a26b346e27088c",
+        "android_client_info": {
+          "package_name": "com.mobiloby.filter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977636910693-6a70jdjvf40l8e4soke8hveb3ngikgkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUi6si8ta7hLvDJLs2ycHo9L3jyyJeCK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977636910693-6a70jdjvf40l8e4soke8hveb3ngikgkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,1434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/r_main"
+    android:background="@color/colorBackground"
+    tools:context=".ActivityCategory2_Detail">
+
+    <RelativeLayout
+        android:id="@+id/r_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/r_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:onClick="clickBack"
+            android:background="@drawable/back_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_back"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/r_back"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="right">
+
+            <RelativeLayout
+                android:id="@+id/r_soru"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/back_background"
+                android:onClick="clickSoru"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/t_soru"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/colorDarkGray"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textSize="16sp"
+                    android:text="Soru"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/r_diger"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/back_background"
+                android:onClick="clickDiger"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/r_soru"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/t_diger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/colorDarkGray"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textSize="16sp"
+                    android:text="Diğer"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/r_ben"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:onClick="clickBen"
+                android:background="@drawable/back_background_clicked"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/r_diger">
+
+                <TextView
+                    android:id="@+id/t_ben"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:text="Ben"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r_top"
+        android:layout_above="@+id/r_bottom">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/t_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_bold"
+                android:textColor="@color/colorDarkGray"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                android:text="Title"/>
+
+            <RelativeLayout
+                android:id="@+id/r_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/t_title">
+
+                <EditText
+                    android:id="@+id/e_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:textSize="16sp"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="30dp"
+                    android:fontFamily="@font/nunitosans_regular"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:paddingVertical="10dp"
+                    android:background="@drawable/back_background"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:elevation="1dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_cancel"
+                    android:onClick="clickTitleTemizle"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/t_adSoyad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_bold"
+                android:textColor="@color/colorDarkGray"
+                android:layout_below="@+id/r_title"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:text="Ad Soyad"/>
+
+            <RelativeLayout
+                android:id="@+id/r_adSoyad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/t_adSoyad">
+
+                <EditText
+                    android:id="@+id/e_adSoyad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ad Soyad"
+                    android:textSize="16sp"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="30dp"
+                    android:fontFamily="@font/nunitosans_regular"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:paddingVertical="10dp"
+                    android:background="@drawable/back_background"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:elevation="1dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_cancel"
+                    android:onClick="clickTemizle"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/t_boy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_bold"
+                android:textColor="@color/colorDarkGray"
+                android:layout_below="@+id/r_adSoyad"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:text="Tahmini Boy"/>
+
+            <RelativeLayout
+                android:id="@+id/r_boy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_below="@+id/t_boy">
+
+                <EditText
+                    android:id="@+id/e_boy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tahmini boy"
+                    android:textSize="16sp"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="30dp"
+                    android:fontFamily="@font/nunitosans_regular"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:paddingVertical="10dp"
+                    android:background="@drawable/back_background"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:elevation="1dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_cancel"
+                    android:onClick="clickBoyTemizle"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/r_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/r_boy"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:scrollbarSize="0dp"
+                    android:scrollbars="none" />
+
+                <org.apmem.tools.layouts.FlowLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycleView"
+                    android:id="@+id/f_bash"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:id="@+id/r_topGoz"
+                        android:onClick="clickTopGoz"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topGoz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Göz"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topEsharf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopEsharf"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topEsharf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="E-Şarf"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topKolye"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopKolye"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topKolye"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kolye"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topShapka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:onClick="clickTopShapka"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topShapka"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Şapka"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topGozluk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopGozlukk"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topGozluk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Gözlük"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topKupe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopKupe"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topKupe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Küpe"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topKulaklik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopKulaklik"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topKulaklik"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kulaklık"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topDovme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopDovme"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topDovme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Dövme"/>
+
+                    </RelativeLayout>
+
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycleView"
+                    android:id="@+id/f_govde"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/r_midTshirt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidTshirt"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midTshirt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="T-Shirt"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midMont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidMont"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midMont"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Mont"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midDovme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidDovme"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midDovme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Dövme"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midKazak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:onClick="clickMidKazak"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midKazak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kazak"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midKolSaati"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:onClick="clickMidKolSaati"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midKolSaati"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kol Saati"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midPalto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidPalto"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midPalto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Palto"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midGomlek"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidGomlek"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midGomlek"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Gömlek"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midBileklik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:onClick="clickMidBileklik"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midBileklik"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Bileklik"/>
+
+                    </RelativeLayout>
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycleView"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/f_bacak"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/r_botJeans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickBotJeans"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botJeans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Jeans"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botPantalon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickBotPantalon"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botPantalon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Pantalon"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botEtek"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:onClick="clickBotEtek"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botEtek"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Etek"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botBot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:onClick="clickBotBot"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botBot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Bot"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botAyakkabi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickBotAyakkabi"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botAyakkabi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Ayakkabı"/>
+
+                    </RelativeLayout>
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycleView"
+                    android:id="@+id/f_bash_diger"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:id="@+id/r_topGoz_diger"
+                        android:onClick="clickTopGozDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topGoz_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Göz"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topEsharf_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopEsharfDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topEsharf_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="E-Şarf"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topKolye_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopKolyeDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topKolye_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kolye"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topShapka_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:onClick="clickTopShapkaDiger"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topShapka_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Şapka"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topGozluk_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopGozlukDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topGozluk_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Gözlük"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topKupe_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopKupeDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topKupe_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Küpe"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topKulaklik_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopKulaklikDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topKulaklik_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kulaklık"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_topDovme_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickTopDovmeDiger"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_topDovme_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Dövme"/>
+
+                    </RelativeLayout>
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycleView"
+                    android:id="@+id/f_govde_diger"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/r_midTshirt_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidTshirtDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midTshirt_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="T-Shirt"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midMont_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidMontDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midMont_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Mont"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midDovme_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidDovmeDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midDovme_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Dövme"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midKazak_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:onClick="clickMidKazakDiger"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midKazak_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kazak"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midKolSaati_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:onClick="clickMidKolSaatiDiger"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midKolSaati_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Kol Saati"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midPalto_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidPaltoDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midPalto_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Palto"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midGomlek_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickMidGomlekDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midGomlek_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Gömlek"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_midBileklik_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:onClick="clickMidBileklikDiger"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_midBileklik_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Bileklik"/>
+
+                    </RelativeLayout>
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+                <org.apmem.tools.layouts.FlowLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycleView"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/f_bacak_diger"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/r_botJeans_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickBotJeansDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botJeans_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Jeans"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botPantalon_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickBotPantalonDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botPantalon_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Pantalon"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botEtek_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:onClick="clickBotEtekDiger"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botEtek_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Etek"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botBot_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="10dp"
+                        android:onClick="clickBotBotDiger"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botBot_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Bot"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r_botAyakkabi_diger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/info_background"
+                        android:paddingVertical="8dp"
+                        android:layout_marginTop="10dip"
+                        android:onClick="clickBotAyakkabiDiger"
+                        android:layout_marginRight="10dp"
+                        android:paddingHorizontal="15dp">
+
+                        <TextView
+                            android:id="@+id/t_botAyakkabi_diger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/nunitosans_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorDarkGray"
+                            android:text="Ayakkabı"/>
+
+                    </RelativeLayout>
+
+                </org.apmem.tools.layouts.FlowLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollView_questions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/r_top"
+        android:visibility="gone"
+        android:layout_above="@+id/r_bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Soru 1"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPurple"
+                android:fontFamily="@font/nunitosans_bold"/>
+
+            <EditText
+                android:id="@+id/e_soru1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textSize="16sp"
+                android:maxLength="120"
+                android:gravity="top|left"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:background="@drawable/back_background"
+                android:textColor="@color/colorPurple"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Soru 2"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPurple"
+                android:fontFamily="@font/nunitosans_bold"/>
+
+            <EditText
+                android:id="@+id/e_soru2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textSize="16sp"
+                android:maxLength="120"
+                android:gravity="top|left"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:background="@drawable/back_background"
+                android:textColor="@color/colorPurple"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Soru 3"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPurple"
+                android:fontFamily="@font/nunitosans_bold"/>
+
+            <EditText
+                android:id="@+id/e_soru3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textSize="16sp"
+                android:maxLength="120"
+                android:gravity="top|left"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:background="@drawable/back_background"
+                android:textColor="@color/colorPurple"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/r_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp">
+
+        <RelativeLayout
+            android:id="@+id/r_insert"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:elevation="3dp"
+            android:background="@drawable/circle_background"
+            android:onClick="clickSave"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_baseline_save_24"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

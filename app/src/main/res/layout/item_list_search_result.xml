@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/category_item_background">
+
+        <RelativeLayout
+            android:id="@+id/r_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/back_background">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_f_char"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/r_icon"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/t_title_little"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filter"
+                android:fontFamily="@font/nunitosans_bold"
+                android:textSize="14sp"
+                android:alpha="0.7"
+                android:textColor="@color/colorPurple"/>
+
+            <TextView
+                android:id="@+id/t_title_big"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Full time UI Designer"
+                android:fontFamily="@font/nunitosans_extra_bold"
+                android:textSize="18sp"
+                android:layout_below="@+id/t_title_little"
+                android:textColor="@color/colorPurple"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/t_title_big">
+
+                <TextView
+                    android:id="@+id/t_dolar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$8k - "
+                    android:fontFamily="@font/nunitosans_extra_bold"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPurple"/>
+
+                <TextView
+                    android:id="@+id/t_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tokyo, Japan"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textSize="15sp"
+                    android:alpha="0.7"
+                    android:layout_toRightOf="@+id/t_dolar"
+                    android:textColor="@color/colorPurple"/>
+
+                <TextView
+                    android:id="@+id/t_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4d"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textSize="15sp"
+                    android:alpha="0.7"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/colorPurple"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_register"
+    tools:context=".ActivityRegister">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:onClick="clickBack"
+        android:layout_margin="10dp"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/nunitosans_bold"
+        android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="40sp"
+        android:text="Create\nAccount"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_title"
+        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="40dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/e_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textSize="20sp"
+            android:hint="Username"
+            android:textColorHint="@color/colorWhite"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="7dp"
+            android:background="@drawable/transparent_background"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:alpha="0.7"
+            android:background="@color/colorWhite"/>
+
+        <EditText
+            android:id="@+id/e_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:hint="Email"
+            android:textColorHint="@color/colorWhite"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="7dp"
+            android:background="@drawable/transparent_background"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:alpha="0.7"
+            android:background="@color/colorWhite"/>
+
+        <EditText
+            android:id="@+id/e_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:hint="Password"
+            android:textColorHint="@color/colorWhite"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="7dp"
+            android:background="@drawable/transparent_background"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:alpha="0.7"
+            android:background="@color/colorWhite"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/nunitosans_bold"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorWhite"
+                android:text="Sign up"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:onClick="clickSignUp"
+                android:layout_centerVertical="true"
+                android:padding="25dp"
+                android:background="@drawable/circle_background"
+                android:layout_gravity="right">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_right"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/t_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:text="Sign in"/>
+
+                <View
+                    android:layout_width="65dp"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="-4dp"
+                    android:background="@color/colorWhite"
+                    android:layout_below="@+id/t_signup"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
