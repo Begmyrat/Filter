@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:id="@+id/r_main"
+    tools:context=".ActivitySignUp">
+
+    <ImageView
+        android:id="@+id/i_image"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="100dp"
+        android:layout_above="@id/v_v1"
+        android:src="@drawable/ic_conversation"/>
+
+    <View
+        android:id="@+id/v_v1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/v_v1"
+        android:layout_marginTop="30dp"
+        android:text="Filter"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textSize="28sp"
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:id="@+id/t_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Kullanıcı Adı ve Şifrenizi girerek kayıt olabilirsiniz"
+        android:fontFamily="@font/nunitosans_regular"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@+id/t_title"/>
+
+    <RelativeLayout
+        android:id="@+id/r_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_subtitle"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/e_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kullanıcı adı"
+            android:textSize="16sp"
+            android:fontFamily="@font/nunitosans_regular"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@android:color/darker_gray"
+            android:paddingVertical="7dp"
+            android:background="@drawable/signup_edittext_background"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:elevation="1dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_cancel"
+            android:onClick="clickTemizle"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r_username"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/e_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Şifre"
+            android:textSize="16sp"
+            android:fontFamily="@font/nunitosans_regular"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@android:color/darker_gray"
+            android:paddingVertical="7dp"
+            android:background="@drawable/signup_edittext_background"/>
+
+        <ImageView
+            android:id="@+id/i_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:elevation="1dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_cancel"
+            android:onClick="clickTemizle"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r_kayitOlButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_background"
+        android:onClick="clickSignUp"
+        android:paddingVertical="7dp"
+        android:layout_below="@+id/r_password">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Kayıt Ol"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/r_kayitOlButton">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hesabınız var ise"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giriş"
+            android:layout_marginLeft="5dp"
+            android:paddingVertical="5dp"
+            android:onClick="clickLogin"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textColor="@color/colorBlue2"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

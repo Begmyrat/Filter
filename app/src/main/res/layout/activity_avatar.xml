@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/r_box"
+    android:background="@color/colorBackground"
+    tools:context=".ActivityAvatar">
+
+    <RelativeLayout
+        android:id="@+id/r_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:id="@+id/t_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select your\nAvatar"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/i_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_mark"
+            android:onClick="clickAvatarSec"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gridview_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:paddingHorizontal="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:verticalSpacing="30dp"
+        android:horizontalSpacing="10dp"
+        android:scrollbarSize="0dp"
+        android:layout_below="@+id/r_top"/>
+
+</RelativeLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorButtonBackBackground"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="20dp">
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/nunitosans_bold"/>
+
+    <TextView
+        android:id="@+id/t_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Renk seçmek için resim üzerindeki ilgili alan üzerine tıklayınız..."
+        android:fontFamily="@font/nunitosans_regular"
+        android:textSize="16sp"
+        android:layout_below="@+id/t_title"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"/>
+
+    <ImageView
+        android:id="@+id/color_wheel"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:focusableInTouchMode="true"
+        android:adjustViewBounds="true"
+        android:elevation="5dp"
+        android:layout_below="@+id/t_subtitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/color_wheel_custom"/>
+
+    <RelativeLayout
+        android:id="@+id/r_blocks"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/t_subtitle">
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:onClick="clickCenter"
+            android:layout_centerInParent="true"/>
+
+        <LinearLayout
+            android:id="@+id/l_blocks"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:onClick="clickTopLeft"/>
+
+                <LinearLayout
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:onClick="clickTopRight"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:onClick="clickBottomLeft"/>
+
+                <LinearLayout
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:onClick="clickBottomRight"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/b_tamam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r_blocks"
+        android:layout_marginTop="20dp"
+        android:text="Tamam"
+        android:onClick="clickTamam"
+        android:background="@color/colorPalet4"
+        android:textSize="16sp"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/b_sil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/b_tamam"
+        android:layout_marginTop="10dp"
+        android:text="Sil"
+        android:onClick="clickSil"
+        android:background="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/b_sil"
+        android:layout_marginTop="10dp"
+        android:text="Vazgec"
+        android:onClick="clickVazgec"
+        android:background="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"/>
+
+
+
+</RelativeLayout>

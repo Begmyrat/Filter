@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="15dp"
+    android:layout_marginHorizontal="20dp"
+    android:paddingVertical="15dp"
+    android:background="@drawable/popup_info_background">
+
+    <TextView
+        android:id="@+id/t_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/nunitosans_extra_bold"
+        android:textSize="18sp"
+        android:textColor="@color/colorPurple"/>
+
+    <TextView
+        android:id="@+id/t_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/t_username"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textSize="14sp"
+        android:alpha="0.7"
+        android:textColor="@color/colorPurple"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/l_shortButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="10dp"
+        android:layout_below="@+id/t_subtitle"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/l_answers"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="clickShowAnswers"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/colorPalet7"
+                android:layout_marginRight="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cevapları Göster"
+                    android:gravity="center"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:layout_margin="10dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/l_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="clickProfile"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="#20aafa"
+                android:layout_marginRight="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Profili Göster"
+                    android:gravity="center"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:layout_margin="10dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="clickReddet"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/colorPalet1"
+                android:layout_marginRight="5dp">
+
+                <TextView
+                    android:id="@+id/t_reddet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reddet"
+                    android:gravity="center"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:layout_margin="10dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/colorPalet2"
+                android:onClick="clickKabulEt"
+                android:layout_marginRight="5dp">
+
+                <TextView
+                    android:id="@+id/t_kabulEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kabul Et"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:layout_margin="10dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

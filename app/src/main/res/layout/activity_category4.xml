@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/r_main"
+    android:background="@color/colorBackground"
+    tools:context=".ActivityCategory4">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/r_top"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="10dp"-->
+<!--            android:layout_marginTop="0dp">-->
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/r_back"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentLeft="true"-->
+<!--                android:onClick="clickBack"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="@drawable/back_background">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:src="@drawable/ic_back"-->
+<!--                    android:layout_centerInParent="true"/>-->
+
+<!--            </RelativeLayout>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_toRightOf="@+id/r_back"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:gravity="right">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/t_title"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Sosyal Medya Hesapları"-->
+<!--                    android:gravity="right"-->
+<!--                    android:fontFamily="@font/nunitosans_extra_bold"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:textColor="@color/colorPurple"/>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="right"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:onClick="clickCurrentSearches"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:layout_below="@+id/t_title">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/t_subtitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="devam eden aramalar için"-->
+<!--                        android:fontFamily="@font/nunitosans_bold"-->
+<!--                        android:textColor="@color/colorPurple"-->
+<!--                        android:gravity="right"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:alpha="0.85"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/t_subtitle2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="tıklayın"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:fontFamily="@font/nunitosans_bold"-->
+<!--                        android:textColor="@color/colorBlue"-->
+<!--                        android:gravity="right"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:alpha="1"/>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </RelativeLayout>-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/t_aramaTarihi"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Arama Tarihi"-->
+<!--            android:fontFamily="@font/nunitosans_bold"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_below="@+id/r_top"/>-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycleView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/t_aramaTarihi"-->
+<!--            android:layout_marginHorizontal="10dp" />-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/recycleView"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_marginTop="10dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/t_titleArama"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Arama"-->
+<!--                android:textSize="18sp"-->
+<!--                android:fontFamily="@font/nunitosans_extra_bold"-->
+<!--                android:textColor="@color/colorBlack"/>-->
+
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner_medias"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/t_titleArama"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:entries="@array/social_medias"/>-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/e_username"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/nunitosans_regular"-->
+<!--                android:textColor="@color/colorBlack"-->
+<!--                android:layout_below="@+id/spinner_medias"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:hint="Kullanıcı Adınız"/>-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/e_username_other"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/nunitosans_regular"-->
+<!--                android:textColor="@color/colorBlack"-->
+<!--                android:layout_below="@+id/e_username"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:hint="Kullanıcı Adı"/>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/e_username_other"-->
+<!--                android:onClick="clickGonder"-->
+<!--                android:layout_marginTop="10dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Gönder"-->
+<!--                    android:gravity="center"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:paddingVertical="10dp"-->
+<!--                    android:textColor="@color/colorWhite"-->
+<!--                    android:background="@color/colorPurple"/>-->
+
+<!--            </RelativeLayout>-->
+
+<!--        </RelativeLayout>-->
+
+<!--    </RelativeLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/r_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="0dp">
+
+        <RelativeLayout
+            android:id="@+id/r_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:onClick="clickBack"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_back"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/r_back"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/t_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sosyal Medya Hesapları"
+                android:gravity="right"
+                android:fontFamily="@font/nunitosans_extra_bold"
+                android:textSize="22sp"
+                android:textColor="@color/colorPurple"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:visibility="gone"
+                android:onClick="clickCurrentSearches"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/t_title">
+
+                <TextView
+                    android:id="@+id/t_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="devam eden aramalar için"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textColor="@color/colorPurple"
+                    android:gravity="right"
+                    android:textSize="14sp"
+                    android:alpha="0.85"/>
+
+                <TextView
+                    android:id="@+id/t_subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tıklayın"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/nunitosans_bold"
+                    android:textColor="@color/colorBlue"
+                    android:gravity="right"
+                    android:textSize="14sp"
+                    android:alpha="1"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/t_titleSosyalMedya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sosyal Medya Hesapları"
+        android:fontFamily="@font/verdana"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/r_top"
+        android:textColor="@color/colorPurple"/>
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/spinner_social"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_stroked_background"
+        android:gravity="left"
+        android:hint="Seçiniz"
+        android:layout_below="@+id/t_titleSosyalMedya"
+        android:layout_marginHorizontal="20dp"
+        android:padding="10dp"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorDarkGray"
+        android:textSize="14.5sp"
+        app:spinner_arrow_gravity="end"
+        android:fontFamily="@font/verdana"
+        app:spinner_arrow_padding="8dp"
+        android:visibility="gone"
+        app:spinner_divider_color="@color/tab_indicator_gray"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_item_array="@array/social_medias"
+        app:spinner_popup_animation="dropdown"
+        app:spinner_popup_background="@color/colorWhiteLight"
+        app:spinner_popup_elevation="14dp" />
+
+    <LinearLayout
+        android:id="@+id/l_icons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/t_titleSosyalMedya">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:onClick="clickFacebook1"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/i_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_facebook"
+                android:background="@null"
+                android:padding="5dp"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:onClick="clickInstagram1"
+            android:padding="5dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/i_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_instagram"
+                android:background="@null"
+                android:padding="5dp"
+                android:layout_centerInParent="true"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:onClick="clickSnapchat1"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/i_snapchat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_snapchat"
+                android:background="@null"
+                android:padding="5dp"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:onClick="clickTiktok1"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/i_tiktok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tiktok"
+                android:padding="5dp"
+                android:background="@null"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/t_titleMedya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l_icons"
+        android:text="Kendi kullanıcı adınız"
+        android:alpha="0.75"
+        android:fontFamily="@font/verdana"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <RelativeLayout
+        android:id="@+id/r_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_titleMedya"
+        android:layout_marginHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/e_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="kullanıcı adınız..."
+                android:paddingVertical="10dp"
+                android:textSize="16sp"
+                android:paddingHorizontal="15dp"
+                android:fontFamily="@font/verdana"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_social"
+                android:text="Karşı tarafın kullanıcı adı"
+                android:alpha="0.75"
+                android:fontFamily="@font/verdana"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/e_username_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="kullanıcı adı..."
+                android:paddingVertical="10dp"
+                android:textSize="16sp"
+                android:paddingHorizontal="15dp"
+                android:fontFamily="@font/verdana"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r_gonder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r_input"
+        android:padding="10dp"
+        android:onClick="clickGonder"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/colorPalet6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Gönder"
+            android:fontFamily="@font/nunitosans_extra_bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recycleView"
+        android:text="Önceki aramalarınız"
+        android:alpha="0.75"
+        android:fontFamily="@font/verdana"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp" />
+
+
+</RelativeLayout>

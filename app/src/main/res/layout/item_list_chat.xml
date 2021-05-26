@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/r_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="3dp"
+        android:paddingHorizontal="5dp"
+        android:layout_marginRight="100dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/t_chatLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bolmasa yene guk diyayerin"
+            android:textSize="16sp"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textColor="@color/colorDarkGray"/>
+
+        <TextView
+            android:id="@+id/t_dateLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2:44 PM"
+            android:gravity="right"
+            android:foregroundGravity="right"
+            android:layout_below="@+id/t_chatLeft"
+            android:textColor="@color/colorDarkGray"
+            android:fontFamily="@font/nunitosans_regular"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="3dp"
+        android:paddingHorizontal="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/r_left"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorChatRight2">
+
+        <TextView
+            android:id="@+id/t_chatRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bolmasa yene guk diyayerin"
+            android:textSize="16sp"
+            android:foregroundGravity="left"
+            android:gravity="left"
+            android:fontFamily="@font/nunitosans_bold"
+            android:textColor="@color/colorWhite"/>
+
+        <TextView
+            android:id="@+id/t_dateRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2:44 PM"
+            android:layout_below="@+id/t_chatRight"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_regular"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

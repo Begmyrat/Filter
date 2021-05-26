@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="160dp"
+    android:background="@drawable/rounded_background"
+    android:backgroundTint="@color/colorWhite"
+    android:layout_marginRight="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/i_fire"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_fire"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="30dp">
+
+        <ImageView
+            android:id="@+id/i_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/photo1"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/t_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Timothy White"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/cardview"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:fontFamily="@font/nunitosans_extra_bold"/>
+
+    <TextView
+        android:id="@+id/t_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Team Leader"
+        android:textColor="@color/colorDarkGray"
+        android:layout_below="@+id/t_username"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:fontFamily="@font/nunitosans_bold"/>
+
+    <RelativeLayout
+        android:id="@+id/r_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:paddingHorizontal="7dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorBlue"
+        android:paddingVertical="3dp"
+        android:layout_below="@+id/t_status">
+
+        <TextView
+            android:id="@+id/t_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="İstek Gönder"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/nunitosans_regular"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
