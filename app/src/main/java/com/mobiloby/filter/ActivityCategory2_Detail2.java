@@ -1466,7 +1466,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         myOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;// important
         myOptions.inPurgeable = true;
 
-        final Bitmap[] bitmap = {BitmapFactory.decodeResource(getResources(), R.drawable.color_wheel_custom, myOptions)};
+        final Bitmap[] bitmap = {BitmapFactory.decodeResource(getResources(), R.drawable.rectangle_color, myOptions)};
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(getResources().getColor(R.color.colorButtonBackBackground));
@@ -1479,11 +1479,11 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         if(title.equals("Mont")){
             if(isBenClicked){
                 Canvas canvas = new Canvas(mutableBitmap[0]);
-                canvas.drawCircle(montX - montX/5, montY-montY/5, 25, paint);
+                canvas.drawCircle(montX + montX/2, montY+montY/2, 25, paint);
             }
             else if(isDigerClicked){
                 Canvas canvas = new Canvas(mutableBitmap[0]);
-                canvas.drawCircle(montXDiger - montXDiger/5, montY - montY/5, 25, paint);
+                canvas.drawCircle(montXDiger + montXDiger/5, montY + montY/5, 25, paint);
             }
         }
         else if(title.equals("Üst")){
@@ -1537,6 +1537,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
             }
         }
         imageView.setAdjustViewBounds(true);
+//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setImageBitmap(mutableBitmap[0]);
 
 
@@ -1608,9 +1609,10 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 mutableBitmap[0] = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
 
                 Canvas canvas = new Canvas(mutableBitmap[0]);
-                canvas.drawCircle(event.getX() - event.getX()/5, event.getY() - event.getY()/5, 25, paint);
+                canvas.drawCircle(event.getX(), event.getY(), 25, paint);
 //
                 imageView.setAdjustViewBounds(true);
+//                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setImageBitmap(mutableBitmap[0]);
 
                 return false;

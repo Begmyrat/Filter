@@ -1,5 +1,6 @@
 package com.mobiloby.filter;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,7 +12,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -20,6 +24,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -38,7 +43,33 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         RemoteMessage.Notification notification = remoteMessage.getNotification();
         Map<String, String> data = remoteMessage.getData();
 
-        sendNotification(notification, data);
+        if (remoteMessage.getNotification() != null && MainActivity.context!=null) {
+            Log.d("MESSAGEBODY: ", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            MainActivity.h ++;
+            System.out.println("VALUEOFH: " + MainActivity.h);
+
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    //do stuff like remove view etc
+                    if(ActivityChat.chatObjects!=null)
+                        ActivityChat.insertChatObject(ActivityChat.friend_username, ActivityChat.username, remoteMessage.getNotification().getBody(), "27.05.2021", ActivityChat.friend_username);
+                }
+            });
+        }
+
+        if (remoteMessage.getNotification() != null) {
+            String message = remoteMessage.getNotification().getBody();
+            if (isForeground(getApplicationContext())) {
+                //if in forground then your operation
+                // if app is running them
+            } else {
+                //if in background then perform notification operation
+                sendNotification(notification, data);
+            }
+        }
+
+//        sendNotification(notification, data);
     }
 
     /**
@@ -98,5 +129,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    private static boolean isForeground(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
+        final String packageName = context.getPackageName();
+        for (ActivityManager.RunningAppProcessInfo appProcess : tasks) {
+            if (ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND == appProcess.importance && packageName.equals(appProcess.processName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

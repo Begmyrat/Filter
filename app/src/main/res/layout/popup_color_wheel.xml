@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/color_wheel"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:scaleType="fitXY"
         android:focusableInTouchMode="true"
         android:adjustViewBounds="true"
@@ -39,12 +39,12 @@
         android:layout_below="@+id/t_subtitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/color_wheel_custom"/>
+        android:src="@drawable/rectangle_color"/>
 
     <RelativeLayout
         android:id="@+id/r_blocks"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/t_subtitle">

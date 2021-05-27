@@ -62,8 +62,6 @@ public class ActivityFriends extends AppCompatActivity implements MyRecommendLis
 
         prepareMe();
 
-//        getFriends();
-
         listView_istekler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +78,7 @@ public class ActivityFriends extends AppCompatActivity implements MyRecommendLis
                     Intent intent = new Intent(getApplicationContext(), ActivityChat.class);
                     intent.putExtra("friend_username", friendObjects.get(position).getUsername());
                     intent.putExtra("username", username);
+                    intent.putExtra("token_friend", friendObjects.get(position).getUser_player_id());
                     startActivity(intent);
             }
         });
@@ -296,6 +295,7 @@ public class ActivityFriends extends AppCompatActivity implements MyRecommendLis
                             UserObject o = new UserObject(user_id, friend_user_name, "", "", "", "", "", "", "", "");
                             o.setAvatar_id(c.getString("user_avatar_id"));
                             o.setFromWhere(c.getString("from_where"));
+                            o.setUser_player_id(c.getString("user_player_id"));
                             friendObjects.add(o);
                         }
                         adapterFriends = new MyFriendsListAdapter(ActivityFriends.this, friendObjects);

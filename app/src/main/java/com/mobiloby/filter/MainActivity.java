@@ -2,14 +2,23 @@ package com.mobiloby.filter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -32,9 +41,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String CHANNEL_ID = "101";
     ListView listView;
     MyCategoryListAdapter adapter;
     ArrayList<CategoryObject> categoryObjects;
@@ -46,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout r_box;
     Dialog builder;
     int dolulukOrani = 0;
+    public static Context context;
+    public static int h=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +66,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         prepareMe();
+
+        context = getApplicationContext();
+
+//        Intent intent=new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+//        startActivity(intent);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String data = intent.getStringExtra("Hello");
+
+                // Do something with the data
+
+                Toast.makeText(context, ""+data+ " helo", Toast.LENGTH_SHORT).show();
+            }
+        }, new IntentFilter("SomeData"));
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -85,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putBoolean("isLoggedIn", false);
 //        editor.commit();
 
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getUser();
-
-
     }
+
+
 
     private void updateToken() {
         final ProgressDialog progressDialog = new ProgressDialog(this);

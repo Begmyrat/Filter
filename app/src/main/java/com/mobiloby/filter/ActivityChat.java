@@ -5,7 +5,9 @@ import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,17 +30,18 @@ import java.util.HashMap;
 
 public class ActivityChat extends AppCompatActivity {
 
-    ListView listView;
-    ArrayList<ChatObject> chatObjects;
-    MyChatListAdapter adapter;
+    public static ListView listView;
+    public static ArrayList<ChatObject> chatObjects;
+    public static MyChatListAdapter adapter;
     EditText e_message;
     int d=0;
-    JSONParser jsonParser;
-    JSONObject jsonObject;
-    Bundle extras;
-    String username="", friend_username="";
-    TextView t_friendUsername;
-    Dialog builder;
+    public static JSONParser jsonParser;
+    public static JSONObject jsonObject;
+    public static Bundle extras;
+    public static String username="", friend_username="";
+    public static TextView t_friendUsername;
+    public static Dialog builder;
+    String user_token="", friend_token="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,12 @@ public class ActivityChat extends AppCompatActivity {
 
 //        getChatsStatik();
         getChats();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private void prepareMe() {
@@ -67,6 +76,7 @@ public class ActivityChat extends AppCompatActivity {
             username = extras.getString("username");
             friend_username = extras.getString("friend_username");
             t_friendUsername.setText(friend_username);
+            friend_token = extras.getString("token_friend");
         }
 
         listView = findViewById(R.id.listview_chat);
@@ -147,7 +157,7 @@ public class ActivityChat extends AppCompatActivity {
                     chatObjects.add(new ChatObject("-1", username, friend_username, e_message.getText().toString(), hs+":"+ms, username));
                     adapter.notifyDataSetChanged();
                     listView.setSelection(chatObjects.size()-1);
-                    e_message.setText("");
+                    pushNotification();
 //                    getChats();
                 }
                 else{
@@ -158,12 +168,61 @@ public class ActivityChat extends AppCompatActivity {
         }.execute(null, null, null);
     }
 
-    private void getChats() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
+    private void pushNotification() {
+
+        final String url = "http://anneligehazirlaniyorum.com/FilterMobil/push_notification.php";
+
+        Toast.makeText(this, ""+friend_token, Toast.LENGTH_SHORT).show();
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("friend_token", friend_token);
+                jsonData.put("message", e_message.getText().toString());
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                e_message.setText("");
+
+//                if (res.equals("1")) {
+//                }
+//                else{
+//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+//                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    public static void getChats() {
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setTitle("Filter");
+//        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setMax(100);
 //        progressDialog.show();
 
         chatObjects.clear();
@@ -201,7 +260,7 @@ public class ActivityChat extends AppCompatActivity {
             @Override
             protected void onPostExecute(String res) {
 
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
                 if (res.equals("1")) {
 
@@ -226,7 +285,7 @@ public class ActivityChat extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(ActivityChat.this, "error jiimFriend", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ActivityChat.this, "error jiimFriend", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
@@ -235,6 +294,13 @@ public class ActivityChat extends AppCompatActivity {
 
             }
         }.execute(null, null, null);
+    }
+
+    public static void insertChatObject(String from, String to, String message, String date, String kimdenKime){
+        ChatObject o = new ChatObject("-1", from, to, message, date, kimdenKime);
+        chatObjects.add(o);
+        adapter.notifyDataSetChanged();
+        listView.setSelection(chatObjects.size()-1);
     }
 
     public void clickMore(View view) {

@@ -6,7 +6,15 @@ public class UserObject {
     String soru1, soru, cevap;
     String soru2;
     String soru3;
-    String answer1;
+    String answer1, user_player_id;
+
+    public String getUser_player_id() {
+        return user_player_id;
+    }
+
+    public void setUser_player_id(String user_player_id) {
+        this.user_player_id = user_player_id;
+    }
 
     public String getSoru() {
         return soru;
