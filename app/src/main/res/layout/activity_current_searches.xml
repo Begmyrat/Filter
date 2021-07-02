@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/r_main"
-    tools:context=".ActivityCurrentSearches">
+    tools:context=".activities.ActivityCurrentSearches">
 
     <RelativeLayout
         android:id="@+id/r_top"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".ActivityCategory2_Detail2">
+    tools:context=".activities.ActivityCategory2_Detail2">
 
     <RelativeLayout
         android:id="@+id/r_top"
@@ -659,6 +659,29 @@
                             </RelativeLayout>
 
                             <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/info_background"
+                                android:paddingVertical="8dp"
+                                android:layout_marginTop="10dip"
+                                android:id="@+id/r_midElbise"
+                                android:onClick="clickMidElbise"
+                                android:layout_marginRight="10dp"
+                                android:paddingHorizontal="15dp">
+
+                                <TextView
+                                    android:id="@+id/t_midElbise"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/nunitosans_bold"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/colorDarkGray"
+                                    android:text="Elbise(Tek parça)"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
                                 android:id="@+id/r_midUst"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1151,6 +1174,29 @@
                                     android:textSize="16sp"
                                     android:textColor="@color/colorDarkGray"
                                     android:text="Mont/Ceket"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/info_background"
+                                android:paddingVertical="8dp"
+                                android:layout_marginTop="10dip"
+                                android:id="@+id/r_midElbiseDiger"
+                                android:onClick="clickMidElbise"
+                                android:layout_marginRight="10dp"
+                                android:paddingHorizontal="15dp">
+
+                                <TextView
+                                    android:id="@+id/t_midElbiseDiger"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/nunitosans_bold"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/colorDarkGray"
+                                    android:text="Elbise(Tek parça)"/>
 
                             </RelativeLayout>
 

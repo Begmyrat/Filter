@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/r_main"
     android:background="@color/colorBackground"
-    tools:context=".ActivityCategory2_Detail">
+    tools:context=".activities.ActivityCategory2_Detail">
 
     <RelativeLayout
         android:id="@+id/r_top"

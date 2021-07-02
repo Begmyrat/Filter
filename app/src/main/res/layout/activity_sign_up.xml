@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:id="@+id/r_main"
-    tools:context=".ActivitySignUp">
+    tools:context=".activities.ActivitySignUp">
 
     <ImageView
         android:id="@+id/i_image"

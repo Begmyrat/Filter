@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.OnBoardingActivity">
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/viewPagerCountDotsMain" />
+
+    <LinearLayout
+        android:id="@+id/viewPagerCountDotsMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvSkip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/dinpromedium"
+                android:gravity="start"
+                android:text="Atla"
+                android:textColor="#8a939e" />
+            <!-- Yazı rengi colorsda tanımlanıp değiştirilmeli -->
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/viewPagerCountDots"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!-- Noktalar buraya gelmeli. Şu an yazdıklarımdan önizleme alamıyorum. Yöntemi anlatayım. Bu framelayoutun için orientation=horizontal özellikli bir linearlayout eklenmeli. içine nokta sayısı kadar imageview eklenmeli. Eğer png olarak yoksa ve bulunamıyorsa drawable sayfasında butonlar için kullanılan içinde radiuslu shapeler olan sayfalar var. Onlardan birini kopyalayıp gri-mavi 2 tane yeni oluşturulup imageview yerine framelayoutlar ekleyip onların backgrounduna bu oluşturulan drawablelar verilebilir. Oluşturulan drawableların radiusu ile framelayoutların width-height değerleri aynı olursa sonuç daire şeklinde olacaktır.  -->
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/dinpromedium"
+                android:gravity="end"
+                android:text="Sonraki"
+                android:textColor="@color/colorAccent" />
+            <!-- Yazı rengi colorsda tanımlanıp değiştirilmeli -->
+            <!-- Diğer bazı layoutlarda kullanılan ok drawable ı buraya kopyalanmalı. Sonrasında konumlandırma için textview ile onu bir layout içine almak gerekebilir. -->
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+

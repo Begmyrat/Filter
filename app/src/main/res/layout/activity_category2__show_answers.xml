@@ -8,7 +8,7 @@
     android:id="@+id/r_main"
     android:background="@color/colorBackground"
     android:paddingTop="20dp"
-    tools:context=".ActivityCategory2_ShowAnswers">
+    tools:context=".activities.ActivityCategory2_ShowAnswers">
 
     <RelativeLayout
         android:layout_width="match_parent"

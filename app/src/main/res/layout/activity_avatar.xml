@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/r_box"
     android:background="@color/colorBackground"
-    tools:context=".ActivityAvatar">
+    tools:context=".activities.ActivityAvatar">
 
     <RelativeLayout
         android:id="@+id/r_top"
