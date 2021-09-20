@@ -2,7 +2,8 @@ package com.mobiloby.filter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -15,27 +16,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobiloby.filter.helpers.JSONParser;
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.adapters.MyWantedListAdapter;
+import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.models.WantedObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ActivityCategory2 extends AppCompatActivity {
+public class ActivityCategory2 extends AppCompatActivity implements MyWantedListAdapter.ItemClickListener{
 
-    public static ListView listView;
     ArrayList<WantedObject> wantedList, wantedListCopy;
     JSONParser jsonParser;
     JSONObject jsonObject;
@@ -46,6 +43,11 @@ public class ActivityCategory2 extends AppCompatActivity {
     Bundle extras;
     Integer pos = -1;
     Boolean isUyariShown = false;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView recyclerView;
+    ImageView i_avatar;
+    TextView t_countArkadas, t_countIstek, t_username, t_profilDoluluk;
+    String countIstek, countArkadas, profileURL, profilDoluluk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,71 +56,53 @@ public class ActivityCategory2 extends AppCompatActivity {
 
         prepareMe();
 
-        wantedList.clear();
-
-        WantedObject o = new WantedObject();
-        o.setWantedID("wanted_id");
-        o.setUserName("user_name");
-        o.setWantedUserName("wanted_user_name");
-        o.setWantedTitle("Lisenin papatyası");
-        o.setGiyimTop("giyim_top");
-        o.setGiyimMiddle("giyim_middle");
-        o.setGiyimBottom("giyim_bottom");
-        o.setGiyimAyakkabi("giyim_ayakkabi");
-        o.setWantedBoy("wanted_boy");
-        o.setWantedDate("17.01.2016");
-        wantedList.add(o);
-        wantedList.add(o);
-        adapter.notifyDataSetChanged();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position<wantedList.size()-1){
-                    pos = position;
-//                    popupOption();
-                    Intent intent = new Intent(getApplicationContext(), ActivityCategory2_List.class);
-                    intent.putExtra("wanted_id", wantedList.get(pos).getWantedID());
-                    intent.putExtra("username", username);
-                    intent.putExtra("wanted_title", wantedList.get(pos).getWantedTitle());
-                    startActivity(intent);
-                }
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if(wantedList!=null){
-            getWantedList();
-            adapter = new MyWantedListAdapter(ActivityCategory2.this, wantedList);
-            listView.setAdapter(adapter);
-        }
+        getWantedList();
     }
 
     private void prepareMe() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground));// set status background white
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.MainBlue));// set status background white
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        listView = findViewById(R.id.listview_searchResult);
+        recyclerView = findViewById(R.id.recyclerview_searchResult);
         wantedList = new ArrayList<>();
         wantedListCopy = new ArrayList<>();
         adapter = new MyWantedListAdapter(this, wantedList);
-        listView.setAdapter(adapter);
+        adapter.setClickListener(this);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
         extras = getIntent().getExtras();
         if(extras!=null){
             username = extras.getString("username");
         }
 
-        adapter.notifyDataSetChanged();
-
         findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorBackground));
+
+        t_countIstek = findViewById(R.id.t_countIstek);
+        t_countArkadas = findViewById(R.id.t_countArkadas);
+        countIstek = preferences.getString("count_istek", "");
+        countArkadas = preferences.getString("count_arkadas", "");
+        profileURL = preferences.getString("user_profile_url", "");
+        profilDoluluk = preferences.getString("profil_doluluk", "");
+        t_countIstek.setText(countIstek);
+        t_countArkadas.setText(countArkadas);
+        t_profilDoluluk = findViewById(R.id.t_profilDoluluk);
+        int d  = Integer.parseInt(profilDoluluk);
+        d = d*100/7;
+        t_profilDoluluk.setText("%" + d + " Profil Doluluğu");
+        i_avatar = findViewById(R.id.i_avatar);
+        t_username = findViewById(R.id.t_username);
+        t_username.setText(username);
+
+        Glide
+                .with(this)
+                .load("https:mobiloby.com/_filter/assets/profile/" + profileURL)
+                .centerCrop()
+                .placeholder(R.drawable.ic_f_char)
+                .into(i_avatar);
 
     }
 
@@ -133,7 +117,7 @@ public class ActivityCategory2 extends AppCompatActivity {
         wantedList.clear();
         wantedListCopy.clear();
 
-        final String url = "http://mobiloby.com/_filter/get_wanted_list.php";
+        final String url = "https://mobiloby.com/_filter/get_wanted_list.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -194,9 +178,11 @@ public class ActivityCategory2 extends AppCompatActivity {
                         o.setWantedBoy("wanted_boy");
                         o.setWantedDate("17.01.2016");
                         wantedList.add(o);
-                        adapter = new MyWantedListAdapter(ActivityCategory2.this, wantedList);
-                        listView.setAdapter(adapter);
 
+//                        Collections.reverse(wantedList);
+//                        adapter = new MyWantedListAdapter(ActivityCategory2.this, wantedList);
+//                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -229,8 +215,6 @@ public class ActivityCategory2 extends AppCompatActivity {
         builder = new Dialog(this, R.style.AlertDialogCustom);
         View view;
         view = LayoutInflater.from(this).inflate(R.layout.popup_option, null);
-        RelativeLayout temp = view.findViewById(R.id.r_connect);
-        temp.setVisibility(View.GONE);
         builder.setCancelable(true);
         builder.setContentView(view);
         builder.show();
@@ -244,6 +228,7 @@ public class ActivityCategory2 extends AppCompatActivity {
         // insert new wanted object to the list
         Intent intent = new Intent(getApplicationContext(), ActivityCategory2_Detail2.class);
         intent.putExtra("username", username);
+        intent.putExtra("wanted_id", "-1");
         intent.putExtra("isUpdate", "false");
         startActivity(intent);
     }
@@ -263,10 +248,22 @@ public class ActivityCategory2 extends AppCompatActivity {
 
     public void clickGuncelle(View view) {
         builder.dismiss();
-        Intent intent = new Intent(getApplicationContext(), ActivityCategory2_Detail.class);
+        Intent intent = new Intent(getApplicationContext(), ActivityCategory2_Detail2.class);
         intent.putExtra("username", username);
         intent.putExtra("wanted_id", wantedList.get(pos).getWantedID());
         intent.putExtra("isUpdate", "true");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        pos = position;
+        popupOption();
+    }
+
+    public void clickProfileTop(View view) {
+        Intent intent = new Intent(this, InformationActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

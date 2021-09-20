@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/t_seeWhatOthersAreDoing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="See What Others\n Are Doing"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="22sp"
+        android:fontFamily="@font/josefin_sans_semi_bold"
+        android:textColor="@color/textPrimaryColor"/>
+
+    <EditText
+        android:id="@+id/e_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/t_seeWhatOthersAreDoing"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/discover_input"
+        android:hint="Search for an activity"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="40dp"/>
+
+    <ImageView
+        android:id="@+id/i_personActivePassive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/person_active"
+        app:layout_constraintRight_toRightOf="@+id/e_search"
+        app:layout_constraintTop_toTopOf="@+id/e_search"
+        app:layout_constraintBottom_toBottomOf="@+id/e_search"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

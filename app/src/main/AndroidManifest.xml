@@ -6,10 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+    <uses-permission
+        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
         tools:ignore="ProtectedPermissions" />
 
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.ActivityFriendMessage"></activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -26,36 +28,35 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
-        <activity android:name=".activities.ActivityCategory2_Detail2"></activity>
         <activity
             android:name=".activities.ActivityAvatar"
             android:theme="@style/MyFullScreenTheme" />
-        <activity android:name=".activities.ActivityOnboard" />
-        <activity android:name=".activities.ActivityCategory2_ShowAnswers" />
-        <activity android:name=".activities.ActivityCurrentSearches" />
-        <activity android:name=".activities.ActivityCategory4" />
-        <activity android:name=".activities.ActivitySignUp" />
-        <activity android:name=".activities.ActivityChat" />
         <activity android:name=".activities.ActivityFriends" />
+        <activity android:name=".activities.ActivityIstek" />
+        <activity android:name=".activities.ActivityCategory4" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.ActivityCategory2_Detail2" />
         <activity android:name=".activities.ActivityCategory2_Answer" />
         <activity android:name=".activities.ActivityCategory2_List" />
-        <activity android:name=".activities.ActivityCategory2_Detail" />
         <activity android:name=".activities.ActivityCategory2" />
-        <activity android:name=".activities.ActivityCategory3" />
+        <activity android:name=".activities.ActivityChat" />
         <activity android:name=".activities.InformationActivity" />
-        <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.ActivityCategory1" />
-        <activity android:name=".activities.ActivityRegister" />
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.OnBoardingActivity"/>
-        <activity android:name=".activities.SplashScreen"/>
-        <activity android:name=".activities.ActivityRegister1"/>
-        <activity android:name=".activities.ActivityRegister2"/>
-        <activity android:name=".activities.ActivitySplash">
+        <activity android:name=".activities.ActivityLogin1"
+            android:theme="@style/MyFullScreenTheme"/>
+        <activity android:name=".activities.ActivityLogin2" />
+        <activity android:name=".activities.ActivityCategory3" />
+        <activity android:name=".activities.OnBoardingActivity" />
+        <activity android:name=".activities.ActivityCategory2_ShowAnswers" />
+        <activity android:name=".activities.ActivityRegister1" />
+        <activity android:name=".activities.ActivityRegister2" />
+        <activity android:name=".activities.main_screen" />
+
+        <activity android:name=".activities.SplashScreen"
+            android:theme="@style/MyFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +65,7 @@
         </activity>
 
         <service
-            android:name=".adapters.MyFirebaseMessagingService"
+            android:name=".helpers.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

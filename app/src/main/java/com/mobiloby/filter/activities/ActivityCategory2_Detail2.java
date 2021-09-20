@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,10 +36,13 @@ import android.widget.Toast;
 
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.models.QuestionObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import libs.mjn.prettydialog.PrettyDialog;
@@ -49,9 +53,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     RelativeLayout r_information;
     SharedPreferences preferences;
     boolean isBenClicked=true, isDigerClicked=false, isSoruClicked=false, isProfileExist=false;
-    boolean isShapka=false, isShapkaDiger=false, isGozluk=false, isGozlukDiger=false, isKupe=false, isKupeDiger=false, isMaske=false, isMaskeDiger=false, isSach=false, isSachDiger=false, isGoz=false, isGozDiger=false, isAtki=false, isAtkiDiger=false, isRuj=false, isRujDiger=false, isKravat=false, isKravatDiger=false;
-    boolean isMont=false, isMontDiger=false, isUst=false, isUstDiger=false, isEldiven=false, isEldivenDiger=false, isDovme=false, isDovmeDiger=false, isMayo=false, isMayoDiger=false, isSaat=false, isSaatDiger=false;
-    boolean isAyakkabi=false, isAyakkabiDiger=false, isAlt=false, isAltDiger=false, isAltMayo=false, isAltMayoDiger=false, isAltDovme=false, isAltDovmeDiger=false;
+
     String tarih="-", cinsiyetBen="-", cinsiyetDiger="-", yerBen="-", yerDiger="-", eylemBen="-", eylemDiger="-";
     String shapkaEsharp="-", shapkaEsharpDiger="-", gozluk="-", gozlukDiger="-", kupe="-", kupeDiger="-", maske="-", maskeDiger="-", ruj="-", rujDiger="-", sach="-", sachDiger="-", goz="-", gozDiger="-", atki="-", atkiDiger="-", kravat="-", kravatDiger="-", elbise="-", elbiseDiger="-";
     String mont="-", montDiger="-", ust="-", ustDiger="-", eldiven="-", eldivenDiger="-", dovme="-", dovmeDiger="-", mayo="-", mayoDiger="-", saat="-", saatDiger="-";
@@ -63,7 +65,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     Dialog builder;
     RadioGroup rg_tarih,rg_genderBen, rg_genderDiger;
     RadioButton r_tarih;
-    Boolean isTamam = false, isTamamDiger = false, isInformationOpen = false;
+    Boolean isTamam = false, isTamamDiger = false, isInformationOpen = false, isEditable=true;
     JSONParser jsonParser;
     JSONObject jsonObject;
     String username="-", secilenTitle="-", wantedID="-1";
@@ -71,12 +73,16 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     ImageView imageView;
     View popupView;
     float montX=-1, montY=-1, montXDiger=-1, montYDiger=-1, elbiseX=-1, elbiseY=-1, elbiseDigerX=-1, elbiseDigerY=-1, ustX=-1, ustXDiger=1, ustY=-1, ustYDiger=-1, midMayoX=-1, midMayoXDiger=-1, midMayoY=-1, midMayoYDiger=-1, ayakkabiX=-1, ayakkabiXDiger=-1, ayakkabiY=-1, ayakkabiYDiger=-1, altX=-1, altXDiger=-1, altY=-1, altYDiger=-1, botMayoX=-1, botMayoXDiger=-1, botMayoY=-1, botMayoYDiger=-1;
-    EditText e_q1, e_q2, e_q3, e_q4, e_q5, e_a11, e_a12, e_a13, e_a21, e_a22, e_a23, e_a31, e_a32, e_a33, e_a41, e_a42, e_a43, e_a51, e_a52, e_a53;
-    int questionNumber=1;
-    EditText e_title;
-    Spinner spinnerYerBen, spinnerYerDiger, spinnerEylemBen, spinnerEylemDiger;
+    EditText e_title, e_question, e_answer1, e_answer2, e_answer3;
+    Spinner spinnerYerBen, spinnerYerDiger, spinnerEylemBen, spinnerEylemDiger, spinnerSehirBen;
     ImageView i_body;
-
+    RadioButton rb_erkekBen, rb_kizBen, rb_erkekDiger, rb_kizDiger, rb_bugun, rb_dun, rb_tarihSec;
+    ArrayList<QuestionObject> questionObjects = new ArrayList<>();
+    int questionIndex = 0;
+    int colorP = R.color.pdlg_color_gray;
+    int colorN = R.color.pdlg_color_gray;
+    int textP = R.color.black;
+    int textN = R.color.black;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +109,11 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(checkedId == R.id.r_kizBen) {
-                    cinsiyetBen = "kiz";
+                    cinsiyetBen = "Kiz";
                     i_body.setImageDrawable(getResources().getDrawable(R.drawable.dafne));
                 }
                 else {
-                    cinsiyetBen = "oglan";
+                    cinsiyetBen = "Erkek";
                     i_body.setImageDrawable(getResources().getDrawable(R.drawable.fred));
                 }
             }
@@ -117,16 +123,23 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(checkedId == R.id.r_kizDiger) {
-                    cinsiyetDiger = "kiz";
+                    cinsiyetDiger = "Kiz";
                     i_body.setImageDrawable(getResources().getDrawable(R.drawable.dafne));
                 }
                 else {
-                    cinsiyetDiger = "oglan";
+                    cinsiyetDiger = "Erkek";
                     i_body.setImageDrawable(getResources().getDrawable(R.drawable.fred));
                 }
             }
         });
 
+        if(!wantedID.equals("-1")){
+            findViewById(R.id.r_bitir).setVisibility(View.GONE);
+            getUserInfo();
+        }
+        else{
+            findViewById(R.id.r_bitir).setVisibility(View.VISIBLE);
+        }
     }
 
     private void prepareMe() {
@@ -144,6 +157,13 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
         i_body = findViewById(R.id.i_body);
 
+        rb_erkekBen = findViewById(R.id.r_oglanBen);
+        rb_erkekDiger = findViewById(R.id.r_oglanDiger);
+        rb_kizBen = findViewById(R.id.r_kizBen);
+        rb_kizDiger = findViewById(R.id.r_kizDiger);
+        rb_bugun = findViewById(R.id.r_bugun);
+        rb_dun = findViewById(R.id.r_dun);
+        rb_tarihSec = findViewById(R.id.r_tarihsec);
 
         t_ben = findViewById(R.id.t_ben);
         t_diger = findViewById(R.id.t_diger);
@@ -206,36 +226,38 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         extras = getIntent().getExtras();
         if(extras!=null){
             username = extras.getString("username");
+
+            try {
+                wantedID = extras.getString("wanted_id");
+                if(!wantedID.equals("-1")){
+                    isEditable = false;
+                }
+                findViewById(R.id.r_bitir).setVisibility(View.GONE);
+            }catch (Exception e){
+                wantedID = "-1";
+            }
         }
-
-
-        e_q1 = findViewById(R.id.e_question1);
-        e_q2 = findViewById(R.id.e_question2);
-        e_q3 = findViewById(R.id.e_question3);
-        e_q4 = findViewById(R.id.e_question4);
-        e_q5 = findViewById(R.id.e_question5);
-
-        e_a11 = findViewById(R.id.e_answer1);
-        e_a12 = findViewById(R.id.e_answer2);
-        e_a13 = findViewById(R.id.e_answer3);
-        e_a21 = findViewById(R.id.e_answer12);
-        e_a22 = findViewById(R.id.e_answer22);
-        e_a23 = findViewById(R.id.e_answer32);
-        e_a31 = findViewById(R.id.e_answer13);
-        e_a32 = findViewById(R.id.e_answer13);
-        e_a33 = findViewById(R.id.e_answer13);
-        e_a41 = findViewById(R.id.e_answer14);
-        e_a42 = findViewById(R.id.e_answer14);
-        e_a43 = findViewById(R.id.e_answer14);
-        e_a51 = findViewById(R.id.e_answer15);
-        e_a52 = findViewById(R.id.e_answer15);
-        e_a53 = findViewById(R.id.e_answer15);
 
         e_title = findViewById(R.id.e_title);
         spinnerYerBen = findViewById(R.id.spinner_locationBen);
         spinnerYerDiger = findViewById(R.id.spinner_locationDiger);
         spinnerEylemBen = findViewById(R.id.spinner_activityBen);
         spinnerEylemDiger = findViewById(R.id.spinner_activityDiger);
+        spinnerSehirBen = findViewById(R.id.spinner_sehirBen);
+
+        questionObjects.add(new QuestionObject("","","",""));
+        questionObjects.add(new QuestionObject("","","",""));
+        questionObjects.add(new QuestionObject("","","",""));
+
+    }
+
+    HashMap<String, String> dataMap = new HashMap<>();
+
+    public void initSelectedButtonColors(){
+        colorP = R.color.pdlg_color_gray;
+        colorN = R.color.pdlg_color_gray;
+        textP = R.color.black;
+        textN = R.color.black;
     }
 
 
@@ -259,7 +281,6 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
             findViewById(R.id.scrollview_beno).setVisibility(View.INVISIBLE);
             findViewById(R.id.scrollView_questions).setVisibility(View.VISIBLE);
-            findViewById(R.id.b_floating).setVisibility(View.VISIBLE);
 
         }
     }
@@ -274,7 +295,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
             findViewById(R.id.r_diger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
             findViewById(R.id.r_soru).setBackground(getResources().getDrawable(R.drawable.back_background));
 
-            if(cinsiyetDiger.equals("oglan"))
+            if(cinsiyetDiger.equals("erkek"))
                 i_body.setImageDrawable(getResources().getDrawable(R.drawable.fred));
             else
                 i_body.setImageDrawable(getResources().getDrawable(R.drawable.dafne));
@@ -285,7 +306,6 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
             findViewById(R.id.scrollview_beno).setVisibility(View.VISIBLE);
             findViewById(R.id.scrollView_questions).setVisibility(View.INVISIBLE);
-            findViewById(R.id.b_floating).setVisibility(View.GONE);
 
             spinnerYerBen.setVisibility(View.INVISIBLE);
             spinnerYerDiger.setVisibility(View.VISIBLE);
@@ -307,7 +327,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
             findViewById(R.id.r_diger).setBackground(getResources().getDrawable(R.drawable.back_background));
             findViewById(R.id.r_soru).setBackground(getResources().getDrawable(R.drawable.back_background));
 
-            if(cinsiyetBen.equals("oglan"))
+            if(cinsiyetBen.equals("erkek"))
                 i_body.setImageDrawable(getResources().getDrawable(R.drawable.fred));
             else
                 i_body.setImageDrawable(getResources().getDrawable(R.drawable.dafne));
@@ -318,7 +338,6 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
             findViewById(R.id.scrollview_beno).setVisibility(View.VISIBLE);
             findViewById(R.id.scrollView_questions).setVisibility(View.INVISIBLE);
-            findViewById(R.id.b_floating).setVisibility(View.GONE);
 
             spinnerYerBen.setVisibility(View.VISIBLE);
             spinnerYerDiger.setVisibility(View.INVISIBLE);
@@ -459,7 +478,6 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 findViewById(R.id.f_bash).setVisibility(View.GONE);
                 findViewById(R.id.f_govde).setVisibility(View.GONE);
                 findViewById(R.id.f_bacak).setVisibility(View.VISIBLE);
-//            findViewById(R.id.r_information).startAnimation(inFromRightAnimation());
 
                 findViewById(R.id.r_image2).animate()
                         .translationXBy(-300)
@@ -509,6 +527,26 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopGoz(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && goz.equals("Renkli")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && goz.equals("Renksiz")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && gozDiger.equals("Renkli")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && gozDiger.equals("Renksiz")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -516,22 +554,23 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Renkli",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     Toast.makeText(ActivityCategory2_Detail2.this, "clicked BEN", Toast.LENGTH_SHORT).show();
                                     findViewById(R.id.r_topGoz).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_goz.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    goz = "renkli";
+                                    goz = "Renkli";
                                 }
                                 else{
                                     Toast.makeText(ActivityCategory2_Detail2.this, "clicked O", Toast.LENGTH_SHORT).show();
                                     findViewById(R.id.r_topGozDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_gozDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    gozDiger = "renkli";
+                                    gozDiger = "Renkli";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -539,20 +578,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Renksiz",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topGoz).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_goz.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    goz = "renksiz";
+                                    goz = "Renksiz";
                                 }
                                 else{
                                     findViewById(R.id.r_topGozDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_gozDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    gozDiger = "renksiz";
+                                    gozDiger = "Renksiz";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -565,6 +605,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topGoz).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_goz.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -595,48 +636,69 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopEsharf(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && shapkaEsharp.equals("Var")){
+            colorP = R.color.colorPalet2;
+            textP = R.color.colorWhite;
+        }
+        else if(isBenClicked && shapkaEsharp.equals("Yok")){
+            colorN = R.color.colorPalet2;
+            textN = R.color.colorWhite;
+        }
+        else if(isDigerClicked && shapkaEsharpDiger.equals("Var")){
+            colorP = R.color.colorPalet2;
+            textP = R.color.colorWhite;
+        }
+        else if(isDigerClicked && shapkaEsharpDiger.equals("Yok")){
+            colorN = R.color.colorPalet2;
+            textN = R.color.colorWhite;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
                 .setMessage("Şapka var mıydı?")
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
-                        "Evet var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        "Var",
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topEsharf).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_shapkaEsharp.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    shapkaEsharp = "var";
+                                    shapkaEsharp = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_topEsharfDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_shapkaEsharpDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    shapkaEsharpDiger = "var";
+                                    shapkaEsharpDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
                         }
                 )
                 .addButton(
-                        "Hayır yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        "Yok",
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topEsharf).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_shapkaEsharp.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    shapkaEsharp = "yok";
+                                    shapkaEsharp = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_topEsharfDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_shapkaEsharpDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    shapkaEsharpDiger = "yok";
+                                    shapkaEsharpDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -649,6 +711,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topEsharf).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_shapkaEsharp.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -670,6 +733,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+
                                 prettyDialog.dismiss();
                             }
                         }
@@ -679,6 +743,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopGozlukk(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && gozluk.equals("Numaralı gözlük")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && gozluk.equals("Güneş gözlüğü")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && gozlukDiger.equals("Numaralı gözlük")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && gozlukDiger.equals("Güneş gözlüğü")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -686,20 +769,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Numaralı gözlük",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topGozluk).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_gozluk.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    gozluk = "numarali";
+                                    gozluk = "Numaralı gözlük";
                                 }
                                 else{
                                     findViewById(R.id.r_topGozlukDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_gozlukDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    gozlukDiger = "numaraki";
+                                    gozlukDiger = "Numaralı gözlük";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -707,20 +791,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Güneş gözlüğü",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topGozluk).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_gozluk.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    gozluk = "gunes";
+                                    gozluk = "Güneş gözlüğü";
                                 }
                                 else{
                                     findViewById(R.id.r_topGozlukDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_gozlukDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    gozlukDiger = "gunes";
+                                    gozlukDiger = "Güneş gözlüğü";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -733,6 +818,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topGozluk).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_gozluk.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -763,6 +849,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopMaske(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && maske.equals("Renkli")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && maske.equals("Beyaz")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && maskeDiger.equals("Renkli")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && maskeDiger.equals("Beyaz")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -770,20 +875,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Renkli",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topMaske).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_maske.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    maske = "renkli";
+                                    maske = "Renkli";
                                 }
                                 else{
                                     findViewById(R.id.r_topMaskeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_maskeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    maskeDiger = "renkli";
+                                    maskeDiger = "Renkli";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -791,20 +897,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Beyaz",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topMaske).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_maske.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    maske = "beyaz";
+                                    maske = "Beyaz";
                                 }
                                 else{
                                     findViewById(R.id.r_topMaskeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_maskeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    maskeDiger = "beyaz";
+                                    maskeDiger = "Beyaz";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -817,6 +924,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topMaske).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_maske.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -847,6 +955,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopSac(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && sach.equals("Uzun")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && sach.equals("Kısa")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && sachDiger.equals("Uzun")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && sachDiger.equals("Kısa")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -854,21 +981,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Uzun",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
-
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topSac).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_sach.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    sach = "uzun";
+                                    sach = "Uzun";
                                 }
                                 else{
                                     findViewById(R.id.r_topSacDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_sachDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    sachDiger = "uzun";
+                                    sachDiger = "Uzun";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -876,20 +1003,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Kısa",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topSac).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_sach.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    sach = "kisa";
+                                    sach = "Kısa";
                                 }
                                 else{
                                     findViewById(R.id.r_topSacDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_sachDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    sachDiger = "kisa";
+                                    sachDiger = "Kısa";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -902,6 +1030,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topSac).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_sach.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -938,7 +1067,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/get_last_wanted_info.php";
+        final String url = "https://mobiloby.com/_filter/get_last_wanted_info.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -1003,6 +1132,24 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopAtki(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && atki.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && atki.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && atkiDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && atkiDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
 
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
@@ -1011,20 +1158,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topAtki).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_atki.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    atki = "var";
+                                    atki = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_topAtkiDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_atkiDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    atkiDiger = "var";
+                                    atkiDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1032,20 +1180,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topAtki).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_atki.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    atki = "yok";
+                                    atki = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_topAtkiDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_atkiDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    atkiDiger = "yok";
+                                    atkiDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1058,6 +1207,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topAtki).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_atki.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -1092,16 +1242,37 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     }
 
     public void clickMidElbise(View view) {
+        
         secilenTitle = "Elbise";
         popupColorWheel("Elbise");
     }
 
     public void clickMidUst(View view) {
+        
         secilenTitle = "Üst";
         popupColorWheel("Üst");
     }
 
     public void clickMidEldiven(View view) {
+
+        initSelectedButtonColors();
+
+        if(isBenClicked && eldiven.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && eldiven.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && eldivenDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && eldivenDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
 
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
@@ -1110,20 +1281,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midEldiven).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_eldiven.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    eldiven = "var";
+                                    eldiven = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_midEldivenDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_eldivenDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    eldivenDiger = "var";
+                                    eldivenDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1131,20 +1303,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midEldiven).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_eldiven.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    eldiven = "yok";
+                                    eldiven = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_midEldivenDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_eldivenDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    eldivenDiger = "yok";
+                                    eldivenDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1157,6 +1330,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midEldiven).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_eldiven.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -1187,6 +1361,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickMidDovme(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && dovme.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && dovme.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && dovmeDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && dovmeDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -1194,20 +1387,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midDovme).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_dovme.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    dovme = "var";
+                                    dovme = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_midDovmeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_dovmeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    dovmeDiger = "var";
+                                    dovmeDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1215,20 +1409,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midDovme).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_dovme.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    dovme = "yok";
+                                    dovme = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_midDovmeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_dovmeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    dovmeDiger = "yok";
+                                    dovmeDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1241,6 +1436,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midDovme).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_dovme.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -1270,21 +1466,43 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     }
 
     public void clickMidMayo(View view) {
+        
         secilenTitle = "Mayo";
         popupColorWheel("Mayo");
     }
 
     public void clickBotAyakkabi(View view) {
+        
         secilenTitle = "Ayakkabı";
         popupColorWheel("Ayakkabı");
     }
 
     public void clickBotAlt(View view) {
+        
         secilenTitle = "Alt";
         popupColorWheel("Alt");
     }
 
     public void clickTopKupe(View view) {
+
+        initSelectedButtonColors();
+
+        if(isBenClicked && kupe.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && kupe.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && kupeDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && kupeDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
 
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
@@ -1293,20 +1511,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topKupe).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kupe.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kupe = "var";
+                                    kupe = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_topKupeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kupeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kupeDiger = "var";
+                                    kupeDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1314,20 +1533,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topKupe).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kupe.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kupe = "yok";
+                                    kupe = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_topKupeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kupeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kupeDiger = "yok";
+                                    kupeDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1340,6 +1560,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topKupe).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_kupe.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -1641,12 +1862,6 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
             }
         });
 
-//        Canvas canvas = new Canvas(mutableBitmap);
-//        canvas.drawCircle(10, 10, 25, paint);
-//        canvas.drawCircle(100, 120, 25, paint);
-////
-//        imageView.setAdjustViewBounds(true);
-//        imageView.setImageBitmap(mutableBitmap);
 
         builder.setCancelable(true);
         builder.setContentView(view);
@@ -1696,8 +1911,8 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         else{
             if(wantedID.equals("-1"))
                 insertUserInfo();
-            else
-                updateUserInfo();
+//            else
+//                updateUserInfo();
         }
 
     }
@@ -1712,34 +1927,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         progressDialog.show();
 
         final String top = "shapka="+shapkaEsharp+",gozluk="+gozluk+",kupe="+kupe+",maske="+maske+",ruj="+ruj+",sach="+sach+",goz="+goz+",atki="+atki+",kravat="+kravat;
-        final String middle = "mont="+mont+",ust="+ust+",eldiven="+eldiven+",dovme="+dovme+",mayo="+mayo+",saat="+saat;
+        final String middle = "mont="+mont+",ust="+ust+",eldiven="+eldiven+",dovme="+dovme+",mayo="+mayo+",saat="+saat + ",elbise="+elbise;
         final String bottom = "ayakkabi="+ayakkabi+",alt="+alt+",mayo="+mayo+",dovme="+altDovme;
 
         final String topDiger = "shapka="+shapkaEsharpDiger+",gozluk="+gozlukDiger+",kupe="+kupeDiger+",maske="+maskeDiger+",ruj="+rujDiger+",sach="+sachDiger+",goz="+gozDiger+",atki="+atkiDiger+",kravat="+kravatDiger;
-        final String middleDiger = "mont="+montDiger+",ust="+ustDiger+",eldiven="+eldivenDiger+",dovme="+dovmeDiger+",mayo="+mayoDiger+",saat="+saatDiger;
+        final String middleDiger = "mont="+montDiger+",ust="+ustDiger+",eldiven="+eldivenDiger+",dovme="+dovmeDiger+",mayo="+mayoDiger+",saat="+saatDiger +",elbise="+elbiseDiger;
         final String bottomDiger = "ayakkabi="+ayakkabiDiger+",alt="+altDovme+",mayo="+mayoDiger+",dovme="+altDovmeDiger;
 
-        final String url = "http://mobiloby.com/_filter/insert_wanted_user_info.php";
+        final String url = "https://mobiloby.com/_filter/insert_wanted_user_info.php";
 
-        String questions = "-";
-        if(questionNumber>=1 && e_q1.getText().toString().length()!=0){
-            questions += "Soru:"+e_q1.getText().toString() + " Cevap1:" + e_a11.getText().toString() + " Cevap2:" + e_a12.getText().toString() + " Cevap3:" + e_a13.getText().toString();
-        }
-        if(questionNumber>=2 && e_q2.getText().toString().length()!=0){
-            questions += "Soru:"+e_q2.getText().toString() + " Cevap1:" + e_a21.getText().toString() + " Cevap2:" + e_a22.getText().toString() + " Cevap3:" + e_a23.getText().toString();
-        }
-        if(questionNumber>=3 && e_q3.getText().toString().length()!=0){
-            questions += "Soru:"+e_q3.getText().toString() + " Cevap1:" + e_a31.getText().toString() + " Cevap2:" + e_a32.getText().toString() + " Cevap3:" + e_a33.getText().toString();
-        }
-        if(questionNumber>=4 && e_q4.getText().toString().length()!=0){
-            questions += "Soru:"+e_q4.getText().toString() + " Cevap1:" + e_a41.getText().toString() + " Cevap2:" + e_a42.getText().toString() + " Cevap3:" + e_a43.getText().toString();
-        }
-        if(questionNumber>=5 && e_q5.getText().toString().length()!=0){
-            questions += "Soru:"+e_q5.getText().toString() + " Cevap1:" + e_a51.getText().toString() + " Cevap2:" + e_a52.getText().toString() + " Cevap3:" + e_a53.getText().toString();
+        String questions = "";
+
+        for(int i=0;i<questionObjects.size();i++){
+            if(questionObjects.get(i).getQuestion().length()>0){
+                questions += "SoruMobiloby:" + questionObjects.get(i).getQuestion() + "CevapMobiloby:" + questionObjects.get(i).getAnswer1() + "CevapMobiloby:" + questionObjects.get(i).getAnswer2() + "CevapMobiloby:" + questionObjects.get(i).getAnswer3();
+            }
         }
 
         String finalQuestions = questions;
-        String lben = "-", ldiger="-", aben="-", adiger="-";
+        String lben = "-", ldiger="-", aben="-", adiger="-", cben="-", cdiger="-";
         if(spinnerYerBen.getSelectedItemPosition()>0)
             lben = spinnerYerBen.getSelectedItem().toString();
         if(spinnerYerDiger.getSelectedItemPosition()>0)
@@ -1750,10 +1956,14 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         if(spinnerEylemDiger.getSelectedItemPosition()>0)
             adiger = spinnerEylemDiger.getSelectedItem().toString();
 
+        if(spinnerSehirBen.getSelectedItemPosition()>0)
+            cben = spinnerSehirBen.getSelectedItem().toString();
+
         String finalAben = aben;
         String finalAdiger = adiger;
         String finalLben = lben;
         String finalLdiger = ldiger;
+        String finalSehir = cben;
         new AsyncTask<String, Void, String>() {
 
             @Override
@@ -1775,13 +1985,13 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 jsonData.put("wanted_question", finalQuestions);
                 jsonData.put("location_ben", finalLben);
                 jsonData.put("location_diger", finalLdiger);
+                jsonData.put("sehir", finalSehir);
+                jsonData.put("location_diger", finalLdiger);
                 jsonData.put("gender_ben", cinsiyetBen);
                 jsonData.put("gender_diger", cinsiyetDiger);
                 jsonData.put("activity_ben", finalAben);
                 jsonData.put("activity_diger", finalAdiger);
                 jsonData.put("wanted_user_tarih", tarih);
-
-                System.out.println("ben: " + cinsiyetBen + " diger: " + cinsiyetDiger);
 
                 int success = 0;
                 try {
@@ -1832,26 +2042,10 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         final String middleDiger = "mont="+montDiger+",ust="+ustDiger+",eldiven="+eldivenDiger+",dovme="+dovmeDiger+",mayo="+mayoDiger+",saat="+saatDiger;
         final String bottomDiger = "ayakkabi="+ayakkabiDiger+",alt="+altDovme+",mayo="+mayoDiger+",dovme="+altDovmeDiger;
 
-        final String url = "http://mobiloby.com/_filter/update_wanted_info.php";
+        final String url = "https://mobiloby.com/_filter/update_wanted_info.php";
 
-        String questions = "";
-        if(questionNumber==1 && e_q1.getText().toString().length()!=0){
-            questions += "Soru:"+e_q1.getText().toString() + " Cevap1:" + e_a11.getText().toString() + " Cevap2:" + e_a12.getText().toString() + " Cevap3:" + e_a13.getText().toString();
-        }
-        if(questionNumber==2 && e_q2.getText().toString().length()!=0){
-            questions += "Soru:"+e_q2.getText().toString() + " Cevap1:" + e_a21.getText().toString() + " Cevap2:" + e_a22.getText().toString() + " Cevap3:" + e_a23.getText().toString();
-        }
-        if(questionNumber==3 && e_q3.getText().toString().length()!=0){
-            questions += "Soru:"+e_q3.getText().toString() + " Cevap1:" + e_a31.getText().toString() + " Cevap2:" + e_a32.getText().toString() + " Cevap3:" + e_a33.getText().toString();
-        }
-        if(questionNumber==4 && e_q4.getText().toString().length()!=0){
-            questions += "Soru:"+e_q4.getText().toString() + " Cevap1:" + e_a41.getText().toString() + " Cevap2:" + e_a42.getText().toString() + " Cevap3:" + e_a43.getText().toString();
-        }
-        if(questionNumber==5 && e_q5.getText().toString().length()!=0){
-            questions += "Soru:"+e_q5.getText().toString() + " Cevap1:" + e_a51.getText().toString() + " Cevap2:" + e_a52.getText().toString() + " Cevap3:" + e_a53.getText().toString();
-        }
 
-        String finalQuestions = questions;
+        final String finalQuestions="";
 
         new AsyncTask<String, Void, String>() {
 
@@ -1906,7 +2100,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 //                    getUserInfo();
                 }
                 else{
-                    popup("update");
+//                    popup("update");
                 }
 
             }
@@ -1932,6 +2126,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopRuj(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && ruj.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && ruj.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && rujDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && rujDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -1939,20 +2152,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topRuj).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_ruj.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    ruj = "var";
+                                    ruj = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_topRujDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_rujDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    rujDiger = "var";
+                                    rujDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1960,20 +2174,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topRuj).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_ruj.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    ruj = "yok";
+                                    ruj = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_topRujDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_rujDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    rujDiger = "yok";
+                                    rujDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -1986,6 +2201,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topRuj).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_ruj.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -2016,6 +2232,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickTopKravat(View view) {
 
+        initSelectedButtonColors();
+
+        if(isBenClicked && kravat.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && kravat.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && kravatDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && kravatDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -2023,20 +2258,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topKravat).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kravat.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kravat = "var";
+                                    kravat = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_topKravatDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kravatDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kravatDiger = "var";
+                                    kravatDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -2044,20 +2280,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_topKravat).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kravat.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kravat = "yok";
+                                    kravat = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_topKravatDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_kravatDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    kravatDiger = "yok";
+                                    kravatDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -2100,6 +2337,25 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
 
     public void clickMidSaat(View view) {
 
+        initSelectedButtonColors();
+        
+        if(isBenClicked && saat.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && saat.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && saatDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && saatDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
                 .setTitle("Filter")
@@ -2107,20 +2363,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midSaat).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_saat.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    saat = "var";
+                                    saat = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_midSaatDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_saatDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    saatDiger = "var";
+                                    saatDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -2128,20 +2385,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midSaat).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_saat.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    saat = "yok";
+                                    saat = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_midSaatDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_saatDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    saatDiger = "yok";
+                                    saatDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -2154,6 +2412,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_midSaat).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_saat.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -2183,11 +2442,31 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     }
 
     public void clickBotMayo(View view) {
+        
         secilenTitle = "Mayo (Alt)";
         popupColorWheel("Mayo (Alt)");
     }
 
     public void clickBotDovme(View view) {
+
+        initSelectedButtonColors();
+
+        if(isBenClicked && altDovme.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isBenClicked && altDovme.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && altDovmeDiger.equals("Var")){
+            textP = R.color.colorWhite;
+            colorP = R.color.colorPalet2;
+        }
+        else if(isDigerClicked && altDovmeDiger.equals("Yok")){
+            textN = R.color.colorWhite;
+            colorN = R.color.colorPalet2;
+        }
 
         PrettyDialog prettyDialog = new PrettyDialog(this);
         prettyDialog
@@ -2196,20 +2475,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 .setIcon(R.drawable.ic_f_char)
                 .addButton(
                         "Var",
-                        R.color.colorWhite,
-                        R.color.colorPalet1,
+                        textP,
+                        colorP,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_botDovme).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_altDovme.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    altDovme = "var";
+                                    altDovme = "Var";
                                 }
                                 else{
                                     findViewById(R.id.r_botDovmeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_altDovmeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    altDovmeDiger = "var";
+                                    altDovmeDiger = "Var";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -2217,20 +2497,21 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                 )
                 .addButton(
                         "Yok",
-                        R.color.colorWhite,
-                        R.color.colorPalet2,
+                        textN,
+                        colorN,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_botDovme).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_altDovme.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    altDovme = "yok";
+                                    altDovme = "Yok";
                                 }
                                 else{
                                     findViewById(R.id.r_botDovmeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));
                                     t_dovmeDiger.setTextColor(getResources().getColor(R.color.colorWhite));
-                                    altDovmeDiger = "yok";
+                                    altDovmeDiger = "Yok";
                                 }
                                 prettyDialog.dismiss();
                             }
@@ -2243,6 +2524,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
+                                if(!isEditable) return;
                                 if(isBenClicked){
                                     findViewById(R.id.r_botDovme).setBackground(getResources().getDrawable(R.drawable.back_background));
                                     t_altDovme.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -2350,6 +2632,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     }
 
     public void clickBottomLeft(View view) {
+
         if(secilenTitle.equals("Mont") && isBenClicked){
             mont = "bottomLeft";
         }
@@ -2428,6 +2711,7 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
     }
 
     public void clickTamam(View view) {
+        if(!isEditable) return;
         builder.dismiss();
         Toast.makeText(this, "Renk kaydedildi", Toast.LENGTH_SHORT).show();
 
@@ -2508,93 +2792,8 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         builder.dismiss();
     }
 
-    public void clickInsertQuestion(View view) {
-
-//        View v;
-//        EditText e_question, e_answer1, e_answer2, e_answer3;
-//
-//        int listLength = listView.getChildCount();
-//        for (int i = 0; i < listLength; i++)
-//        {
-//            v = listView.getChildAt(i);
-//            e_question = (EditText) v.findViewById(R.id.e_question);
-//            e_answer1 = v.findViewById(R.id.e_answer1);
-//            e_answer2 = v.findViewById(R.id.e_answer2);
-//            e_answer3 = v.findViewById(R.id.e_answer3);
-//            questionObjects.get(i).setQuestion(e_question.getText().toString());
-//            questionObjects.get(i).setAnswer1(e_answer1.getText().toString());
-//            questionObjects.get(i).setAnswer2(e_answer2.getText().toString());
-//            questionObjects.get(i).setAnswer3(e_answer3.getText().toString());
-//        }
-
-        makeVisible();
-    }
-
-    private void makeVisible() {
-
-        if(questionNumber<5){
-            findViewById(R.id.i_2).setVisibility(View.GONE);
-            findViewById(R.id.i_3).setVisibility(View.GONE);
-            findViewById(R.id.i_4).setVisibility(View.GONE);
-            findViewById(R.id.i_5).setVisibility(View.GONE);
-
-            questionNumber++;
-            if(questionNumber==2){
-                findViewById(R.id.l_2).setVisibility(View.VISIBLE);
-                findViewById(R.id.i_2).setVisibility(View.VISIBLE);
-            }
-            else if(questionNumber==3){
-                findViewById(R.id.l_3).setVisibility(View.VISIBLE);
-                findViewById(R.id.i_3).setVisibility(View.VISIBLE);
-            }
-            else if(questionNumber==4){
-                findViewById(R.id.l_4).setVisibility(View.VISIBLE);
-                findViewById(R.id.i_4).setVisibility(View.VISIBLE);
-            }
-            else if(questionNumber==5){
-                findViewById(R.id.l_5).setVisibility(View.VISIBLE);
-                findViewById(R.id.i_5).setVisibility(View.VISIBLE);
-            }
-        }
-        else{
-            Toast.makeText(this, "En fazla 5 soru ekleyebilirsiniz", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void clickInvisible(View view) {
-        if(questionNumber==2){
-            e_q2.setText("-");
-            e_a21.setText("-");
-            e_a22.setText("-");
-            e_a23.setText("-");
-            findViewById(R.id.l_2).setVisibility(View.INVISIBLE);
-        }
-        else if(questionNumber==3){
-            e_q3.setText("-");
-            e_a31.setText("-");
-            e_a32.setText("-");
-            e_a33.setText("-");
-            findViewById(R.id.l_3).setVisibility(View.INVISIBLE);
-        }
-        else if(questionNumber==4){
-            e_q4.setText("-");
-            e_a41.setText("-");
-            e_a42.setText("-");
-            e_a43.setText("-");
-            findViewById(R.id.l_4).setVisibility(View.INVISIBLE);
-        }
-        else if(questionNumber==5){
-            e_q5.setText("-");
-            e_a51.setText("-");
-            e_a52.setText("-");
-            e_a53.setText("-");
-            findViewById(R.id.l_5).setVisibility(View.INVISIBLE);
-        }
-        questionNumber--;
-    }
-
     public void clickSil(View view) {
-
+        if(!isEditable) return;
         builder.dismiss();
 
         if(secilenTitle.equals("Mont")){
@@ -2751,5 +2950,294 @@ public class ActivityCategory2_Detail2 extends AppCompatActivity{
         }
     }
 
+    public void  getUserInfo() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+        progressDialog.show();
 
+        final String url = "https://mobiloby.com/_filter/get_wanted_user_info.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("wanted_id", wantedID);
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+
+                    try {
+                        JSONArray pro = jsonObject.getJSONArray("pro");
+
+                        isProfileExist = true;
+
+                        for(int i=0;i<pro.length();i++){
+                            JSONObject c = pro.getJSONObject(i);
+                            String giyim_top = c.getString("giyim_top");
+                            String giyim_middle = c.getString("giyim_middle");
+                            String giyim_bottom = c.getString("giyim_bottom");
+                            String giyim_top_diger = c.getString("giyim_top_diger");
+                            String giyim_middle_diger = c.getString("giyim_middle_diger");
+                            String giyim_bottom_diger = c.getString("giyim_bottom_diger");
+                            String title = c.getString("wanted_title");
+                            String adSoyad = c.getString("wanted_user_name");
+                            String tarih = c.getString("wanted_tarih");
+                            String gender_ben  = c.getString("gender_ben");
+                            String gender_diger  = c.getString("gender_diger");
+                            String location_ben = c.getString("location_ben");
+                            String location_diger = c.getString("location_diger");
+                            String activity_ben = c.getString("activity_ben");
+                            String activity_diger = c.getString("activity_diger");
+                            String wanted_user_tarih = c.getString("wanted_user_tarih");
+                            String wanted_question = c.getString("wanted_question");
+
+                            String[] questions = wanted_question.split("SoruMobiloby:");
+                            for(int j=1;j<questions.length;j++){
+                                String[] elements = questions[j].split("CevapMobiloby:");
+                                questionObjects.get(j-1).setQuestion(elements[0]);
+                                questionObjects.get(j-1).setAnswer1(elements[1]);
+                                questionObjects.get(j-1).setAnswer2(elements[2]);
+                                questionObjects.get(j-1).setAnswer3(elements[3]);
+                            }
+
+                            if(gender_ben.equals("Erkek")){
+                                rb_erkekBen.setChecked(true);
+                            }
+                            else if(gender_ben.equals("Kiz")){
+                                rb_kizBen.setChecked(true);
+                            }
+
+                            if(gender_diger.equals("Erkek")){
+                                rb_erkekDiger.setChecked(true);
+                            }
+                            else if(gender_diger.equals("Kiz")){
+                                rb_kizDiger.setChecked(true);
+                            }
+
+                            if(wanted_user_tarih.equals("dun")){
+                                rb_dun.setChecked(true);
+                            }
+                            else if(wanted_user_tarih.equals("bugun")){
+                                rb_bugun.setChecked(true);
+                            }
+                            else if(wanted_user_tarih.length()>2){
+                                rb_tarihSec.setChecked(true);
+                                rb_tarihSec.setText(wanted_user_tarih);
+                            }
+
+
+                            wantedID = c.getString("wanted_id");
+                            e_title.setText(title);
+
+                            String[] gt = giyim_top.split(",");
+                            String[] gm = giyim_middle.split(",");
+                            String[] gb = giyim_bottom.split(",");
+
+                            String[] gtd = giyim_top_diger.split(",");
+                            String[] gmd = giyim_middle_diger.split(",");
+                            String[] gbd = giyim_bottom_diger.split(",");
+
+                            shapkaEsharp = gt[0].substring(gt[0].indexOf("=")+1);
+                            gozluk = gt[1].substring(gt[1].indexOf("=")+1);
+                            kupe = gt[2].substring(gt[2].indexOf("=")+1);
+                            maske = gt[3].substring(gt[3].indexOf("=")+1);
+                            ruj = gt[4].substring(gt[4].indexOf("=")+1);
+                            sach = gt[5].substring(gt[5].indexOf("=")+1);
+                            goz = gt[6].substring(gt[6].indexOf("=")+1);
+                            atki = gt[7].substring(gt[7].indexOf("=")+1);
+                            kravat = gt[8].substring(gt[8].indexOf("=")+1);
+
+                            shapkaEsharpDiger = gtd[0].substring(gt[0].indexOf("=")+1);
+                            gozlukDiger = gtd[1].substring(gt[1].indexOf("=")+1);
+                            kupeDiger = gtd[2].substring(gt[2].indexOf("=")+1);
+                            maskeDiger = gtd[3].substring(gt[3].indexOf("=")+1);
+                            rujDiger = gtd[4].substring(gt[4].indexOf("=")+1);
+                            sachDiger = gtd[5].substring(gt[5].indexOf("=")+1);
+                            gozDiger = gtd[6].substring(gt[6].indexOf("=")+1);
+                            atkiDiger = gtd[7].substring(gt[7].indexOf("=")+1);
+                            kravatDiger = gtd[8].substring(gt[8].indexOf("=")+1);
+
+                            mont = gm[0].substring(gm[0].indexOf("=")+1);
+                            ust = gm[1].substring(gm[1].indexOf("=")+1);
+                            eldiven = gm[2].substring(gm[2].indexOf("=")+1);
+                            dovme = gm[3].substring(gm[3].indexOf("=")+1);
+                            mayo = gm[4].substring(gm[4].indexOf("=")+1);
+                            saat = gm[5].substring(gm[5].indexOf("=")+1);
+
+                            montDiger = gmd[0].substring(gm[0].indexOf("=")+1);
+                            ustDiger = gmd[1].substring(gm[1].indexOf("=")+1);
+                            eldivenDiger = gmd[2].substring(gm[2].indexOf("=")+1);
+                            dovmeDiger = gmd[3].substring(gm[3].indexOf("=")+1);
+                            mayoDiger = gmd[4].substring(gm[4].indexOf("=")+1);
+                            saatDiger = gmd[5].substring(gm[5].indexOf("=")+1);
+
+                            ayakkabi = gb[0].substring(gb[0].indexOf("=")+1);
+                            alt = gb[1].substring(gb[1].indexOf("=")+1);
+                            mayo = gb[2].substring(gb[2].indexOf("=")+1);
+                            dovme = gb[3].substring(gb[3].indexOf("=")+1);
+
+                            ayakkabiDiger = gbd[0].substring(gb[0].indexOf("=")+1);
+                            altDiger = gbd[1].substring(gb[1].indexOf("=")+1);
+                            mayoDiger = gbd[2].substring(gb[2].indexOf("=")+1);
+                            dovmeDiger = gbd[3].substring(gb[3].indexOf("=")+1);
+                        }
+
+                        checkData();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(ActivityCategory2_Detail2.this, "error jiim", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+//                    makeAlert.uyarıVer("E-Mobil Saglyk", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCategory3.this, true);
+//                    popup("get "+wantedID);
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    public void checkData(){
+        if(!goz.contains("-"))  { findViewById(R.id.r_topGoz).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_goz.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!gozDiger.contains("-")) { findViewById(R.id.r_topGozDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_gozDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!ruj.contains("-"))  { findViewById(R.id.r_topRuj).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_ruj.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!rujDiger.contains("-")) { findViewById(R.id.r_topRujDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_rujDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!kravat.contains("-"))   { findViewById(R.id.r_topKravat).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_kravat.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!kravatDiger.contains("-"))  { findViewById(R.id.r_topKravatDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_kravatDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!shapkaEsharp.contains("-"))        { findViewById(R.id.r_topEsharf).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_shapkaEsharp.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!shapkaEsharpDiger.contains("-"))   { findViewById(R.id.r_topEsharfDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_shapkaEsharpDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!maske.contains("-"))        { findViewById(R.id.r_topMaske).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_maske.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!maskeDiger.contains("-"))   { findViewById(R.id.r_topMaskeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_maskeDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!sach.contains("-"))          { findViewById(R.id.r_topSac).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_sach.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!sachDiger.contains("-"))     { findViewById(R.id.r_topSacDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_sachDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!gozluk.contains("-"))      { findViewById(R.id.r_topGozluk).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_gozluk.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!gozlukDiger.contains("-")) { findViewById(R.id.r_topGozlukDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_gozlukDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!atki.contains("-"))        { findViewById(R.id.r_topAtki).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_atki.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!atkiDiger.contains("-"))   { findViewById(R.id.r_topAtkiDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_atkiDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!kupe.contains("-"))        { findViewById(R.id.r_topKupe).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_kupe.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!kupeDiger.contains("-"))   { findViewById(R.id.r_topKupeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_kupeDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+
+        if(!mont.contains("-"))        { findViewById(R.id.r_midMont).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_mont.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!montDiger.contains("-"))   { findViewById(R.id.r_midMontDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_montDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!elbise.contains("-"))          { findViewById(R.id.r_midElbise).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_elbise.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!elbiseDiger.contains("-"))     { findViewById(R.id.r_midElbiseDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_elbiseDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!ust.contains("-"))         { findViewById(R.id.r_midUst).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_ust.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!ustDiger.contains("-"))    { findViewById(R.id.r_midUstDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_ustDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!eldiven.contains("-"))         { findViewById(R.id.r_midEldiven).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_eldiven.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!eldivenDiger.contains("-"))    { findViewById(R.id.r_midEldivenDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_eldivenDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!dovme.contains("-"))       { findViewById(R.id.r_midDovme).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_dovme.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!dovmeDiger.contains("-"))  { findViewById(R.id.r_midDovmeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_dovmeDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!mayo.contains("-"))         { findViewById(R.id.r_midMayo).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_mayo.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!mayoDiger.contains("-"))   { findViewById(R.id.r_midMayoDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_mayoDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!saat.contains("-"))        { findViewById(R.id.r_midSaat).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_saat.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!saatDiger.contains("-"))   { findViewById(R.id.r_midSaatDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_saatDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+
+        if(!ayakkabi.contains("-"))         { findViewById(R.id.r_botAyakkabi).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_ayakkabi.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!ayakkabiDiger.contains("-"))    { findViewById(R.id.r_botAyakkabiDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_ayakkabiDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!alt.contains("-"))      { findViewById(R.id.r_botAlt).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_alt.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!altDiger.contains("-")) { findViewById(R.id.r_botAltDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_altDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!altMayo.contains("-"))      { findViewById(R.id.r_botMayo).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_altMayo.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!altMayoDiger.contains("-")) { findViewById(R.id.r_botMayoDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_altMayoDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!altDovme.contains("-"))          { findViewById(R.id.r_botDovme).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_altDovme.setTextColor(getResources().getColor(R.color.colorWhite)); }
+        if(!altDovmeDiger.contains("-"))     { findViewById(R.id.r_botDovmeDiger).setBackground(getResources().getDrawable(R.drawable.back_background_clicked));t_altDovmeDiger.setTextColor(getResources().getColor(R.color.colorWhite)); }
+
+    }
+
+    public void clickFirstQuestion(View view) {
+        questionIndex = 0;
+        popupQuestion("İlk Soruyu Giriniz");
+    }
+
+    public void clickSecondQuestion(View view) {
+        questionIndex = 1;
+        popupQuestion("İkinci Soruyu Giriniz");
+    }
+
+    public void clickThirdQuestion(View view) {
+        questionIndex = 2;
+        popupQuestion("Üçüncü Soruyu Giriniz");
+    }
+
+    public void popupQuestion(String title){
+        builder = new Dialog(this, R.style.AlertDialogCustom);
+        View view;
+        view = LayoutInflater.from(this).inflate(R.layout.popup_question, null);
+
+        TextView t_title = view.findViewById(R.id.t_title);
+        t_title.setText(title);
+        e_question = view.findViewById(R.id.e_question);
+        e_answer1 = view.findViewById(R.id.e_answer1);
+        e_answer2 = view.findViewById(R.id.e_answer2);
+        e_answer3 = view.findViewById(R.id.e_answer3);
+
+        if(questionObjects.get(questionIndex).getQuestion().length()>0){
+            e_question.setText(questionObjects.get(questionIndex).getQuestion());
+        }
+        else{
+            e_question.setHint("Sorunuzu buraya yazınız");
+        }
+
+        if(questionObjects.get(questionIndex).getAnswer1().length()>0){
+            e_answer1.setText(questionObjects.get(questionIndex).getAnswer1());
+        }
+        else{
+            e_answer1.setHint("Cevap 1");
+        }
+
+        if(questionObjects.get(questionIndex).getAnswer2().length()>0){
+            e_answer2.setText(questionObjects.get(questionIndex).getAnswer2());
+        }
+        else{
+            e_answer2.setHint("Cevap 2");
+        }
+
+        if(questionObjects.get(questionIndex).getAnswer3().length()>0){
+            e_answer3.setText(questionObjects.get(questionIndex).getAnswer3());
+        }
+        else{
+            e_answer3.setHint("Cevap 3");
+        }
+
+
+        builder.setCancelable(true);
+        builder.setContentView(view);
+        builder.show();
+    }
+
+    public void clickInsertQuestion(View view) {
+        builder.dismiss();
+        questionObjects.get(questionIndex).setQuestion(e_question.getText().toString());
+        questionObjects.get(questionIndex).setAnswer1(e_answer1.getText().toString());
+        questionObjects.get(questionIndex).setAnswer2(e_answer2.getText().toString());
+        questionObjects.get(questionIndex).setAnswer3(e_answer3.getText().toString());
+    }
 }

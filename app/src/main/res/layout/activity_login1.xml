@@ -4,122 +4,228 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:background="@color/colorAccentPinkLight">
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <ImageView
+        android:id="@+id/ust_resim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintTop_toTopOf="parent">
+        android:translationY="-10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ust_resim"/>
 
-        <ImageView
-            android:id="@+id/backbut"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingStart="15dp"
-            android:paddingTop="8dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/icon_nav_back" />
-
-        <ImageView
-            android:id="@+id/comapre_now_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/oedas" />
-
-        <ImageView
-            android:id="@+id/stage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingEnd="25dp"
-            android:scaleType="fitEnd"
-            android:visibility="invisible" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/i_filtryenilogo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="35dp"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout1">
+        android:src="@drawable/filtryenilogo"
+        android:translationY="-60dp"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ust_resim" />
 
-        <ImageView
-            android:id="@+id/heroimage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/hero_image_phone" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/t_subtitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="35dp"
-        android:paddingStart="35dp"
-        android:paddingEnd="35dp"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+        app:layout_constraintLeft_toLeftOf="@+id/l_usernamePssword"
+        app:layout_constraintRight_toRightOf="@id/l_usernamePssword"
+        app:layout_constraintTop_toTopOf="@+id/i_fltr"
+        app:layout_constraintBottom_toTopOf="@+id/l_usernamePssword"
+        android:text="Share and Match, find friends and do much more fun stuff with us!"
+        android:fontFamily="@font/josefin_sans_medium"
+        android:textColor="@color/Altbaslik_gri"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/i_fltr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fltr"
+        android:translationY="-60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/i_filtryenilogo" />
+
+    <ImageView
+        android:id="@+id/i_alt_daire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/alt_daire"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/t_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="or"
+        app:layout_constraintTop_toBottomOf="@+id/i_login"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/i_createanaccount"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_usernamePssword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/i_login"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t_subtitle"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:id="@+id/logintext"
-            android:gravity="center"
-            android:fontFamily="@font/montserratmedium"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/registerstage1"
-            android:textColor="@color/SecondaryText" />
-    </LinearLayout>
+            android:id="@+id/t_welcomeBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/josefin_sans_medium"
+            android:text="Welcome back!"
+            android:textColor="@color/colorTextPrimaryPurple"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/i_username"
+            android:textSize="18sp" />
 
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="35dp"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        <EditText
+            android:id="@+id/e_username"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="40dp"
+            android:fontFamily="@font/josefin_sans_medium"
+            android:gravity="left|center_vertical"
+            android:hint="Username"
+            android:textColorHint="#998B8A"
+            android:background="@drawable/username"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:translationY="-3dp"
+            app:layout_constraintTop_toBottomOf="@+id/t_welcomeBack"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
 
         <EditText
-            android:id="@+id/username"
-            android:padding="15dp"
-            android:layout_width="match_parent"
+            android:id="@+id/e_password"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="40dp"
+            android:fontFamily="@font/josefin_sans_medium"
+            android:gravity="left|center_vertical"
+            android:hint="Password"
+            android:textColorHint="#998B8A"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            android:translationY="-13dp"
+            android:background="@android:color/transparent"q
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/i_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/l_usernamePssword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/t_or"
+        android:src="@drawable/login"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Log in"
+        android:textSize="14sp"
+        android:textColor="@color/colorAccentPinkLight"
+        android:gravity="center"
+        android:onClick="clickLogin"
+        app:layout_constraintLeft_toLeftOf="@+id/i_login"
+        app:layout_constraintRight_toRightOf="@+id/i_login"
+        app:layout_constraintTop_toTopOf="@+id/i_login"
+        app:layout_constraintBottom_toBottomOf="@+id/i_login"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/t_or"
+        app:layout_constraintBottom_toBottomOf="@+id/t_or"
+        android:layout_marginRight="10dp"
+        android:background="#CFBEBC"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toTopOf="@+id/t_or"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toRightOf="@id/t_or"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/t_or"
+        android:layout_marginRight="20dp"
+        android:background="#CFBEBC"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintTop_toTopOf="@+id/t_or"/>
+
+    <ImageView
+        android:id="@+id/i_createanaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/createanaccount"
+        app:layout_constraintTop_toBottomOf="@+id/t_or"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/l_termsConditions"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Create an account"
+        android:onClick="clickCreateAnAccouunt"
+        app:layout_constraintLeft_toLeftOf="@+id/i_createanaccount"
+        app:layout_constraintRight_toRightOf="@+id/i_createanaccount"
+        app:layout_constraintTop_toTopOf="@+id/i_createanaccount"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryPink"
+        android:translationY="-2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/i_createanaccount"/>
+
+    <LinearLayout
+        android:id="@+id/l_termsConditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/i_createanaccount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/phoneinput"
-            android:ems="10"
-            android:fontFamily="@font/montserratmedium"
-            android:inputType="number"
-            android:text=""
-            android:hint="Kullanıcı adı"
-            android:textAlignment="center"
-            android:textColor="@color/PhoneInput" />
+            android:text="By signing up, you are agree with our"
+            android:textSize="12sp"
+            android:textColor="@color/colorTextPrimaryPurple"
+            android:fontFamily="@font/josefin_sans_medium"/>
 
-        <ImageButton
-            android:id="@+id/phoneacceptbut"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:visibility="gone"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/phoneinputbut"
-            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="Terms Conditions"
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorTextPrimaryPurple"
+            android:fontFamily="@font/josefin_sans_bold"/>
 
-    </RelativeLayout>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

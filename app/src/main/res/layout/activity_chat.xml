@@ -39,8 +39,7 @@
                 android:id="@+id/i_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/photo1"/>
+                android:scaleType="centerCrop"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -66,8 +65,8 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listview_chat"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="10dp"

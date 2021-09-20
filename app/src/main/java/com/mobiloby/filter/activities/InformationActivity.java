@@ -2,6 +2,8 @@ package com.mobiloby.filter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -11,10 +13,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,31 +27,43 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.adapters.MyInfoListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
+import com.mobiloby.filter.models.InfoObject;
+import com.mobiloby.filter.models.UserObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InformationActivity extends AppCompatActivity {
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
+
+public class InformationActivity extends AppCompatActivity implements MyInfoListAdapter.ItemClickListener{
 
     Dialog builder;
-    String info, adSoyad, okul1, okul2, universite, takim, title, spor, club, user_id="", user_name;
+    String username="", user_id="", username_self="", user_profil_doluluk="", count_arkadas="", count_istek="";
     EditText e_info;
-    RelativeLayout r_adSoyad, r_okul1, r_okul2, r_universite, r_takim, r_spor, r_club;
-    TextView t_adSoyad, t_okul1, t_okul2, t_universite, t_takim, t_spor, t_club, t_adSoyad1, t_okul11, t_okul22, t_universite1, t_takim1, t_spor1, t_club1, t_information, t_title, t_subtitle;
-    ImageView i_sport, i_adSoyad, i_okul1, i_okul2, i_universite, i_takim, i_club;
     Bundle extras;
     JSONObject jsonObject;
     JSONParser jsonParser;
-    Boolean isSelf = false, isProfilHidden = false;
-    int profilDolulukOrani = 0;
-    Switch switchButton;
     SharedPreferences preferences;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<InfoObject> infoObjects;
+    MyInfoListAdapter adapter;
+    DisplayMetrics displayMetrics;
+    int height, width, lastIndex;
+    String userProfileHidden="0", userProfileUrl="";
+    Button b_profilimiGizle, b_duzenle;
+    ImageView i_avatar;
+    TextView t_username, t_profilDoluluk, b_cikis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,92 +76,57 @@ public class InformationActivity extends AppCompatActivity {
 
         prepareMe();
 
-        getUser();
-
-        checkData();
-
-        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isProfilHidden = isChecked;
-                updateUser();
-                Toast.makeText(InformationActivity.this, ""+isProfilHidden, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        getUser();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(!user_id.equals(""))
-            updateUser();
+        getUser();
     }
 
     private void prepareMe() {
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBlueTop));// set status background white
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        r_adSoyad = findViewById(R.id.r_adSoyad);
-        r_okul1 = findViewById(R.id.r_okul1);
-        r_okul2 = findViewById(R.id.r_okul2);
-        r_universite = findViewById(R.id.r_universite);
-        r_takim = findViewById(R.id.r_takim);
-        r_spor = findViewById(R.id.r_sport);
-        r_club = findViewById(R.id.r_club);
-
-        t_adSoyad = findViewById(R.id.t_adSoyad);
-        t_okul1 = findViewById(R.id.t_okul1);
-        t_okul2 = findViewById(R.id.t_okul2);
-        t_universite = findViewById(R.id.t_universite);
-        t_takim = findViewById(R.id.t_takim);
-        t_spor = findViewById(R.id.t_sport);
-        t_club = findViewById(R.id.t_club);
-        t_adSoyad1 = findViewById(R.id.t_adSoyad1);
-        t_okul11 = findViewById(R.id.t_okul11);
-        t_okul22 = findViewById(R.id.t_okul22);
-        t_universite1 = findViewById(R.id.t_universite1);
-        t_takim1 = findViewById(R.id.t_takim1);
-        t_spor1 = findViewById(R.id.t_sport1);
-        t_club1 = findViewById(R.id.t_club1);
-
-        i_sport = findViewById(R.id.i_sport);
-        i_adSoyad = findViewById(R.id.i_adsoyad);
-        i_okul1 = findViewById(R.id.i_okul1);
-        i_okul2 = findViewById(R.id.i_okul2);
-        i_universite = findViewById(R.id.i_universite);
-        i_club = findViewById(R.id.i_club);
-        i_takim = findViewById(R.id.i_takim);
-        t_information = findViewById(R.id.t_information);
-        t_title = findViewById(R.id.t_title);
-        t_subtitle = findViewById(R.id.t_subtitle);
         extras = getIntent().getExtras();
-        switchButton = findViewById(R.id.switchButton);
-
-        if(extras!=null){
-            user_id = extras.getString("user_id");
-            user_name = extras.getString("user_name");
-            adSoyad = extras.getString("user_adsoyad");
-            okul1 = extras.getString("user_okul1");
-            okul2 = extras.getString("user_okul2");
-            universite = extras.getString("user_universite");
-            takim = extras.getString("user_takim");
-            club = extras.getString("user_club");
-            spor = extras.getString("user_spor");
-            isSelf = extras.getBoolean("isSelf");
-            if(isSelf){
-                t_information.setText("Soluk gözüken kutucukların üzerine tıklayarak profil bilgilerinizi girebilirsiniz");
-                findViewById(R.id.r_gizlilik).setVisibility(View.VISIBLE);
-            }
-            else{
-                t_information.setText(user_name + " kişisine ait profil bilgileri. Merak ettiğiniz bilgilere buraadn erişebilirsiniz.");
-                t_title.setText(user_name);
-                t_subtitle.setText("");
-                findViewById(R.id.r_gizlilik).setVisibility(View.GONE);
-            }
-            checkData();
+        if (extras!=null){
+            username = extras.getString("username");
         }
-
+        i_avatar = findViewById(R.id.i_avatar);
+        t_username = findViewById(R.id.t_username);
+        t_profilDoluluk = findViewById(R.id.t_profilDoluluk);
+        username_self = preferences.getString("username_unique", "");
+        t_username.setText(username);
+        recyclerView = findViewById(R.id.recyclerview);
+        layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        infoObjects = new ArrayList<>();
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
+        adapter = new MyInfoListAdapter(this, infoObjects, width);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+        b_profilimiGizle = findViewById(R.id.b_profilimiGizle);
+        b_duzenle = findViewById(R.id.b_duzenle);
+        b_cikis = findViewById(R.id.b_profil);
+        if(username.equals(username_self)){
+            b_profilimiGizle.setVisibility(View.VISIBLE);
+            b_duzenle.setVisibility(View.VISIBLE);
+            b_cikis.setVisibility(View.VISIBLE);
+        }
+        else{
+            b_profilimiGizle.setVisibility(View.INVISIBLE);
+            b_duzenle.setVisibility(View.INVISIBLE);
+            b_cikis.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void popupUyari(String title){
@@ -159,180 +140,22 @@ public class InformationActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void checkData() {
-        if(!adSoyad.equals("")) {
-            r_adSoyad.setBackgroundResource(R.drawable.info_box_background_fill);
-            t_adSoyad.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_adSoyad1.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_adSoyad.setText(adSoyad);
-            i_adSoyad.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        if(!okul1.equals("")) {
-            r_okul1.setBackgroundResource(R.drawable.info_box_background_fill3);
-            t_okul1.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_okul11.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_okul1.setText(okul1);
-            i_okul1.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        if(!okul2.equals("")) {
-            r_okul2.setBackgroundResource(R.drawable.info_box_background_fill5);
-            t_okul2.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_okul22.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_okul2.setText(okul2);
-            i_okul2.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        if(!universite.equals("")) {
-            r_universite.setBackgroundResource(R.drawable.info_box_background_fill2);
-            t_universite.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_universite1.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_universite.setText(universite);
-            i_universite.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        if(!takim.equals("")) {
-            r_takim.setBackgroundResource(R.drawable.info_box_background_fill1);
-            t_takim.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_takim1.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_takim.setText(takim);
-            i_takim.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        if(!club.equals("")) {
-            r_club.setBackgroundResource(R.drawable.info_box_background_fill8);
-            t_club.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_club1.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_club.setText(club);
-            i_club.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        if(!spor.equals("")) {
-            r_spor.setBackgroundResource(R.drawable.info_box_background_fill7);
-            t_spor.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_spor1.setTextColor(getResources().getColor(R.color.colorWhite));
-            t_spor.setText(spor);
-            i_sport.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        t_subtitle.setText("Doluluk oranı: %" + ((profilDolulukOrani*100)/11));
-    }
-
-    public void clickBack(View view) {
-        finish();
-    }
-
-    public void clickAdSoyad(View view) {
-        if(isSelf)
-            popup("Ad Soyad");
-    }
-
-    public void clickOkul1(View view) {
-        if(isSelf)
-        popup("Okul 1");
-    }
-
-    public void clickUniversite(View view) {
-        if(isSelf)
-        popup("Üniversite");
-    }
-
-    public void clickOkul2(View view) {
-        if(isSelf)
-        popup("Okul 2");
-    }
-
-    public void clickTakim(View view) {
-        if(isSelf)
-        popup("Tuttuğu Takım");
-    }
-    public void clickSport(View view) {
-        if(isSelf)
-        popup("İlgilendiği Spor");
-    }
-    public void clickClub(View view) {
-        if(isSelf)
-        popup("`Sosyal Klüp`");
-    }
-
-    public void popup(String title){
+    public void popupInput(){
         builder = new Dialog(this, R.style.AlertDialogCustom);
-        this.title = title;
         View view;
         view = LayoutInflater.from(this).inflate(R.layout.popup_layout_info, null);
         TextView t_title = view.findViewById(R.id.t_title);
-        t_title.setText(title);
+        t_title.setText(infoObjects.get(lastIndex).getTitle());
         e_info = view.findViewById(R.id.e_info);
-        e_info.setHint(title+" giriniz");
+        e_info.setText(infoObjects.get(lastIndex).getValue());
+
         builder.setCancelable(true);
         builder.setContentView(view);
         builder.show();
     }
 
-
-    public void clickInsertInfo(View view) {
-        info = e_info.getText().toString();
-        if(info.length()>0){
-            info = e_info.getText().toString();
-            builder.dismiss();
-
-            if(title.equals("Ad Soyad")) {
-                adSoyad = info;
-                r_adSoyad.setBackgroundResource(R.drawable.info_box_background_fill);
-                t_adSoyad.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_adSoyad1.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_adSoyad.setText(info);
-                i_adSoyad.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            else if(title.equals("Okul 1")) {
-                okul1 = info;
-                r_okul1.setBackgroundResource(R.drawable.info_box_background_fill3);
-                t_okul1.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_okul11.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_okul1.setText(info);
-                i_okul1.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            else if(title.equals("Okul 2")) {
-                okul2 = info;
-                r_okul2.setBackgroundResource(R.drawable.info_box_background_fill5);
-                t_okul2.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_okul22.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_okul2.setText(info);
-                i_okul2.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            else if(title.equals("Üniversite")) {
-                universite = info;
-                r_universite.setBackgroundResource(R.drawable.info_box_background_fill2);
-                t_universite.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_universite1.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_universite.setText(info);
-                i_universite.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            else if(title.equals("Tuttuğu Takım")) {
-                takim = info;
-                r_takim.setBackgroundResource(R.drawable.info_box_background_fill);
-                t_takim.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_takim1.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_takim.setText(info);
-                i_takim.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            else if(title.equals("Sosyal Klüp")) {
-                club = info;
-                r_club.setBackgroundResource(R.drawable.info_box_background_fill3);
-                t_club.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_club1.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_club.setText(info);
-                i_club.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-            else if(title.equals("İlgilendiği Spor")) {
-                spor = info;
-                r_spor.setBackgroundResource(R.drawable.info_box_background_fill5);
-                t_spor.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_spor1.setTextColor(getResources().getColor(R.color.colorWhite));
-                t_spor.setText(info);
-                i_sport.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-
-            updateUser();
-        }
-    }
-
-    public void clickClose(View view) {
-        builder.dismiss();
+    public void clickBack(View view) {
+        finish();
     }
 
     private void updateUser() {
@@ -343,21 +166,8 @@ public class InformationActivity extends AppCompatActivity {
         progressDialog.setMax(100);
 //        progressDialog.show();
 
-        String avatar_id = preferences.getString("avatar_id","-1");
+        final String url = "https://mobiloby.com/_filter/update_user.php";
 
-        final String url = "http://mobiloby.com/_filter/update_user.php";
-
-        int pOran = 0;
-        if(!user_name.equals("")) pOran++;
-        if(!adSoyad.equals("")) pOran++;
-        if(!okul1.equals("")) pOran++;
-        if(!okul2.equals("")) pOran++;
-        if(!universite.equals("")) pOran++;
-        if(!takim.equals("")) pOran++;
-        if(!club.equals("")) pOran++;
-        if(!spor.equals("")) pOran++;
-
-        int finalPOran = pOran;
         new AsyncTask<String, Void, String>() {
 
             @Override
@@ -367,21 +177,18 @@ public class InformationActivity extends AppCompatActivity {
 
                 HashMap<String, String> jsonData = new HashMap<>();
 
-                jsonData.put("user_name_unique", user_name);
-                jsonData.put("user_adsoyad", adSoyad.toLowerCase());
-                jsonData.put("user_okul1",okul1.toLowerCase());
-                jsonData.put("user_okul2",okul2.toLowerCase());
-                jsonData.put("user_universite",universite.toLowerCase());
-                jsonData.put("user_takim",takim.toLowerCase());
-                jsonData.put("user_club",club.toLowerCase());
-                jsonData.put("user_spor",spor.toLowerCase());
-                jsonData.put("user_avatar_id", avatar_id);
-                jsonData.put("user_profil_doluluk", ""+finalPOran);
+                jsonData.put("user_name_unique", username);
+                jsonData.put("user_adsoyad", infoObjects.get(0).getValue());
+                jsonData.put("user_okul1",infoObjects.get(1).getValue());
+                jsonData.put("user_okul2",infoObjects.get(2).getValue());
+                jsonData.put("user_universite",infoObjects.get(3).getValue());
+                jsonData.put("user_takim",infoObjects.get(4).getValue());
+                jsonData.put("user_club",infoObjects.get(5).getValue());
+                jsonData.put("user_spor",infoObjects.get(6).getValue());
+                jsonData.put("user_profile_hidden",userProfileHidden);
+                jsonData.put("user_profile_url",userProfileUrl);
+                jsonData.put("user_profil_doluluk","7");
 
-                if(isProfilHidden)
-                    jsonData.put("user_profile_hidden","1");
-                else
-                    jsonData.put("user_profile_hidden","0");
 
                 int success = 0;
                 try {
@@ -424,9 +231,9 @@ public class InformationActivity extends AppCompatActivity {
         progressDialog.setMax(100);
 //        progressDialog.show();
 
-        profilDolulukOrani = 0;
+        infoObjects.clear();
 
-        final String url = "http://mobiloby.com/_filter/get_user.php";
+        final String url = "https://mobiloby.com/_filter/get_user.php";
 //        ftp://pherguBt@ftp.hergunbirbilgi.com/httpdocs/FilterMobil/db_connect.php
 
         new AsyncTask<String, Void, String>() {
@@ -438,7 +245,7 @@ public class InformationActivity extends AppCompatActivity {
 
                 HashMap<String, String> jsonData = new HashMap<>();
 
-                jsonData.put("user_name_unique", user_name);
+                jsonData.put("user_name_unique", username);
 
                 int success = 0;
                 try {
@@ -469,42 +276,43 @@ public class InformationActivity extends AppCompatActivity {
                         for(int i=0;i<pro.length();i++){
                             JSONObject c = pro.getJSONObject(i);
                             user_id = c.getString("user_id");
-                            user_name = c.getString("user_name_unique");
-                            adSoyad = c.getString("user_adsoyad");
-                            okul1 = c.getString("user_okul1");
-                            okul2 = c.getString("user_okul2");
-                            universite = c.getString("user_universite");
-                            takim = c.getString("user_takim");
-                            club = c.getString("user_club");
-                            spor = c.getString("user_spor");
-                            String user_device_id = c.getString("user_player_id");
-                            String user_kayit_tarihi = c.getString("user_kayit_tarihi");
+                            username = c.getString("user_name_unique");
 
-                            if(user_id!=null && !user_id.equals("")) profilDolulukOrani++;
-                            else user_id = "";
-                            if(user_name!=null && !user_name.equals("")) profilDolulukOrani++;
-                            else user_name = "";
-                            if(user_device_id!=null && !user_device_id.equals("")) profilDolulukOrani++;
-                            else user_device_id = "";
-                            if(user_kayit_tarihi!=null && !user_kayit_tarihi.equals("")) profilDolulukOrani++;
-                            else user_kayit_tarihi = "";
-                            if(adSoyad!=null && !adSoyad.equals("")) profilDolulukOrani++;
-                            else adSoyad = "";
-                            if(okul1!=null && !okul1.equals("")) profilDolulukOrani++;
-                            else okul1 = "";
-                            if(okul2!=null && !okul2.equals("")) profilDolulukOrani++;
-                            else okul2 = "";
-                            if(universite!=null && !universite.equals("")) profilDolulukOrani++;
-                            else universite = "";
-                            if(takim!=null && !takim.equals("")) profilDolulukOrani++;
-                            else takim = "";
-                            if(club!=null && !club.equals("")) profilDolulukOrani++;
-                            else club = "";
-                            if(spor!=null && !spor.equals("")) profilDolulukOrani++;
-                            else spor = "";
+                            infoObjects.add(new InfoObject("Ad-Soyad", c.getString("user_adsoyad")));
+                            infoObjects.add(new InfoObject("Okul 1", c.getString("user_okul1")));
+                            infoObjects.add(new InfoObject("Okul 2", c.getString("user_okul2")));
+                            infoObjects.add(new InfoObject("Üniversite", c.getString("user_universite")));
+                            infoObjects.add(new InfoObject("Takım", c.getString("user_takim")));
+                            infoObjects.add(new InfoObject("Kayıt olduğun klüp", c.getString("user_club")));
+                            infoObjects.add(new InfoObject("Yaptığın Spor", c.getString("user_spor")));
+                            userProfileHidden = c.getString("profil_gizlilik");
+                            userProfileUrl = c.getString("user_profile_url");
+                            user_profil_doluluk = c.getString("user_profil_doluluk");
+                            count_arkadas = c.getString("count_friend");
+                            count_istek = c.getString("count_istek");
 
-                            checkData();
+                            if(userProfileHidden.equals("0")){
+                                b_profilimiGizle.setText("Profilimi Gizle");
+                            }
+                            else{
+                                b_profilimiGizle.setText("Profilimi Gizleme");
+                            }
+
+                            Glide
+                                    .with(InformationActivity.this)
+                                    .load("https:mobiloby.com/_filter/assets/profile/" + userProfileUrl)
+                                    .centerCrop()
+                                    .placeholder(R.drawable.ic_f_char)
+                                    .into(i_avatar);
+
+                            int d = Integer.parseInt(user_profil_doluluk);
+                            d = d*100/7;
+                            t_profilDoluluk.setText("%" + d + " Profil Doluluğu");
+//                            t_countArkadas.setText(count_arkadas);
+//                            t_countIstek.setText(count_istek);
                         }
+
+                        adapter.notifyDataSetChanged();
 
 
                     } catch (JSONException e) {
@@ -513,7 +321,7 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 }
                 else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", InformationActivity.this, true);
+                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", InformationActivity.this, true);
                 }
 
             }
@@ -521,11 +329,81 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     public void clickAvatar(View view) {
-        if (isSelf)
+        if (username.equals(username_self))
             startActivity(new Intent(InformationActivity.this, ActivityAvatar.class));
     }
 
     public void clickTamam(View view) {
-
+        builder.dismiss();
     }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        lastIndex = position;
+        if(username.equals(username_self))
+            popupInput();
+    }
+
+    public void clickInsertInfo(View view) {
+        builder.dismiss();
+        infoObjects.get(lastIndex).setValue(e_info.getText().toString());
+        updateUser();
+    }
+
+    public void clickClose(View view) {
+        builder.dismiss();
+    }
+
+    public void clickProfilimiGizle(View view) {
+        if(userProfileHidden.equals("0")){
+            userProfileHidden = "1";
+            b_profilimiGizle.setText("Profilimi Gizleme");
+            updateUser();
+        }
+        else{
+            userProfileHidden = "0";
+            b_profilimiGizle.setText("Profilimi Gizle");
+            updateUser();
+        }
+    }
+
+    public void clickExit(View view) {
+
+        PrettyDialog prettyDialog = new PrettyDialog(this);
+        prettyDialog
+                .setTitle("Filter")
+                .setMessage("Oturumu kapatmak istiyor musunuz?")
+                .setIcon(R.drawable.ic_f_char)
+                .addButton(
+                        "Evet",
+                        R.color.colorWhite,
+                        R.color.colorPalet2,
+                        new PrettyDialogCallback() {
+                            @Override
+                            public void onClick() {
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("isLoggedIn", false);
+                                editor.commit();
+                                Intent intent = new Intent(getApplicationContext(), main_screen.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                prettyDialog.dismiss();
+                            }
+                        }
+                )
+                .addButton(
+                        "Hayır",
+                        R.color.colorWhite,
+                        R.color.colorPalet1,
+                        new PrettyDialogCallback() {
+                            @Override
+                            public void onClick() {
+                                prettyDialog.dismiss();
+                            }
+                        }
+                )
+                .show();
+    }
+
+
 }

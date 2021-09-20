@@ -1,6 +1,7 @@
 package com.mobiloby.filter.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +10,35 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.models.UserObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendListAdapter.ViewHolder> {
 
     private Activity context;
-    private ArrayList<UserObject> list;
+    private List<UserObject> list;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    int[] avatars = {R.drawable.man, R.drawable.man_old, R.drawable.girl, R.drawable.boy};
+    private int width=0, height=0;
 
     // data is passed into the constructor
-    public MyRecommendListAdapter(Activity context, ArrayList<UserObject> list) {
+    public MyRecommendListAdapter(Activity context, List<UserObject> list) {
         this.mInflater = LayoutInflater.from(context);
         this.list = list;
         this.context = context;
+    }
+
+    public void setWH(int width, int height){
+        this.width = width;
+        this.height = height;
     }
 
     // inflates the row layout from xml when needed
@@ -43,57 +53,62 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-
-//        holder.t_title.setText(list.get(position).getBaslik());
-
-        holder.t_username.setText(list.get(position).getUsername());
-        holder.t_status.setText("%"+(Math.round((Double.parseDouble(list.get(position).getSimilarity())*100/7)*10)/10.0));
-
-        try{
-            int avatar_index = Integer.parseInt(list.get(position).getAvatar_id());
-            holder.i_avatar.setImageResource(avatars[avatar_index%4]);
-        }catch (Exception e){
-
+        if(height>2000){
+            holder.cardView.getLayoutParams().height = dpToPx(80, context);
+            holder.cardView.getLayoutParams().width = dpToPx(80, context);
+        }
+        else if(height<1790){
+            holder.cardView.getLayoutParams().height = dpToPx(50, context);
+            holder.cardView.getLayoutParams().width = dpToPx(50, context);
+            holder.t_percentage.setTextSize(8);
+            holder.t_percentage.getLayoutParams().width = dpToPx(27, context);
+            holder.t_percentage.getLayoutParams().height = dpToPx(12, context);
         }
 
-//        if(position%10==0){
-//            holder.r_box.getBackground().setTint(context.getResources().getColor(R.color.colorPaletteBlue));
-//        }
-//        else if(position%10==1){
-//            holder.r_box.getBackground().setTint(context.getResources().getColor(R.color.colorPaletteRed));
-//        }
-//        else if(position%10==2){
-//            holder.r_box.getBackground().setTint(context.getResources().getColor(R.color.colorPalettePurpleDark));
-//        }
-//        else if(position%10==3){
-//            holder.r_box.getBackground().setTint(context.getResources().getColor(R.color.colorPaletteGreen));
-//        }
-//        else if(position%10==4){
-//            holder.r_box.getBackground().setTint(context.getResources().getColor(R.color.colorPaletteYellow));
-//        }
-//        else if(position%10==5){
-//            holder.r_box.getBackground().setTint(context.getResources().getColor(R.color.colorPaletteRed));
-//        }
+        if(position==list.size()-1){
+            holder.i_avatar.setImageResource(R.drawable.addmatches);
+            holder.t_percentage.setVisibility(View.GONE);
+        }
+        else{
+            holder.t_percentage.setVisibility(View.VISIBLE);
+            holder.t_percentage.setText("%"+list.get(position).getSimilarity());
+            try{
+                Glide
+                        .with(context)
+                        .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getAvatar_id())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_f_char)
+                        .into(holder.i_avatar);
+            }catch (Exception e){
+
+            }
+        }
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
+        if(list==null)
+            return 0;
         return list.size();
+    }
+
+    public int dpToPx(int dp, Context context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        RelativeLayout r_follow;
-        TextView t_username,t_status;
+        TextView t_percentage;
         ImageView i_avatar;
+        CardView cardView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            t_username = itemView.findViewById(R.id.t_username);
-            t_status = itemView.findViewById(R.id.t_status);
-            r_follow = itemView.findViewById(R.id.r_follow);
-            i_avatar = itemView.findViewById(R.id.i_icon);
+            i_avatar = itemView.findViewById(R.id.i_avatar);
+            t_percentage = itemView.findViewById(R.id.t_percentage);
+            cardView = itemView.findViewById(R.id.cardview2);
 
             itemView.setOnClickListener(this);
         }

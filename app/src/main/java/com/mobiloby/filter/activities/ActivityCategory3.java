@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,16 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.mobiloby.filter.adapters.MyTodoResultListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.adapters.MyRecycleListAdapter;
-import com.mobiloby.filter.adapters.MyTodoResultListAdapter;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.models.TodoObject;
 import com.mobiloby.filter.helpers.makeAlert;
@@ -37,17 +38,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ActivityCategory3 extends AppCompatActivity implements MyRecycleListAdapter.ItemClickListener {
+public class ActivityCategory3 extends AppCompatActivity implements MyRecycleListAdapter.ItemClickListener, MyTodoResultListAdapter.ItemClickListenerResult {
 
     SharedPreferences preferences;
     Bundle extras;
     String username = "", istek_username;
-    ListView listView;
     ArrayList<TodoObject> todoResultList, todoList;
     MyTodoResultListAdapter adapter;
     MyRecycleListAdapter adapterRecycle;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
+    RecyclerView recyclerView, recyclerViewResult;
+    RecyclerView.LayoutManager layoutManager, layoutManagerResult;
     JSONParser jsonParser;
     JSONObject jsonObject;
     Dialog builder;
@@ -56,6 +56,9 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
     BottomSheetDialog bd;
     TextView t_subtitle;
     int istek_pos = -1;
+    ImageView i_avatar;
+    TextView t_countArkadas, t_countIstek, t_username, t_profilDoluluk;
+    String countIstek, countArkadas, profileURL, profilDoluluk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +67,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
         prepareMe();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                istek_username = todoResultList.get(position).getUsername();
-                istek_pos = position;
-                popupConnect(todoResultList.get(position).getTodoID(), istek_username);
-            }
-        });
+        getTodo();
     }
 
     public void popupConnect(String id, String username){
@@ -97,30 +93,55 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
     private void prepareMe() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground));// set status background white
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.MainBlue));// set status background white
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorBackground));
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        listView = findViewById(R.id.listview_searchResult);
+        recyclerViewResult = findViewById(R.id.recyclerviewResult);
         recyclerView = findViewById(R.id.recycleView);
         todoList = new ArrayList<>();
         todoResultList = new ArrayList<>();
         adapter = new MyTodoResultListAdapter(this, todoResultList);
         adapterRecycle = new MyRecycleListAdapter(this, todoList);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        layoutManagerResult = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerViewResult.setLayoutManager(layoutManagerResult);
         t_subtitle = findViewById(R.id.t_subtitle);
 
         adapterRecycle.setClickListener(this);
-        listView.setAdapter(adapter);
+        recyclerViewResult.setAdapter(adapter);
+        adapter.setClickListener(this);
 
         extras = getIntent().getExtras();
         if(extras!=null){
             username = extras.getString("username");
         }
-        getTodo();
+
+        t_countIstek = findViewById(R.id.t_countIstek);
+        t_countArkadas = findViewById(R.id.t_countArkadas);
+        countIstek = preferences.getString("count_istek", "");
+        countArkadas = preferences.getString("count_arkadas", "");
+        profileURL = preferences.getString("user_profile_url", "");
+        profilDoluluk = preferences.getString("profil_doluluk", "");
+        t_countIstek.setText(countIstek);
+        t_countArkadas.setText(countArkadas);
+        t_profilDoluluk = findViewById(R.id.t_profilDoluluk);
+        int d  = Integer.parseInt(profilDoluluk);
+        d = d*100/7;
+        t_profilDoluluk.setText("%" + d + " Profil Doluluğu");
+        i_avatar = findViewById(R.id.i_avatar);
+        t_username = findViewById(R.id.t_username);
+        t_username.setText(username);
+
+        Glide
+                .with(this)
+                .load("https:mobiloby.com/_filter/assets/profile/" + profileURL)
+                .centerCrop()
+                .placeholder(R.drawable.ic_f_char)
+                .into(i_avatar);
     }
 
     private void sendIstek() {
@@ -131,9 +152,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
         progressDialog.setMax(100);
         progressDialog.show();
 
-        Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
-
-        final String url = "http://mobiloby.com/_filter/insert_istek.php";
+        final String url = "https://mobiloby.com/_filter/insert_istek.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -227,7 +246,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
         todoList.clear();
 
-        final String url = "http://mobiloby.com/_filter/get_todo_by_user.php";
+        final String url = "https://mobiloby.com/_filter/get_todo_by_user.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -285,7 +304,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
                             if(minutes>0){
                                 message += " " + minutes + " dakika";
                             }
-                            t_subtitle.setText(message);
+                            t_profilDoluluk.setText(message);
 
                             TodoObject o = new TodoObject(todo_id, user_name, todo_desc);
                             todoList.add(o);
@@ -321,7 +340,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
         todoResultList.clear();
 
-        final String url = "http://mobiloby.com/_filter/get_users_by_todo.php";
+        final String url = "https://mobiloby.com/_filter/get_users_by_todo.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -366,13 +385,15 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
                             String user_name = c.getString("user_name");
                             String todo_desc = c.getString("todo_description");
                             String minutes = c.getString("todo_minutes");
+                            String user_profile_url = c.getString("user_profile_url");
                             TodoObject o = new TodoObject(todo_id, user_name, todo_desc);
                             o.setTime(minutes);
+                            o.setUserProfileUrl(user_profile_url);
                             todoResultList.add(o);
+                            Toast.makeText(ActivityCategory3.this, "minYusuf: " + minutes, Toast.LENGTH_SHORT).show();
                         }
 
-                        adapter = new MyTodoResultListAdapter(ActivityCategory3.this, todoResultList);
-                        listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -380,7 +401,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
                     }
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCategory3.this, true);
+//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCategory3.this, true);
                 }
 
             }
@@ -413,7 +434,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
         final String todoDes = todo;
 
-        final String url = "http://mobiloby.com/_filter/insert_todo.php";
+        final String url = "https://mobiloby.com/_filter/insert_todo.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -469,7 +490,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
         final String todoDes = todo;
 
-        final String url = "http://mobiloby.com/_filter/update_todo.php";
+        final String url = "https://mobiloby.com/_filter/update_todo.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -513,5 +534,19 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
 
             }
         }.execute(null, null, null);
+    }
+
+    public void clickProfileTop(View view) {
+        Intent intent = new Intent(this, InformationActivity.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClickResult(View view, int position) {
+        // result list click
+        istek_username = todoResultList.get(position).getUsername();
+        istek_pos = position;
+        popupConnect(todoResultList.get(position).getTodoID(), istek_username);
     }
 }

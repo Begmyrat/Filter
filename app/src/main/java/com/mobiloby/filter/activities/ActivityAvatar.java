@@ -1,6 +1,8 @@
 package com.mobiloby.filter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -10,37 +12,38 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.mobiloby.filter.adapters.MyAvatarListAdapter;
 import com.mobiloby.filter.models.Avatars;
 import com.mobiloby.filter.helpers.JSONParser;
-import com.mobiloby.filter.adapters.MyCustomGridViewAdapter;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.helpers.makeAlert;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ActivityAvatar extends AppCompatActivity {
+public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAdapter.ItemClickListener{
 
-    GridView gridView;
     RelativeLayout r_box;
     ArrayList<Avatars> avatars;
-    MyCustomGridViewAdapter adapter;
     String secilenAvatarID = "", username_unique="", username_visible="", user_password="", player_id="";
     SharedPreferences preferences;
     JSONObject jsonObject;
     JSONParser jsonParser;
     Boolean isSignUp = false;
-    public static int secilenPos = -1;
     Bundle extras;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    MyAvatarListAdapter adapter;
+    DisplayMetrics displayMetrics;
+    int height, width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,39 +52,27 @@ public class ActivityAvatar extends AppCompatActivity {
 
         prepareMe();
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ActivityAvatar.this, ""+avatars.get(position).getId(), Toast.LENGTH_SHORT).show();
-//                r_box.setBackgroundColor(avatars.get(position).getColor());
-                r_box.getBackground().setTint(r_box.getResources().getColor(avatars.get(position).getColor()));
-                findViewById(R.id.i_right).setVisibility(View.VISIBLE);
-                secilenAvatarID = avatars.get(position).getId();
-                secilenPos = position;
-                adapter = new MyCustomGridViewAdapter(getApplicationContext(), avatars);
-                gridView.setAdapter(adapter);
-            }
-        });
-
-
+        getAvatars();
     }
 
     private void prepareMe() {
 
-        gridView = findViewById(R.id.gridview_avatar);
+        recyclerView = findViewById(R.id.recyclerView);
         r_box = findViewById(R.id.r_box);
         avatars = new ArrayList<>();
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        secilenAvatarID = preferences.getString("avatar_id", "");
+        secilenAvatarID = preferences.getString("user_profile_url", "");
 
-        if(secilenAvatarID.equals("")){
-            isSignUp = true;
+        if(!secilenAvatarID.equals("")){
+            findViewById(R.id.i_right).setVisibility(View.VISIBLE);
         }
         else{
-            isSignUp = false;
+            findViewById(R.id.i_right).setVisibility(View.GONE);
         }
+
+        isSignUp = preferences.getBoolean("isLoggedIn", false);
 
         username_unique = preferences.getString("username_unique","");
         username_visible = preferences.getString("username_visible","");
@@ -96,46 +87,25 @@ public class ActivityAvatar extends AppCompatActivity {
             username_unique = extras.getString("username");
             user_password = extras.getString("password");
         }
-
-        avatars.add(new Avatars("1",R.drawable.man, R.color.colorPurple));
-        avatars.add(new Avatars("2",R.drawable.girl, R.color.colorPalet1));
-        avatars.add(new Avatars("3",R.drawable.man_old, R.color.colorPalet2));
-        avatars.add(new Avatars("4",R.drawable.boy, R.color.colorPalet3));
-        avatars.add(new Avatars("5",R.drawable.avatar1, R.color.colorPalet4));
-        avatars.add(new Avatars("6",R.drawable.avatar2, R.color.colorPalet5));
-        avatars.add(new Avatars("7",R.drawable.avatar3, R.color.colorPalet6));
-        avatars.add(new Avatars("8",R.drawable.avatar4, R.color.colorPalet7));
-        avatars.add(new Avatars("9",R.drawable.avatar5, R.color.colorPalet8));
-        avatars.add(new Avatars("10",R.drawable.avatar6, R.color.colorPalet9));
-        avatars.add(new Avatars("11",R.drawable.avatar7, R.color.colorYellow));
-        avatars.add(new Avatars("12",R.drawable.avatar8, R.color.colorBlue));
-        avatars.add(new Avatars("13",R.drawable.avatar9, R.color.colorOrange));
-        avatars.add(new Avatars("14",R.drawable.avatar10, R.color.colorPalet1));
-        avatars.add(new Avatars("15",R.drawable.avatar11, R.color.colorPalet2));
-        avatars.add(new Avatars("16",R.drawable.avatar12, R.color.colorPalet9));
-        avatars.add(new Avatars("17",R.drawable.avatar13, R.color.colorPalet7));
-        avatars.add(new Avatars("18",R.drawable.avatar14, R.color.colorPalet6));
-
-        for(int i=0;i<avatars.size();i++){
-            if(avatars.get(i).getId().equals(secilenAvatarID)){
-                secilenPos = i;
-            }
-        }
-
-        adapter = new MyCustomGridViewAdapter(this, avatars);
-        gridView.setAdapter(adapter);
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
+        layoutManager = new GridLayoutManager(this, 3);
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new MyAvatarListAdapter(this, avatars, width, secilenAvatarID);
+        recyclerView.setAdapter(adapter);
+        adapter.setClickListener(this);
     }
 
     public void clickAvatarSec(View view) {
         if(!secilenAvatarID.equals("")){
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("avatar_id", secilenAvatarID);
-            editor.commit();
 
-            if(isSignUp)
+            if(!isSignUp)
                 insertUser();
             else{
-                finish();
+                updateAvatar();
             }
         }
     }
@@ -148,7 +118,7 @@ public class ActivityAvatar extends AppCompatActivity {
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/insert_user.php";
+        final String url = "https://mobiloby.com/_filter/insert_user.php";
 
 //        final String username_visible = username;
 //        final String username_unique = username.replaceAll("İ", "i").replaceAll("ı", "i").replaceAll("Ğ", "g").replaceAll("ğ","g").toLowerCase();
@@ -165,7 +135,7 @@ public class ActivityAvatar extends AppCompatActivity {
                 jsonData.put("user_name_unique", username_unique);
                 jsonData.put("user_password", user_password);
                 jsonData.put("player_id", player_id);
-                jsonData.put("avatar_id", secilenAvatarID);
+                jsonData.put("user_profile_url", secilenAvatarID);
 
 
                 int success = 0;
@@ -207,5 +177,146 @@ public class ActivityAvatar extends AppCompatActivity {
 
             }
         }.execute(null, null, null);
+    }
+
+    private void updateAvatar() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+        progressDialog.show();
+
+        final String url = "https://mobiloby.com/_filter/update_avatar.php";
+
+//        final String username_visible = username;
+//        final String username_unique = username.replaceAll("İ", "i").replaceAll("ı", "i").replaceAll("Ğ", "g").replaceAll("ğ","g").toLowerCase();
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("user_name_unique", username_unique);
+                jsonData.put("user_profile_url", secilenAvatarID);
+
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("user_profile_url", secilenAvatarID);
+                    editor.commit();
+//                    Intent intent = new Intent(ActivityAvatar.this, InformationActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    intent.putExtra("username", preferences.getString("username_unique", ""));
+//                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void getAvatars() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+        progressDialog.show();
+
+        final String url = "https://mobiloby.com/_filter/get_avatars.php";
+
+//        final String username_visible = username;
+//        final String username_unique = username.replaceAll("İ", "i").replaceAll("ı", "i").replaceAll("Ğ", "g").replaceAll("ğ","g").toLowerCase();
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+
+                    try {
+                        JSONArray pro = jsonObject.getJSONArray("pro");
+
+                        for (int i = 0; i < pro.length(); i++) {
+                            JSONObject c = pro.getJSONObject(i);
+                            String avatar_id = c.getString("avatar_id");
+                            String avatar_url = c.getString("avatar_url");
+                            avatars.add(new Avatars(avatar_id, avatar_url));
+                        }
+
+                        adapter.notifyDataSetChanged();
+                    }catch (Exception e){
+
+                    }
+                }
+                else{
+                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        secilenAvatarID = avatars.get(position).getUrl();
+        MyAvatarListAdapter.secilenURL = secilenAvatarID;
+        adapter.notifyDataSetChanged();
+        findViewById(R.id.i_right).setVisibility(View.VISIBLE);
     }
 }

@@ -13,14 +13,18 @@
             android:id="@+id/r_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/back_background">
 
             <ImageView
+                android:id="@+id/i_avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_f_char"/>
+                android:src="@drawable/ic_f_char" />
 
         </RelativeLayout>
 

@@ -1,26 +1,29 @@
 package com.mobiloby.filter.models;
 
 public class InfoObject {
-    String category, info;
-
-    public InfoObject(String category, String info) {
-        this.category = category;
-        this.info = info;
+    public InfoObject() {
     }
 
-    public String getCategory() {
-        return category;
+    String title, value;
+
+    public InfoObject(String title, String value) {
+        this.title = title;
+        this.value = value;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public String getTitle() {
+        return title;
     }
 
-    public String getInfo() {
-        return info;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

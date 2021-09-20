@@ -54,10 +54,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:textColor="@color/colorDarkGray"
                     android:fontFamily="@font/nunitosans_bold"
-                    android:textSize="16sp"
-                    android:text="Soru"/>
+                    android:text="Soru"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
@@ -145,12 +145,12 @@
                 android:id="@+id/t_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lütfen Başlık Giriniz"
-                android:fontFamily="@font/nunitosans_bold"
                 android:layout_marginHorizontal="10dp"
-                android:textColor="@color/colorBlack"
                 android:layout_marginTop="10dp"
-                android:textSize="16sp"/>
+                android:fontFamily="@font/nunitosans_bold"
+                android:text="Lütfen Başlık Giriniz"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/e_title"
@@ -335,9 +335,29 @@
                 android:id="@+id/spinner_activityDiger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/activities"
-                android:visibility="invisible"
                 android:layout_below="@+id/t_activity"
+                android:layout_marginHorizontal="10dp"
+                android:entries="@array/activities"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/t_sehir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lütfen Şehir Seçiniz"
+                android:fontFamily="@font/nunitosans_bold"
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/spinner_activityDiger"/>
+
+            <Spinner
+                android:id="@+id/spinner_sehirBen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/cities"
+                android:layout_below="@+id/t_sehir"
                 android:layout_marginHorizontal="10dp"/>
 
             <TextView
@@ -350,7 +370,7 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/spinner_activityBen"/>
+                android:layout_below="@+id/spinner_sehirBen"/>
 
             <RelativeLayout
                 android:id="@+id/r_image"
@@ -1443,527 +1463,50 @@
     <ScrollView
         android:id="@+id/scrollView_questions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
+        android:paddingHorizontal="20dp"
+        android:elevation="1dp"
         android:visibility="gone"
+        android:background="@color/white"
         android:layout_below="@+id/r_top">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/l_1"
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="İlk Soruyu Ekle"
+                android:textAllCaps="false"
+                android:onClick="clickFirstQuestion"
+                android:background="@color/SecondaryButton"
+                android:textColor="@color/MainBlue"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Soru: 1"
-                    android:fontFamily="@font/nunitosans_bold"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp"/>
-
-                <EditText
-                    android:id="@+id/e_question1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:hint="Soruyu yazınız..."
-                    android:fontFamily="@font/nunitosans_regular"
-                    android:textSize="16sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-<!--                    <RadioGroup-->
-<!--                        android:id="@+id/rg_answers"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer1"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer2"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer3"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                    </RadioGroup>-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/e_answer1"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer2"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer3"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/l_2"
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="İkinci Soruyu Ekle"
+                android:textAllCaps="false"
+                android:onClick="clickSecondQuestion"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:background="@color/SecondaryButton"
+                android:textColor="@color/MainBlue"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Soru: 2"
-                        android:fontFamily="@font/nunitosans_bold"
-                        android:textColor="@color/colorBlack"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"/>
-
-                    <ImageView
-                        android:id="@+id/i_2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:onClick="clickInvisible"
-                        android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/e_question2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:hint="Soruyu yazınız..."
-                    android:fontFamily="@font/nunitosans_regular"
-                    android:textSize="16sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-<!--                    <RadioGroup-->
-<!--                        android:id="@+id/rg_answers2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer12"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer22"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer32"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                    </RadioGroup>-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/e_answer12"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer22"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer32"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/l_3"
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Üçüncü Soruyu Ekle"
+                android:textAllCaps="false"
+                android:onClick="clickThirdQuestion"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:background="@color/SecondaryButton"
+                android:textColor="@color/MainBlue"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Soru: 3"
-                        android:fontFamily="@font/nunitosans_bold"
-                        android:textColor="@color/colorBlack"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"/>
-
-                    <ImageView
-                        android:id="@+id/i_3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:onClick="clickInvisible"
-                        android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/e_question3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:hint="Soruyu yazınız..."
-                    android:fontFamily="@font/nunitosans_regular"
-                    android:textSize="16sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-<!--                    <RadioGroup-->
-<!--                        android:id="@+id/rg_answers3"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer13"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer23"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer33"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                    </RadioGroup>-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/e_answer13"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer23"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer33"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/l_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Soru: 4"
-                        android:fontFamily="@font/nunitosans_bold"
-                        android:textColor="@color/colorBlack"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"/>
-
-                    <ImageView
-                        android:id="@+id/i_4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:onClick="clickInvisible"
-                        android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/e_question4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:hint="Soruyu yazınız..."
-                    android:fontFamily="@font/nunitosans_regular"
-                    android:textSize="16sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-<!--                    <RadioGroup-->
-<!--                        android:id="@+id/rg_answers4"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer14"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer24"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer34"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                    </RadioGroup>-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/e_answer14"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer24"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer34"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/l_5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Soru: 5"
-                        android:fontFamily="@font/nunitosans_bold"
-                        android:textColor="@color/colorBlack"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"/>
-
-                    <ImageView
-                        android:id="@+id/i_5"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:onClick="clickInvisible"
-                        android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/e_question5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:hint="Soruyu yazınız..."
-                    android:fontFamily="@font/nunitosans_regular"
-                    android:textSize="16sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-<!--                    <RadioGroup-->
-<!--                        android:id="@+id/rg_answers5"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer15"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer25"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_answer35"-->
-<!--                            android:layout_width="50dp"-->
-<!--                            android:layout_height="50dp"-->
-<!--                            android:gravity="bottom"/>-->
-
-<!--                    </RadioGroup>-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/e_answer15"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer25"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                        <EditText
-                            android:id="@+id/e_answer35"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/l_6"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:visibility="invisible"
-                android:orientation="vertical"/>
-
-
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/b_floating"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_plus"
-        android:onClick="clickInsertQuestion"
-        android:layout_margin="20dp"/>
 
 </RelativeLayout>

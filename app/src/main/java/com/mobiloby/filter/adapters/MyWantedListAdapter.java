@@ -8,102 +8,151 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobiloby.filter.helpers.JSONParser;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.mobiloby.filter.R;
-import com.mobiloby.filter.models.WantedObject;
 import com.mobiloby.filter.activities.ActivityCategory2;
+import com.mobiloby.filter.helpers.JSONParser;
+import com.mobiloby.filter.models.WantedObject;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MyWantedListAdapter extends ArrayAdapter<WantedObject> {
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
+
+public class MyWantedListAdapter extends RecyclerView.Adapter<MyWantedListAdapter.ViewHolder> {
 
     private Activity context;
     private ArrayList<WantedObject> list;
+    int selected_pos;
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
     JSONParser jsonParser;
     JSONObject jsonObject;
 
+    // data is passed into the constructor
     public MyWantedListAdapter(Activity context, ArrayList<WantedObject> list) {
-        super(context, R.layout.item_list_wanted, list);
-
-        this.context = context;
+        this.mInflater = LayoutInflater.from(context);
         this.list = list;
+        this.context = context;
     }
 
-    static  class ViewHolder
-    {
+    // inflates the row layout from xml when needed
+    @Override
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.item_list_wanted, parent, false);
+        return new ViewHolder(view);
+    }
+
+    // binds the data to the view and textview in each row
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        final WantedObject konu = list.get(position);
+
+        if(position< list.size()-1) {
+            holder.r_box.setVisibility(View.VISIBLE);
+            holder.t_title.setText(konu.getWantedTitle());
+            holder.t_date.setText(konu.getWantedDate());
+        }
+        else{
+            holder.r_box.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    // total number of rows
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         TextView t_title, t_date, t_similarity;
         ImageView i_delete;
         RelativeLayout r_box;
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
+        ViewHolder(View itemView) {
+            super(itemView);
 
-    @Override
-    public int getViewTypeCount() {
-        return super.getViewTypeCount();
-    }
+            t_title = itemView.findViewById(R.id.t_title);
+            t_date = itemView.findViewById(R.id.t_date);
+            i_delete = itemView.findViewById(R.id.i_delete);
+            r_box = itemView.findViewById(R.id.r_box);
+            t_similarity = itemView.findViewById(R.id.t_similarity);
+            t_similarity.setVisibility(View.GONE);
+            i_delete.setVisibility(View.VISIBLE);
 
-    @SuppressLint("ResourceAsColor")
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
-        ViewHolder viewHolder = null;
-        if (convertView == null)
-        {
-            LayoutInflater inflator = context.getLayoutInflater();
-            convertView = inflator.inflate(R.layout.item_list_wanted, null);
-            viewHolder = new ViewHolder();
-
-            viewHolder.t_title = convertView.findViewById(R.id.t_title);
-            viewHolder.t_date = convertView.findViewById(R.id.t_date);
-            viewHolder.i_delete = convertView.findViewById(R.id.i_delete);
-            viewHolder.r_box = convertView.findViewById(R.id.r_box);
-            viewHolder.t_similarity = convertView.findViewById(R.id.t_similarity);
-            viewHolder.t_similarity.setVisibility(View.GONE);
-            viewHolder.i_delete.setVisibility(View.VISIBLE);
-
-            convertView.setTag(viewHolder);
-
-        }
-        else
-        {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        if (list != null && list.size() > 0 && position<list.size()-1)
-        {
-            final WantedObject konu = list.get(position);
-
-            if(konu!=null){
-                viewHolder.r_box.setVisibility(View.VISIBLE);
-                viewHolder.t_title.setText(konu.getWantedTitle());
-                viewHolder.t_date.setText(konu.getWantedDate());
-            }
-
-            viewHolder.i_delete.setOnClickListener(new View.OnClickListener() {
+            i_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteItem(position);
+                    PrettyDialog prettyDialog = new PrettyDialog(context);
+                    prettyDialog
+                            .setTitle("Filter")
+                            .setMessage("Bu aramayı silmek istiyor musunuz?")
+                            .setIcon(R.drawable.ic_f_char)
+                            .addButton(
+                                    "Evet",
+                                    R.color.colorWhite,
+                                    R.color.colorPalet2,
+                                    new PrettyDialogCallback() {
+                                        @Override
+                                        public void onClick() {
+                                            deleteItem(getAdapterPosition());
+                                            prettyDialog.dismiss();
+                                        }
+                                    }
+                            )
+                            .addButton(
+                                    "Hayır",
+                                    R.color.colorWhite,
+                                    R.color.colorDarkGray,
+                                    new PrettyDialogCallback() {
+                                        @Override
+                                        public void onClick() {
+                                            prettyDialog.dismiss();
+                                        }
+                                    }
+                            )
+                            .show();
                 }
             });
 
+            itemView.setOnClickListener(this);
         }
-        else if(position==list.size()-1){
-            viewHolder.r_box.setVisibility(View.INVISIBLE);
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
-        return convertView;
+    }
+
+    // convenience method for getting data at click position
+    public WantedObject getItem(int id) {
+        return list.get(id);
+    }
+
+    // allows clicks events to be caught
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+
+    }
+
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 
     private void deleteItem(final int position) {
@@ -114,7 +163,7 @@ public class MyWantedListAdapter extends ArrayAdapter<WantedObject> {
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/delete_wanted_item.php";
+        final String url = "https://mobiloby.com/_filter/delete_wanted_item.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -152,7 +201,7 @@ public class MyWantedListAdapter extends ArrayAdapter<WantedObject> {
                     Toast.makeText(context, "Silindi", Toast.LENGTH_SHORT).show();
 //                    notifyDataSetChanged();
                     list.remove(position);
-                    ActivityCategory2.listView.invalidateViews();
+                    notifyDataSetChanged();
                 }
                 else{
                     Toast.makeText(context, "Error Silinemedi", Toast.LENGTH_SHORT).show();

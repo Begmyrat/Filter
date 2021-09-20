@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorAccentPinkLight"
+    tools:context=".fragments.TabFragmentToDo">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/t_hiAda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/i_location"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/colorTextPrimaryPurple"
+            android:textSize="18sp"
+            android:fontFamily="@font/josefin_sans_light"
+            android:text="Hi Ada,"/>
+
+        <TextView
+            android:id="@+id/t_whatAreWeDoing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/t_hiAda"
+            app:layout_constraintBottom_toBottomOf="@+id/t_hiAda"
+            app:layout_constraintTop_toTopOf="@+id/t_hiAda"
+            android:text="What are we doing?"
+            android:textSize="18sp"
+            android:fontFamily="@font/josefin_sans_medium"
+            android:textColor="@color/colorTextPrimaryPurple"
+            android:layout_marginLeft="5dp"/>
+
+        <ImageView
+            android:id="@+id/i_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/searchloc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/t_hiAda"/>
+
+        <EditText
+            android:id="@+id/e_location"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="I am at ..."
+            android:translationY="-5dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintLeft_toLeftOf="@id/i_location"
+            app:layout_constraintRight_toRightOf="@id/i_location"
+            app:layout_constraintTop_toTopOf="@+id/i_location"
+            app:layout_constraintBottom_toBottomOf="@+id/i_location"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="12dp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textSize="18sp"
+            android:fontFamily="@font/josefin_sans_light"/>
+
+        <ImageView
+            android:id="@+id/i_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/password"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/e_location"/>
+
+        <EditText
+            android:id="@+id/e_todo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="I am doing ..."
+            android:translationY="-3dp"
+            android:inputType="text"
+            android:background="@android:color/transparent"
+            app:layout_constraintLeft_toLeftOf="@id/i_todo"
+            app:layout_constraintRight_toRightOf="@id/i_todo"
+            app:layout_constraintBottom_toBottomOf="@+id/i_todo"
+            app:layout_constraintTop_toTopOf="@+id/i_todo"
+            android:layout_marginVertical="12dp"
+            android:layout_marginHorizontal="50dp"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/josefin_sans_light" />
+
+        <ImageView
+            android:id="@+id/i_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/e_todo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/t_discover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discover"
+            android:textSize="18sp"
+            android:translationY="-2dp"
+            android:textColor="@color/backgroundColor"
+            app:layout_constraintLeft_toLeftOf="@+id/i_login"
+            app:layout_constraintRight_toRightOf="@+id/i_login"
+            app:layout_constraintTop_toTopOf="@+id/i_login"
+            app:layout_constraintBottom_toBottomOf="@+id/i_login"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

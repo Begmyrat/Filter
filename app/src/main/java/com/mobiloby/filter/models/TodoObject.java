@@ -1,12 +1,59 @@
 package com.mobiloby.filter.models;
 
 public class TodoObject {
-    String username, todoDescription, todoID, time;
+    String username, todoDescription, todoID, time, userProfileUrl, feeling, location;
+    int view_type;
+
+    public TodoObject(){}
+
+    public TodoObject(int view_type){
+        this.view_type = view_type;
+    }
 
     public TodoObject(String todoID, String username, String todoDescription) {
         this.todoID = todoID;
         this.username = username;
         this.todoDescription = todoDescription;
+    }
+
+    public TodoObject(String todoID, String username, String todoDescription, String feeling, String location) {
+        this.todoID = todoID;
+        this.username = username;
+        this.todoDescription = todoDescription;
+        this.feeling = feeling;
+        this.location = location;
+    }
+
+    public String getFeeling() {
+        return feeling;
+    }
+
+    public void setFeeling(String feeling) {
+        this.feeling = feeling;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getView_type() {
+        return view_type;
+    }
+
+    public void setView_type(int view_type) {
+        this.view_type = view_type;
+    }
+
+    public String getUserProfileUrl() {
+        return userProfileUrl;
+    }
+
+    public void setUserProfileUrl(String userProfileUrl) {
+        this.userProfileUrl = userProfileUrl;
     }
 
     public String getTodoID() {

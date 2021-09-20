@@ -1,8 +1,11 @@
 package com.mobiloby.filter.models;
 
 public class Avatars {
-    String id;
-    int img, color;
+    String id, url;
+
+    public Avatars(String id, String url) {
+        this.url = url;
+    }
 
     public String getId() {
         return id;
@@ -12,25 +15,11 @@ public class Avatars {
         this.id = id;
     }
 
-    public int getColor() {
-        return color;
+    public String getUrl() {
+        return url;
     }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
-    }
-
-    public Avatars(String id, int img, int color) {
-        this.id = id;
-        this.img = img;
-        this.color = color;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

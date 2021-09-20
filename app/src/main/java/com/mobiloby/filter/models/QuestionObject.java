@@ -11,6 +11,17 @@ public class QuestionObject {
         this.correctAnswer = correctAnswer;
     }
 
+    public QuestionObject() {
+
+    }
+
+    public QuestionObject(String question, String answer1, String answer2, String answer3) {
+        this.question = question;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+    }
+
     public String getCorrectAnswer() {
         return correctAnswer;
     }

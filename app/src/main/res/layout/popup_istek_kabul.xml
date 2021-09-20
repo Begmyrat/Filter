@@ -52,7 +52,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="clickShowAnswers"
                 android:background="@drawable/rounded_background"
                 android:backgroundTint="@color/colorPalet7"
                 android:layout_marginRight="5dp">
@@ -60,11 +59,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cevapları Göster"
-                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/nunitosans_bold"
-                    android:textColor="@color/colorWhite"
-                    android:layout_margin="10dp"/>
+                    android:gravity="center"
+                    android:text="Cevapları Göster"
+                    android:textColor="@color/colorWhite" />
 
             </RelativeLayout>
 
@@ -82,7 +84,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="clickProfile"
                 android:background="@drawable/rounded_background"
                 android:backgroundTint="#20aafa"
                 android:layout_marginRight="5dp">
@@ -90,11 +91,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Profili Göster"
-                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/nunitosans_bold"
-                    android:textColor="@color/colorWhite"
-                    android:layout_margin="10dp"/>
+                    android:gravity="center"
+                    android:text="Profili Göster"
+                    android:textColor="@color/colorWhite" />
 
             </RelativeLayout>
 
@@ -108,10 +112,10 @@
             android:orientation="horizontal">
 
             <RelativeLayout
+                android:id="@+id/r_clickReddet"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="clickReddet"
                 android:background="@drawable/rounded_background"
                 android:backgroundTint="@color/colorPalet1"
                 android:layout_marginRight="5dp">
@@ -120,21 +124,24 @@
                     android:id="@+id/t_reddet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reddet"
-                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/nunitosans_bold"
-                    android:textColor="@color/colorWhite"
-                    android:layout_margin="10dp"/>
+                    android:gravity="center"
+                    android:text="Reddet"
+                    android:textColor="@color/colorWhite" />
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/r_clickKabulEt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_background"
                 android:backgroundTint="@color/colorPalet2"
-                android:onClick="clickKabulEt"
                 android:layout_marginRight="5dp">
 
                 <TextView

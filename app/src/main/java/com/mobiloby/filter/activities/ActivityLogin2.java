@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -54,7 +55,8 @@ public class ActivityLogin2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_register2);
+        setContentView(R.layout.activity_login2);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         extras = getIntent().getExtras();
 
@@ -96,11 +98,11 @@ public class ActivityLogin2 extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() > 0)
-                    if (s.charAt(0) != '5'){
-                        alerttext.setText("Eksik veya hatalı giriş yaptınız!");
-                        toast.setView(toastlayout);
-                        toast.show();}
+//                if (s.length() > 0)
+//                    if (s.charAt(0) != '5'){
+//                        alerttext.setText("Eksik veya hatalı giriş yaptınız!");
+//                        toast.setView(toastlayout);
+//                        toast.show();}
             }
         });
 
@@ -149,9 +151,7 @@ public class ActivityLogin2 extends AppCompatActivity {
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/get_user.php";
-
-//        final String username_unique = username.replaceAll("İ", "i").replaceAll("ı", "i").replaceAll("Ğ", "g").replaceAll("ğ","g").toLowerCase();
+        final String url = "https://mobiloby.com/_filter/get_user.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -162,7 +162,7 @@ public class ActivityLogin2 extends AppCompatActivity {
 
                 HashMap<String, String> jsonData = new HashMap<>();
 
-                jsonData.put("user_name_unique", username.getText().toString());
+                jsonData.put("user_name_unique", name);
 
                 int success = 0;
                 try {

@@ -1,92 +1,114 @@
 package com.mobiloby.filter.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mobiloby.filter.helpers.JSONParser;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.models.WantedObject;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-public class MyWantedSimilarListAdapter extends ArrayAdapter<WantedObject> {
+public class MyWantedSimilarListAdapter extends RecyclerView.Adapter<MyWantedSimilarListAdapter.ViewHolder> {
 
     private Activity context;
     private ArrayList<WantedObject> list;
-    JSONParser jsonParser;
-    JSONObject jsonObject;
+    private LayoutInflater mInflater;
+    private ItemClickListenerResult mClickListener;
 
+
+    // data is passed into the constructor
     public MyWantedSimilarListAdapter(Activity context, ArrayList<WantedObject> list) {
-        super(context, R.layout.item_list_wanted_similar, list);
-
-        this.context = context;
+        this.mInflater = LayoutInflater.from(context);
         this.list = list;
+        this.context = context;
     }
 
-    static  class ViewHolder
-    {
+    // inflates the row layout from xml when needed
+    @Override
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.item_list_wanted_similar, parent, false);
+        return new ViewHolder(view);
+    }
+
+    // binds the data to the view and textview in each row
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        final WantedObject konu = list.get(position);
+
+//        holder.c_main.getLayoutParams().width = width/2-20;
+        holder.r_box.setVisibility(View.VISIBLE);
+        holder.t_title.setText(konu.getWantedTitle());
+        holder.t_date.setText(konu.getWantedDate());
+        holder.t_similarity.setText("Uyuşma oranı %"+konu.getSimilarity());
+
+        try{
+            Glide
+                    .with(context)
+                    .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getUserProfileUrl())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_f_char)
+                    .into(holder.i_avatar);
+        }catch (Exception e){
+
+        }
+    }
+
+    // total number of rows
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         TextView t_title, t_date, t_similarity;
+        ImageView i_avatar;
         RelativeLayout r_box;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+
+            t_title = itemView.findViewById(R.id.t_title);
+            t_date = itemView.findViewById(R.id.t_date);
+            r_box = itemView.findViewById(R.id.r_box);
+            t_similarity = itemView.findViewById(R.id.t_titleSimilarity);
+            i_avatar = itemView.findViewById(R.id.i_avatar);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClickResult(view, getAdapterPosition());
+        }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+    // convenience method for getting data at click position
+    public WantedObject getItem(int id) {
+        return list.get(id);
     }
 
-    @Override
-    public int getViewTypeCount() {
-        return super.getViewTypeCount();
+    // allows clicks events to be caught
+    public void setClickListener(ItemClickListenerResult itemClickListener) {
+        this.mClickListener = itemClickListener;
+
     }
 
-    @SuppressLint("ResourceAsColor")
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
-        ViewHolder viewHolder = null;
-        if (convertView == null)
-        {
-            LayoutInflater inflator = context.getLayoutInflater();
-            convertView = inflator.inflate(R.layout.item_list_wanted_similar, null);
-            viewHolder = new ViewHolder();
-
-            viewHolder.t_title = convertView.findViewById(R.id.t_title);
-            viewHolder.t_date = convertView.findViewById(R.id.t_date);
-            viewHolder.r_box = convertView.findViewById(R.id.r_box);
-            viewHolder.t_similarity = convertView.findViewById(R.id.t_titleSimilarity);
-
-            convertView.setTag(viewHolder);
-
-        }
-        else
-        {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        if (list != null && list.size() > 0 && position<list.size()-1)
-        {
-            final WantedObject konu = list.get(position);
-
-            if(konu!=null){
-                viewHolder.r_box.setVisibility(View.VISIBLE);
-                viewHolder.t_title.setText(konu.getWantedTitle());
-                viewHolder.t_date.setText(konu.getWantedDate());
-                viewHolder.t_similarity.setText("Uyuşma oranı %"+konu.getSimilarity() + " Pro: " + konu.getDoluluk());
-            }
-
-        }
-        else if(position==list.size()-1){
-            viewHolder.r_box.setVisibility(View.INVISIBLE);
-        }
-        return convertView;
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListenerResult {
+        void onItemClickResult(View view, int position);
     }
 }
 

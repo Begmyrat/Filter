@@ -1,7 +1,85 @@
 package com.mobiloby.filter.models;
 
 public class UserObject {
-    String username, address, date, id, okul1, okul2, universite, takim, club, spor, adSoyad, username_visible, userPassword, similarity, profil_gizlilik;
+    String username;
+    String address;
+    String date;
+    String id;
+    String okul1;
+    String okul2;
+    String universite;
+    String takim;
+    String club;
+    String spor;
+    String adSoyad;
+    String username_visible;
+    String userPassword;
+    String similarity;
+    String profil_gizlilik;
+    String wantedQuestion;
+    String lastMessage;
+    String friendCount, requestCount;
+
+    public String getFriendCount() {
+        return friendCount;
+    }
+
+    public void setFriendCount(String friendCount) {
+        this.friendCount = friendCount;
+    }
+
+    public String getRequestCount() {
+        return requestCount;
+    }
+
+    public void setRequestCount(String requestCount) {
+        this.requestCount = requestCount;
+    }
+
+    public String getUserProfilDoluluk() {
+        return userProfilDoluluk;
+    }
+
+    public void setUserProfilDoluluk(String userProfilDoluluk) {
+        this.userProfilDoluluk = userProfilDoluluk;
+    }
+
+    String userProfilDoluluk;
+    boolean isNewMessage = false;
+
+    public boolean isNewMessage() {
+        return isNewMessage;
+    }
+
+    public void setNewMessage(boolean newMessage) {
+        isNewMessage = newMessage;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public String getWantedQuestion() {
+        return wantedQuestion;
+    }
+
+    public void setWantedQuestion(String wantedQuestion) {
+        this.wantedQuestion = wantedQuestion;
+    }
+
+    public String getWantedAnswer() {
+        return wantedAnswer;
+    }
+
+    public void setWantedAnswer(String wantedAnswer) {
+        this.wantedAnswer = wantedAnswer;
+    }
+
+    String wantedAnswer;
     String wanted_id;
     String soru1, soru, cevap;
     String soru2;
@@ -218,6 +296,8 @@ public class UserObject {
         this.adSoyad = adSyoad;
         this.spor = spor;
     }
+
+    public UserObject(){}
 
     public String getUsername() {
         return username;

@@ -2,22 +2,27 @@ package com.mobiloby.filter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobiloby.filter.adapters.MyMessageListAdapter;
 import com.mobiloby.filter.models.ChatObject;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.adapters.MyChatListAdapter;
@@ -31,21 +36,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class ActivityChat extends AppCompatActivity {
 
-    public static ListView listView;
-    public static ArrayList<ChatObject> chatObjects;
-    public static MyChatListAdapter adapter;
+    public static RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    public static ArrayList<ChatObject> chatObjects, newChats;
+    public static MyMessageListAdapter adapter;
     EditText e_message;
     int d=0;
     public static JSONParser jsonParser;
     public static JSONObject jsonObject;
     public static Bundle extras;
-    public static String username="", friend_username="";
+    public static String username="", friend_username="", user_profile_url="", user_profile_url_other="", user_player_id_other="";
     public static TextView t_friendUsername;
     public static Dialog builder;
-    String user_token="", friend_token="";
+    public static HashSet<String> hashSet;
+    SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +62,8 @@ public class ActivityChat extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         prepareMe();
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        Toast.makeText(this, "self: "+username + " friend: " + friend_username, Toast.LENGTH_SHORT).show();
-
-//        getChatsStatik();
         getChats();
     }
 
@@ -73,20 +80,26 @@ public class ActivityChat extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorChatBackground));
-
+        hashSet = new HashSet<>();
         extras = getIntent().getExtras();
         t_friendUsername = findViewById(R.id.t_usernameFriend);
         if(extras!=null){
             username = extras.getString("username");
-            friend_username = extras.getString("friend_username");
+            friend_username = extras.getString("username_friend");
             t_friendUsername.setText(friend_username);
-            friend_token = extras.getString("token_friend");
+//            friend_token = extras.getString("token_friend");
+            user_player_id_other = extras.getString("user_player_id_other");
+            user_profile_url = extras.getString("user_profile_url");
+            user_profile_url_other = extras.getString("user_profile_url_other");
         }
 
-        listView = findViewById(R.id.listview_chat);
+        recyclerView = findViewById(R.id.recyclerview_chat);
         chatObjects = new ArrayList<>();
-        adapter = new MyChatListAdapter(this, chatObjects, username);
-        listView.setAdapter(adapter);
+        newChats = new ArrayList<>();
+        adapter = new MyMessageListAdapter(this, chatObjects, username, friend_username);
+        recyclerView.setAdapter(adapter);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
         e_message = findViewById(R.id.e_message);
     }
 
@@ -108,7 +121,7 @@ public class ActivityChat extends AppCompatActivity {
 
         Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
 
-        final String url = "http://mobiloby.com/_filter/insert_chat.php";
+        final String url = "https://mobiloby.com/_filter/insert_chat.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -158,11 +171,10 @@ public class ActivityChat extends AppCompatActivity {
                         ms = "0"+ms;
                     }
 
-                    chatObjects.add(new ChatObject("-1", username, friend_username, e_message.getText().toString(), hs+":"+ms, username));
-                    adapter.notifyDataSetChanged();
-                    listView.setSelection(chatObjects.size()-1);
+//                    chatObjects.add(new ChatObject("-1", username, friend_username, e_message.getText().toString(), hs+":"+ms, username));
+//                    adapter.notifyDataSetChanged();
+//                    recyclerView.scrollToPosition(chatObjects.size()-1);
                     pushNotification();
-//                    getChats();
                 }
                 else{
                     makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
@@ -172,66 +184,9 @@ public class ActivityChat extends AppCompatActivity {
         }.execute(null, null, null);
     }
 
-    private void pushNotification() {
+    private static void getChats() {
 
-        final String url = "http://mobiloby.com/_filter/push_notification.php";
-
-        Toast.makeText(this, ""+friend_token, Toast.LENGTH_SHORT).show();
-
-        new AsyncTask<String, Void, String>() {
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                jsonParser = new JSONParser();
-
-                HashMap<String, String> jsonData = new HashMap<>();
-
-                jsonData.put("friend_token", friend_token);
-                jsonData.put("message", e_message.getText().toString());
-
-                int success = 0;
-                try {
-
-                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
-
-                    success = jsonObject.getInt("success");
-
-                } catch (Exception ex) {
-                    if (ex.getMessage() != null) {
-                        Log.e("", ex.getMessage());
-                    }
-                }
-                return String.valueOf(success);
-            }
-
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected void onPostExecute(String res) {
-
-                e_message.setText("");
-
-//                if (res.equals("1")) {
-//                }
-//                else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
-//                }
-
-            }
-        }.execute(null, null, null);
-    }
-
-    public static void getChats() {
-//        final ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setTitle("Filter");
-//        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progressDialog.setMax(100);
-//        progressDialog.show();
-
-        chatObjects.clear();
-
-        final String url = "http://mobiloby.com/_filter/get_chats.php";
+        final String url = "https://mobiloby.com/_filter/get_chats.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -264,7 +219,6 @@ public class ActivityChat extends AppCompatActivity {
             @Override
             protected void onPostExecute(String res) {
 
-//                progressDialog.dismiss();
 
                 if (res.equals("1")) {
 
@@ -282,29 +236,78 @@ public class ActivityChat extends AppCompatActivity {
 
 
                             ChatObject o = new ChatObject(chat_id, chat_user_name, chat_friend_user_name, chat_message, chat_date, chat_kimdenKime);
-                            chatObjects.add(o);
+                            if(!hashSet.contains(chat_id)){
+                                chatObjects.add(o);
+                            }
+                            hashSet.add(chat_id);
                         }
                         adapter.notifyDataSetChanged();
-                        listView.setSelection(chatObjects.size()-1);
+                        recyclerView.scrollToPosition(chatObjects.size()-1);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-//                        Toast.makeText(ActivityChat.this, "error jiimFriend", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+
                 }
 
             }
         }.execute(null, null, null);
     }
 
+    private void pushNotification() {
+
+        final String url = "https://mobiloby.com/_filter/bildirim_gonder_deneme.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("friend_token", user_player_id_other);
+                jsonData.put("message", e_message.getText().toString());
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                e_message.setText("");
+
+                if (res.equals("1")) {
+                    Toast.makeText(ActivityChat.this, "gonderdik", Toast.LENGTH_SHORT).show();
+                }
+//                else{
+//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+//                }
+
+            }
+        }.execute(null, null, null);
+    }
+
     public static void insertChatObject(String from, String to, String message, String date, String kimdenKime){
-        ChatObject o = new ChatObject("-1", from, to, message, date, kimdenKime);
-        chatObjects.add(o);
-        adapter.notifyDataSetChanged();
-        listView.setSelection(chatObjects.size()-1);
+        getChats();
+//        adapter.notifyDataSetChanged();
+//        recyclerView.scrollToPosition(chatObjects.size()-1);
     }
 
     public void clickMore(View view) {
@@ -353,7 +356,7 @@ public class ActivityChat extends AppCompatActivity {
 
         chatObjects.clear();
 
-        final String url = "http://mobiloby.com/_filter/delete_friend.php";
+        final String url = "https://mobiloby.com/_filter/delete_friend.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -391,12 +394,6 @@ public class ActivityChat extends AppCompatActivity {
                 if (res.equals("1") || res.equals("2") || res.equals("3")) {
                     finish();
                 }
-//                else if(res.equals("2")){
-//                    makeAlert.uyarıVer("Filter", "Mesajlar da silinmistir", ActivityChat.this, true);
-//                }
-//                else if(res.equals("3")){
-//                    makeAlert.uyarıVer("Filter", "Friend silindi ama mesajlar silinemedi", ActivityChat.this, true);
-//                }
                 else{
                     makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
                 }

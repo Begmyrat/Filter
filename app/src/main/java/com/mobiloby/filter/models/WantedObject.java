@@ -2,8 +2,16 @@ package com.mobiloby.filter.models;
 
 public class WantedObject {
     String wantedID, wantedDate, soru;
-    String similarity = "";
+    String similarity = "", userProfileUrl;
     Double doluluk, similarityDouble;
+
+    public String getUserProfileUrl() {
+        return userProfileUrl;
+    }
+
+    public void setUserProfileUrl(String userProfileUrl) {
+        this.userProfileUrl = userProfileUrl;
+    }
 
     public WantedObject(){}
 

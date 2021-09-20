@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:id="@+id/c_main"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:layout_marginBottom="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/i_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/i_avatar"
+        android:text="Ad Soyad"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/t_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Begmyrat Mammedov"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunitosans_light"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t_title"
+        android:gravity="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

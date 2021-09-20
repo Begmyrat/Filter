@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.FragmentDiscoverPage">
+
+    <ImageView
+        android:id="@+id/i_ust_resim_pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationY="-10dp"
+        android:src="@drawable/ust_resim_pink"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/i_activity_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/activity_background"
+        app:layout_constraintBottom_toBottomOf="@+id/i_ust_resim_pink"
+        app:layout_constraintLeft_toLeftOf="@+id/i_ust_resim_pink"
+        app:layout_constraintRight_toRightOf="@+id/i_ust_resim_pink"
+        app:layout_constraintTop_toTopOf="@+id/i_ust_resim_pink"
+        app:layout_constraintVertical_bias="0.26999998" />
+
+    <ImageView
+        android:id="@+id/i_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/i_activity_background"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintLeft_toLeftOf="@id/i_activity_background"
+        app:layout_constraintRight_toRightOf="@id/i_activity_background"
+        app:layout_constraintTop_toTopOf="@+id/i_activity_background" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/i_activity_background"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toRightOf="@+id/i_avatar"
+        app:layout_constraintRight_toRightOf="@id/i_activity_background"
+        app:layout_constraintTop_toTopOf="@+id/i_activity_background">
+
+        <ImageView
+            android:id="@+id/i_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/book"/>
+
+        <TextView
+            android:id="@+id/t_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Watching Avengers Moviesssss"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="18sp"
+            android:gravity="left"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/josefin_sans_bold"
+            app:layout_constraintLeft_toRightOf="@+id/i_activity"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/i_activity"
+            app:layout_constraintBottom_toBottomOf="@id/i_activity"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/i_feeling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sleepy"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="@+id/i_activity"
+            app:layout_constraintTop_toBottomOf="@+id/i_activity"/>
+
+        <TextView
+            android:id="@+id/t_feeling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Feeling excited"
+            android:textSize="18sp"
+            android:fontFamily="@font/josefin_sans_medium"
+            android:textColor="@color/textPrimaryColor"
+            app:layout_constraintLeft_toRightOf="@+id/i_feeling"
+            app:layout_constraintTop_toTopOf="@+id/i_feeling"
+            app:layout_constraintBottom_toBottomOf="@+id/i_feeling"
+            android:layout_marginLeft="5dp"/>
+
+        <View
+            android:id="@+id/view_stick"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/secondtextcolor"
+            app:layout_constraintLeft_toLeftOf="@+id/i_feeling"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/i_feeling"
+            android:layout_marginRight="15dp"/>
+
+        <ImageView
+            android:id="@+id/i_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/i_feeling"
+            app:layout_constraintTop_toBottomOf="@+id/view_stick"
+            app:layout_constraintRight_toRightOf="@+id/i_feeling"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/location"/>
+
+        <TextView
+            android:id="@+id/t_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Cinemax, ANKARA"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/i_location"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/i_location"
+            app:layout_constraintRight_toLeftOf="@+id/t_time"
+            app:layout_constraintTop_toTopOf="@+id/i_location" />
+
+        <TextView
+            android:id="@+id/t_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6 min ago"
+            android:layout_marginRight="40dp"
+            android:fontFamily="@font/josefin_sans_light"
+            android:textSize="12sp"
+            android:textColor="@color/Altbaslik_gri"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/i_location"
+            app:layout_constraintBottom_toBottomOf="@+id/i_location"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/i_ust_resim_pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,6 @@
     <color name="colorBlue">#37b8e2</color>
     <color name="colorBlue2">#619df5</color>
 
-    <color name="colorBackground">#fafafc</color>
     <color name="colorPurple">#322751</color>
     <color name="colorButtonBackBackground">#f4f5fa</color>
     <color name="colorInfoBoxSoluk">#ABAFC1</color>
@@ -113,6 +112,25 @@
     <color name="selected_dot">#2D9CDB</color>
     <color name="idle_dot">#662D9CDB</color>
     <color name="darkSkyBlu">#2981e8</color>
+
+    <color name="topBlue">#005bba</color>
+
+    <color name="backgroundColor">#fff6f5</color>
+    <color name="colorPrimaryPink">#fd6256</color>
+    <color name="colorPrimaryPinkLight">#fea19a</color>
+    <color name="colorAccentPink">#ffd5d2</color>
+    <color name="colorAccentPinkLight">#ffeae8</color>
+    <color name="colorTextPrimaryPurple">#51023E</color>
+
+    <!-- yeni tasarim renkleri -->
+
+    <color name="textPrimaryColor">#51023E</color>
+    <color name="colorBackground">#FFF6F5</color>
+    <color name="colorBackground2">#FFEAE8</color>
+    <color name="colorBackground3">#f7bbc1</color>
+    <color name="Altbaslik_gri">#998B8A</color>
+    <color name="secondtextcolor">#FD6256</color>
+    <color name="buttonwhite">#FFFFFF</color>
 
 
 </resources>

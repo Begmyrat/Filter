@@ -2,6 +2,8 @@ package com.mobiloby.filter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -16,14 +18,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.adapters.MyWantedSimilarListAdapter;
+import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.models.WantedObject;
 
@@ -35,7 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ActivityCategory2_List extends AppCompatActivity {
+public class ActivityCategory2_List extends AppCompatActivity implements MyWantedSimilarListAdapter.ItemClickListenerResult{
 
     ArrayList<WantedObject> wantedList;
     MyWantedSimilarListAdapter adapter;
@@ -43,12 +43,13 @@ public class ActivityCategory2_List extends AppCompatActivity {
     String wantedID="", wantedTitle, username;
     JSONParser jsonParser;
     JSONObject jsonObject;
-    ListView listView;
     TextView t_title, t_subtitle;
     Dialog bd;
     int pos;
     SharedPreferences preferences;
     FlowLayout f_bash;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -58,15 +59,13 @@ public class ActivityCategory2_List extends AppCompatActivity {
 
         prepareMe();
 
-        getWantedList();
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pos = position;
-                popupConnect(wantedList.get(position).getUserName());
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getWantedList();
     }
 
     public void popupConnect(String username){
@@ -117,17 +116,6 @@ public class ActivityCategory2_List extends AppCompatActivity {
             }
         }
 
-
-//
-//        TextView t = buildLabel("Hillo");
-//        f_bash.addView(t);
-//        TextView t1 = buildLabel("fsfs");
-//        f_bash.addView(t1);
-//        TextView t2 = buildLabel("salam");
-//        f_bash.addView(t2);
-//        TextView t3 = buildLabel("suasfsd");
-//        f_bash.addView(t3);
-
         bd.setContentView(view);
         bd.show();
     }
@@ -153,11 +141,15 @@ public class ActivityCategory2_List extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         username = preferences.getString("username_unique","");
 
-        listView = findViewById(R.id.l_friends);
+        recyclerView = findViewById(R.id.recyclerview);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
         wantedList = new ArrayList<>();
+        adapter = new MyWantedSimilarListAdapter(this, wantedList);
+        recyclerView.setAdapter(adapter);
+        adapter.setClickListener(this);
         t_title = findViewById(R.id.t_title);
         t_subtitle = findViewById(R.id.t_subtitle);
-        adapter = new MyWantedSimilarListAdapter(this, wantedList);
 
         extras = getIntent().getExtras();
         if(extras!=null){
@@ -177,7 +169,7 @@ public class ActivityCategory2_List extends AppCompatActivity {
 
         wantedList.clear();
 
-        final String url = "http://mobiloby.com/_filter/get_wanted_users_by_similarity.php";
+        final String url = "https://mobiloby.com/_filter/get_wanted_users_by_similarity.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -239,6 +231,7 @@ public class ActivityCategory2_List extends AppCompatActivity {
                             o.setWantedDate(c.getString("wanted_tarih"));
                             String sim = c.getString("wanted_similarity");
                             String question = c.getString("wanted_question");
+                            String profile_url = c.getString("user_profile_url");
                             try {
                                 String user_profil_doluluk = c.getString("user_profil_doluluk");
                                 Double doluluk = Double.parseDouble(user_profil_doluluk)*100/8;
@@ -251,8 +244,7 @@ public class ActivityCategory2_List extends AppCompatActivity {
 
                             Integer similarity = Integer.parseInt(sim)*100/21;
                             o.setSimilarity(""+similarity);
-//                            o.setDoluluk(doluluk);
-//                            o.setSimilarityDouble(similarity.doubleValue());
+                            o.setUserProfileUrl(profile_url);
                             wantedList.add(o);
                         }
 
@@ -267,22 +259,27 @@ public class ActivityCategory2_List extends AppCompatActivity {
                             return returnValue;
                         });
 
-                        WantedObject o = new WantedObject();
-                        o.setWantedID("wanted_id");
-                        o.setUserName("user_name");
-                        o.setWantedUserName("wanted_user_name");
-                        o.setWantedTitle("Lisenin papatyası");
-                        o.setGiyimTop("giyim_top");
-                        o.setGiyimMiddle("giyim_middle");
-                        o.setGiyimBottom("giyim_bottom");
-                        o.setGiyimAyakkabi("giyim_ayakkabi");
-                        o.setWantedBoy("wanted_boy");
-                        o.setWantedDate("17.01.2016");
-                        wantedList.add(o);
-                        adapter = new MyWantedSimilarListAdapter(ActivityCategory2_List.this, wantedList);
-                        listView.setAdapter(adapter);
+//                        WantedObject o = new WantedObject();
+//                        o.setWantedID("wanted_id");
+//                        o.setUserName("user_name");
+//                        o.setWantedUserName("wanted_user_name");
+//                        o.setWantedTitle("Lisenin papatyası");
+//                        o.setGiyimTop("giyim_top");
+//                        o.setGiyimMiddle("giyim_middle");
+//                        o.setGiyimBottom("giyim_bottom");
+//                        o.setGiyimAyakkabi("giyim_ayakkabi");
+//                        o.setWantedBoy("wanted_boy");
+//                        o.setWantedDate("17.01.2016");
+//                        wantedList.add(o);
+//                        adapter = new M 0yWantedSimilarListAdapter(ActivityCategory2_List.this, wantedList);
+//                        listView.setAdapter(adapter);
 
-                        t_subtitle.setText((wantedList.size()-1) + " tane sonuç bulundu");
+                        adapter.notifyDataSetChanged();
+//
+//                        adapter = new MyWantedSimilarListAdapter(ActivityCategory2_List.this, wantedList);
+//                        recyclerView.setAdapter(adapter);
+
+                        t_subtitle.setText((wantedList.size()) + " tane sonuç bulundu");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -312,5 +309,11 @@ public class ActivityCategory2_List extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("wanted_id", wantedList.get(pos).getWantedID());
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClickResult(View view, int position) {
+        pos = position;
+        popupConnect(wantedList.get(position).getUserName());
     }
 }

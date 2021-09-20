@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,522 +7,119 @@
     android:background="@color/colorBackground"
     tools:context=".activities.InformationActivity">
 
-    <RelativeLayout
-        android:id="@+id/r_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp">
 
-        <RelativeLayout
-            android:id="@+id/r_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:onClick="clickBack"
-            android:background="@drawable/back_background">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@drawable/ic_back"
-                android:layout_centerInParent="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/r_back"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:gravity="right">
-
-            <TextView
-                android:id="@+id/t_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bilgilerim"
-                android:gravity="right"
-                android:fontFamily="@font/nunitosans_extra_bold"
-                android:textSize="22sp"
-                android:textColor="@color/colorPurple"/>
-
-            <TextView
-                android:id="@+id/t_subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Doluluk oranı %62"
-                android:fontFamily="@font/nunitosans_bold"
-                android:textColor="@color/colorPurple"
-                android:textSize="14sp"
-                android:gravity="right"
-                android:layout_below="@+id/t_title"
-                android:alpha="0.85"/>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <ScrollView
+    <ImageView
+        android:id="@+id/i_topBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbarSize="0dp"
-        android:layout_below="@+id/r_top"
-        android:paddingBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/t_information"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Soluk gözüken kutucukların üzerine tıklayarak profil bilgilerinizi girebilirsiniz"
-                android:textColor="@color/colorPurple"
-                android:gravity="left"
-                android:alpha="0.75"
-                android:fontFamily="@font/nunitosans_bold"
-                android:textSize="16sp"/>
-
-            <RelativeLayout
-                android:id="@+id/r_gizlilik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Profiliniz gizlensin mi?"
-                    android:fontFamily="@font/nunitosans_bold"
-                    android:textSize="16sp"
-                    android:alpha="0.75"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/colorPurple"/>
-
-                <Switch
-                    android:id="@+id/switchButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:backgroundTint="@color/colorBlue"
-                    android:layout_alignParentRight="true" />
-
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/v2"
-                android:layout_width="50dp"
-                android:layout_height="5dp"
-                android:background="@drawable/input_background"
-                android:layout_gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:alpha="0.9"
-                android:layout_below="@+id/t_title"
-                android:layout_marginTop="10dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/r_adSoyad"
-                        android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:paddingVertical="10dp"
-                        android:onClick="clickAdSoyad"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_adsoyad"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@+id/t_adSoyad1"
-                            android:src="@drawable/ic_adsoyad"/>
-
-                        <TextView
-                            android:id="@+id/t_adSoyad1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="1dp"
-                            android:gravity="bottom|center_horizontal"
-                            android:layout_above="@+id/t_adSoyad"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text="Ad-Soyad"/>
-
-                        <TextView
-                            android:id="@+id/t_adSoyad"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="1dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:layout_alignParentBottom="true"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/r_universite"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:paddingVertical="10dp"
-                        android:layout_marginTop="10dp"
-                        android:onClick="clickUniversite"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_universite"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@id/t_universite1"
-                            android:src="@drawable/ic_knowledge"/>
-
-                        <TextView
-                            android:id="@+id/t_universite1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:layout_above="@+id/t_universite"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text="Üniversite"/>
-
-                        <TextView
-                            android:id="@+id/t_universite"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/r_takim"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:paddingVertical="10dp"
-                        android:layout_marginTop="10dp"
-                        android:onClick="clickTakim"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_takim"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@+id/t_takim1"
-                            android:src="@drawable/ic_club"/>
-
-                        <TextView
-                            android:id="@+id/t_takim1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:gravity="center"
-                            android:layout_above="@+id/t_takim"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text="Takım"/>
-
-                        <TextView
-                            android:id="@+id/t_takim"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/r_sport"
-                        android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:paddingVertical="10dp"
-                        android:layout_marginTop="10dp"
-                        android:onClick="clickSport"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_sport"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@+id/t_sport1"
-                            android:src="@drawable/ic_sport"/>
-
-                        <TextView
-                            android:id="@+id/t_sport1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:layout_above="@+id/t_sport"
-                            android:text="Spor"/>
-
-                        <TextView
-                            android:id="@+id/t_sport"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/r_okul1"
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        android:paddingVertical="10dp"
-                        android:onClick="clickOkul1"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_okul1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_above="@+id/t_okul11"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/ic_school"/>
-
-                        <TextView
-                            android:id="@+id/t_okul11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:gravity="center"
-                            android:layout_above="@+id/t_okul1"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text="Okul 1"/>
-
-                        <TextView
-                            android:id="@+id/t_okul1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/r_okul2"
-                        android:layout_width="match_parent"
-                        android:layout_height="230dp"
-                        android:paddingVertical="10dp"
-                        android:layout_marginTop="10dp"
-                        android:onClick="clickOkul2"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_okul2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@+id/t_okul22"
-                            android:src="@drawable/ic_school"/>
-
-                        <TextView
-                            android:id="@+id/t_okul22"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:layout_above="@+id/t_okul2"
-                            android:text="Okul 2"/>
-
-                        <TextView
-                            android:id="@+id/t_okul2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/r_club"
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:paddingVertical="10dp"
-                        android:layout_marginTop="10dp"
-                        android:onClick="clickClub"
-                        android:background="@drawable/info_box_background">
-
-                        <ImageView
-                            android:id="@+id/i_club"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@+id/t_club1"
-                            android:src="@drawable/ic_club"/>
-
-                        <TextView
-                            android:id="@+id/t_club1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:layout_above="@+id/t_club"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text="Klüp"/>
-
-                        <TextView
-                            android:id="@+id/t_club"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/r_avatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:paddingVertical="10dp"
-                        android:layout_marginTop="10dp"
-                        android:onClick="clickAvatar"
-                        android:background="@drawable/info_box_background"
-                        android:backgroundTint="@color/colorPurple">
-
-                        <ImageView
-                            android:id="@+id/i_avatar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_above="@+id/t_avatar1"
-                            android:src="@drawable/ic_teenager"/>
-
-                        <TextView
-                            android:id="@+id/t_avatar1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:elevation="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorWhite"
-                            android:layout_above="@+id/t_avatar"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text="Avatar"/>
-
-                        <TextView
-                            android:id="@+id/t_avatar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:elevation="5dp"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="center"
-                            android:textColor="@color/colorInfoTextSoluk"
-                            android:fontFamily="@font/nunitosans_bold"
-                            android:text=""/>
-
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</RelativeLayout>
+        android:src="@drawable/top_blue"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/i_avatar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <Button
+        android:id="@+id/b_duzenle"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintLeft_toLeftOf="@+id/i_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/i_avatar"
+        android:background="@color/SecondaryButton"
+        android:textColor="@color/MainBlue"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:onClick="clickAvatar"
+        app:layout_constraintRight_toRightOf="@+id/i_avatar"
+        android:fontFamily="@font/nunitosans_light"
+        android:text="Düzenle"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/b_profilimiGizle"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/t_profilDoluluk"
+        app:layout_constraintLeft_toLeftOf="@+id/t_profilDoluluk"
+        app:layout_constraintRight_toRightOf="@+id/t_profilDoluluk"
+        android:background="@color/SecondaryButton"
+        android:textColor="@color/MainBlue"
+        android:textAllCaps="false"
+        android:onClick="clickProfilimiGizle"
+        android:textSize="14sp"
+        android:fontFamily="@font/nunitosans_light"
+        android:text="Profilimi Gizle"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/t_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/i_avatar"
+        app:layout_constraintTop_toTopOf="@+id/i_avatar"
+        android:text="Engin Kaşmir"
+        android:fontFamily="@font/nunitosans_bold"
+        android:textSize="28sp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/t_profilDoluluk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/t_username"
+        android:text="% 39 Profil Doluluğu"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/i_avatar"/>
+
+    <TextView
+        android:id="@+id/b_profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Çıkış"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorBlueTop"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:paddingHorizontal="10dp"
+        android:onClick="clickExit"
+        android:paddingVertical="5dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/t_username"
+        app:layout_constraintBottom_toBottomOf="@+id/t_profilDoluluk"/>
+
+
+    <TextView
+        android:id="@+id/t_profilinizeBakin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b_duzenle"
+        android:text="Bilgilerim"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/verdana"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t_profilinizeBakin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

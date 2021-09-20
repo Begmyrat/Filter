@@ -45,6 +45,17 @@
 
     </string-array>
 
+    <string-array name="cities">
+
+        <item>Seçiniz</item>
+        <item>Adana</item>
+        <item>Amasya</item>
+        <item>Ankara</item>
+        <item>Istanbul</item>
+        <item>Konya</item>
+
+    </string-array>
+
     <string name="ob_desc1">OEDAŞ uygulaması ile kolayca arıza ihbarında bulunabilir ve bölgenizdeki  planlı kesinti ve arızaları tüm detaylarıyla birlikte tek ekranda görüntüleyebilirsiniz.</string>
     <string name="ob_desc2">Adresinizdeki planlı kesintileri harita üzerinden görüntüleyebilir ve durumunu takip edebilirsiniz </string>
     <string name="ob_desc3">Elektrik kesintisi, aydınlatma sorunları gibi durumlarda arızanızı hızlıca bize bildirebilirsiniz </string>
@@ -64,7 +75,6 @@
     <string name="logintext">Kayıtlı kullanıcı iseniz telefon numaranızı girerek tek kullanımlık şifre ile giriş yapabilirsiniz.</string>
     <string name="logintext1">Cep telefonunuza gelen SMS şifresini </string>
 
-    <string name="giris">GİRİŞ YAP</string>
     <string name="kayit">KAYIT OL</string>
     <string name="wgiris">Giriş Yapmadan Devam Et</string>
 

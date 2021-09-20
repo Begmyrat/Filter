@@ -1,80 +1,98 @@
 package com.mobiloby.filter.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobiloby.filter.models.InfoObject;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.models.InfoObject;
+import com.mobiloby.filter.models.UserObject;
 
 import java.util.ArrayList;
 
-public class MyInfoListAdapter extends ArrayAdapter<InfoObject> {
+public class MyInfoListAdapter extends RecyclerView.Adapter<MyInfoListAdapter.ViewHolder> {
 
     private Activity context;
     private ArrayList<InfoObject> list;
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
+    int width;
 
-    public MyInfoListAdapter(Activity context, ArrayList<InfoObject> list) {
-        super(context, R.layout.item_list_categories, list);
-
-        this.context = context;
+    // data is passed into the constructor
+    public MyInfoListAdapter(Activity context, ArrayList<InfoObject> list, int width) {
+        this.mInflater = LayoutInflater.from(context);
         this.list = list;
+        this.context = context;
+        this.width = width;
     }
 
-    static  class ViewHolder
-    {
-        TextView textview_title;
-    }
-
+    // inflates the row layout from xml when needed
     @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+    @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.list_item_infobox, parent, false);
+        return new ViewHolder(view);
     }
 
+    // binds the data to the view and textview in each row
     @Override
-    public int getViewTypeCount() {
-        return super.getViewTypeCount();
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.c_main.getLayoutParams().width = width/2-20;
+        holder.t_title.setText(list.get(position).getTitle());
+        holder.t_value.setText(list.get(position).getValue());
+
     }
 
-    @SuppressLint("ResourceAsColor")
+    // total number of rows
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public int getItemCount() {
+        return list.size();
+    }
 
-        ViewHolder viewHolder = null;
-        if (convertView == null)
-        {
-            LayoutInflater inflator = context.getLayoutInflater();
-            convertView = inflator.inflate(R.layout.item_list_categories, null);
-            viewHolder = new ViewHolder();
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            viewHolder.textview_title = convertView.findViewById(R.id.t_title);
+        TextView t_title, t_value;
+        ConstraintLayout c_main;
 
-            convertView.setTag(viewHolder);
+        ViewHolder(View itemView) {
+            super(itemView);
+            t_title = itemView.findViewById(R.id.t_title);
+            t_value = itemView.findViewById(R.id.t_value);
+            c_main = itemView.findViewById(R.id.c_main);
 
+            itemView.setOnClickListener(this);
         }
-        else
-        {
-            viewHolder = (ViewHolder) convertView.getTag();
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
+    }
 
-        if (list != null && list.size() > 0)
-        {
-            final InfoObject konu = list.get(position);
+    // convenience method for getting data at click position
+    public InfoObject getItem(int id) {
+        return list.get(id);
+    }
 
-//            if(position%11==0){
-//                viewHolder.layout.getBackground().setTint(context.getResources().getColor(R.color.colorLight1));
-//            }
+    // allows clicks events to be caught
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
 
-            if(konu!=null){
-                viewHolder.textview_title.setText(konu.getInfo());
-            }
+    }
 
-        }
-        return convertView;
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 }
 

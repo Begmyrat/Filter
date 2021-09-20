@@ -69,15 +69,11 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/l_friends"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:layout_below="@+id/r_top"
-        android:dividerHeight="10dp"
-        android:divider="@android:color/transparent"
-        android:scrollbarSize="0dp"
-        android:layout_marginVertical="20dp"/>
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

@@ -19,11 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.adapters.MySocialMediaRecycleListAdapter;
 import com.mobiloby.filter.adapters.MySocialRecycleListAdapter;
@@ -59,8 +62,9 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
     MySocialMediaRecycleListAdapter adapter;
     MySocialRecycleListAdapter adapterSocialMedia;
     RecyclerView.LayoutManager layoutManager, layoutManagerSocialMedia;
-    Spinner spinner;
-    PowerSpinnerView spinnerDsl;
+    TextView t_countArkadas, t_countIstek, t_profilDoluluk, t_username;
+    String countIstek, countArkadas, profileURL, profilDoluluk;
+    ImageView i_avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +74,13 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
         prepareMe();
 
         getCurrentSearches();
-
-        spinnerDsl.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<Object>() {
-
-            @Override
-            public void onItemSelected(int i, @Nullable Object o, int i1, Object t1) {
-//                Toast.makeText(ActivityCategory4.this, ""+i1, Toast.LENGTH_SHORT).show();
-                social_type = getResources().getStringArray(R.array.social_medias)[i1];
-                Toast.makeText(ActivityCategory4.this, ""+social_type, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void prepareMe() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground));// set status background white
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.MainBlue));// set status background white
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorBackground));
 
@@ -97,7 +92,6 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
         socialMedias = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recycleView);
-//        recyclerViewSocialMedia = findViewById(R.id.recycleViewSocialMedia);
         adapter = new MySocialMediaRecycleListAdapter(this, aramalar);
         adapterSocialMedia = new MySocialRecycleListAdapter(this, socialMedias);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -107,34 +101,31 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
         adapter.setClickListener(this);
         adapterSocialMedia.setClickListenerSocial(this);
 
-//        spinner = findViewById(R.id.spinner_social);
-        spinnerDsl = findViewById(R.id.spinner_social);
-
-        List<IconSpinnerItem> iconSpinnerItems = new ArrayList<>();
-        iconSpinnerItems.add(new IconSpinnerItem("Facebook", getResources().getDrawable(R.drawable.ic_facebook)));
-        iconSpinnerItems.add(new IconSpinnerItem("Instagram", getResources().getDrawable(R.drawable.ic_instagram)));
-        iconSpinnerItems.add(new IconSpinnerItem("Snapchat", getResources().getDrawable(R.drawable.ic_snapchat)));
-        iconSpinnerItems.add(new IconSpinnerItem("Tiktok", getResources().getDrawable(R.drawable.ic_facebook)));
-
-        IconSpinnerAdapter iconSpinnerAdapter = new IconSpinnerAdapter(spinnerDsl);
-        spinnerDsl.setSpinnerAdapter(iconSpinnerAdapter);
-        spinnerDsl.setItems(iconSpinnerItems);
-        spinnerDsl.selectItemByIndex(0);
-        spinnerDsl.setLifecycleOwner(this);
-
-        spinnerDsl.getSpinnerRecyclerView().setLayoutManager(layoutManagerSocialMedia);
-
         e_username = findViewById(R.id.e_username);
         e_username_other = findViewById(R.id.e_username_other);
-//
-//        t_instagram1 = findViewById(R.id.t_instagram1);
-//        t_instagram2 = findViewById(R.id.t_instagram2);
-//        t_facebook1 = findViewById(R.id.t_facebook1);
-//        t_facebook2 = findViewById(R.id.t_facebook2);
-//        t_snapchat1 = findViewById(R.id.t_snapchat1);
-//        t_snapchat2 = findViewById(R.id.t_snapchat2);
-//        t_tiktok1 = findViewById(R.id.t_tiktok1);
-//        t_tiktok2 = findViewById(R.id.t_tiktok2);
+
+        t_countIstek = findViewById(R.id.t_countIstek);
+        t_countArkadas = findViewById(R.id.t_countArkadas);
+        countIstek = preferences.getString("count_istek", "");
+        countArkadas = preferences.getString("count_arkadas", "");
+        profileURL = preferences.getString("user_profile_url", "");
+        profilDoluluk = preferences.getString("profil_doluluk", "");
+        t_countIstek.setText(countIstek);
+        t_countArkadas.setText(countArkadas);
+        t_profilDoluluk = findViewById(R.id.t_profilDoluluk);
+        int d  = Integer.parseInt(profilDoluluk);
+        d = d*100/7;
+        t_profilDoluluk.setText("%" + d + " Profil Doluluğu");
+        i_avatar = findViewById(R.id.i_avatar);
+        t_username = findViewById(R.id.t_username);
+        t_username.setText(user_name_unique);
+
+        Glide
+                .with(this)
+                .load("https:mobiloby.com/_filter/assets/profile/" + profileURL)
+                .centerCrop()
+                .placeholder(R.drawable.ic_f_char)
+                .into(i_avatar);
 
     }
 
@@ -262,7 +253,7 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/insert_social_media.php";
+        final String url = "https://mobiloby.com/_filter/insert_social_media.php";
         final String username_social = e_username.getText().toString();
         final String username_social_other = e_username_other.getText().toString();
 
@@ -307,7 +298,6 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
                     makeAlert.uyarıVer("Filter", "Bilgileriniz başarıyla yüklenmiştir. En kısa zamanda bulacağız. Teşekkür ederiz.", ActivityCategory4.this, false);
                     e_username.setText("");
                     e_username_other.setText("");
-                    spinnerDsl.selectItemByIndex(0);
                     getCurrentSearches();
                 }
                 else if(res.equals("2")){
@@ -318,7 +308,6 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
                         makeAlert.uyarıVer("Filter", "Sizi arayan birisi bulundu\n"+friend_user_name_unique, ActivityCategory4.this, false);
                         e_username.setText("");
                         e_username_other.setText("");
-                        spinnerDsl.selectItemByIndex(0);
                         insertFriend(friend_user_name_unique);
 
                     }catch (JSONException e) {
@@ -336,14 +325,6 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
     }
 
     private void makeInit() {
-//        t_instagram1.setText("Kullanıcı Adınız");
-//        t_instagram2.setText("Kullanıcı Adı");
-//        t_facebook1.setText("Kullanıcı Adınız");
-//        t_facebook2.setText("Kullanıcı Adı");
-//        t_snapchat1.setText("Kullanıcı Adınız");
-//        t_snapchat2.setText("Kullanıcı Adı");
-//        t_tiktok1.setText("Kullanıcı Adınız");
-//        t_tiktok2.setText("Kullanıcı Adı");
         findViewById(R.id.i_facebook).setBackground(null);
         findViewById(R.id.i_instagram).setBackground(null);
         findViewById(R.id.i_snapchat).setBackground(null);
@@ -362,7 +343,7 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
         progressDialog.setMax(100);
 //        progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/insert_friend_direk.php";
+        final String url = "https://mobiloby.com/_filter/insert_friend_direk.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -399,18 +380,14 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
                 progressDialog.dismiss();
 
                 if (res.equals("1")) {
-
+                    int d = Integer.parseInt(countArkadas)+1;
+                    t_countArkadas.setText(""+d);
                 }
                 else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. 3", ActivityCategory4.this, true);
                 }
 
             }
         }.execute(null, null, null);
-    }
-
-    public void clickCurrentSearches(View view) {
-        startActivity(new Intent(this, ActivityCurrentSearches.class));
     }
 
     private void getCurrentSearches() {
@@ -423,7 +400,7 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
 
         aramalar.clear();
 
-        final String url = "http://mobiloby.com/_filter/get_current_searches.php";
+        final String url = "https://mobiloby.com/_filter/get_current_searches.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -475,10 +452,12 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
                         adapter.notifyDataSetChanged();
 
                         if(aramalar.size()==0){
-//                            findViewById(R.id.t_aramaTarihi).setVisibility(View.GONE);
+                            findViewById(R.id.t_aramaYok).setVisibility(View.VISIBLE);
+                            findViewById(R.id.recycleView).setVisibility(View.INVISIBLE);
                         }
                         else{
-//                            findViewById(R.id.t_aramaTarihi).setVisibility(View.VISIBLE);
+                            findViewById(R.id.t_aramaYok).setVisibility(View.INVISIBLE);
+                            findViewById(R.id.recycleView).setVisibility(View.VISIBLE);
                         }
 
                     }catch (JSONException e) {
@@ -488,6 +467,8 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
                 }
                 else{
 //                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCurrentSearches.this, true);
+                    findViewById(R.id.t_aramaYok).setVisibility(View.VISIBLE);
+                    findViewById(R.id.recycleView).setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -518,16 +499,34 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
 
         view.findViewById(R.id.l_answers).setVisibility(View.GONE);
 
+        RelativeLayout r_reddet = view.findViewById(R.id.r_clickReddet);
+        RelativeLayout r_kabulet = view.findViewById(R.id.r_clickKabulEt);
+
+        r_reddet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickReddet();
+            }
+        });
+
+        r_kabulet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickKabulEt();
+            }
+        });
+
+
         builder.setCancelable(true);
         builder.setContentView(view);
         builder.show();
     }
 
-    public void clickReddet(View view) {
+    public void clickReddet() {
         builder.dismiss();
     }
 
-    public void clickKabulEt(View view) {
+    public void clickKabulEt() {
         builder.dismiss();
         deleteCurrentSearches();
     }
@@ -540,7 +539,7 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
         progressDialog.setMax(100);
 //        progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/delete_current_searches.php";
+        final String url = "https://mobiloby.com/_filter/delete_current_searches.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -583,5 +582,11 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
 
             }
         }.execute(null, null, null);
+    }
+
+    public void clickProfileTop(View view) {
+        Intent intent = new Intent(this, InformationActivity.class);
+        intent.putExtra("username", user_name_unique);
+        startActivity(intent);
     }
 }

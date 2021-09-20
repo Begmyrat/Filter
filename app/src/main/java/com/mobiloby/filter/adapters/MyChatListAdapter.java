@@ -34,6 +34,10 @@ public class MyChatListAdapter extends ArrayAdapter<ChatObject> {
         RelativeLayout r_left, r_right;
     }
 
+    public void setList(ArrayList<ChatObject> list){
+        this.list = list;
+    }
+
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);

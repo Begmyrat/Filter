@@ -5,8 +5,10 @@ import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,9 +28,8 @@ import libs.mjn.prettydialog.PrettyDialogCallback;
 public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
 
     Bundle extras;
-    String soru="", cevap="", wanted_username="", username="", istek_username="";
+    String soru="", cevap="", username="", istek_username="";
     TextView t_soru1, t_soru2, t_soru3, t_soru4, t_soru5, t_ans11, t_ans12, t_ans13, t_ans21, t_ans22, t_ans23, t_ans31, t_ans32, t_ans33, t_ans41, t_ans42, t_ans43, t_ans51, t_ans52, t_ans53;
-    int numberOfQuestions=0;
     String[] questions, elements, answers;
     JSONParser jsonParser;
     JSONObject jsonObject;
@@ -76,20 +77,25 @@ public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
         if(extras!=null){
             soru = extras.getString("wanted_soru");
             cevap = extras.getString("wanted_cevap");
-            wanted_username = extras.getString("wanted_user_name");
             istek_username = extras.getString("user_name_unique");
             username = extras.getString("friend_user_name_unique");
+
+
+
         }
 
-        questions = soru.split("Soru:");
-        answers = cevap.split("Cevap:");
+//        soru = "Soru:kzdan geken soru 1 Cevap:cevap 1kCevap:cevap2k Cevap:cevap 3kSoru:kzdan geken soru 1Cevap:cevap 11kCevap:cevap 22kCevap:cevap 33k";
+//        cevap = "Soru:kzdan geken soru 1 Cevap:cevap 1kSoru:kzdan geken soru 1Cevap:cevap 33k";
+
+        questions = soru.split("SoruMobiloby:");
+        answers = cevap.split("CevapMobiloby:");
+
         System.out.println("Cevaplar:");
+
         for(int i=1;i<questions.length;i++){
-            elements = questions[i].split("Cevap:");
-            System.out.println("cevap: "+answers[i]);
-            System.out.println("soru: " + questions[i]);
-            if(answers[i].contains("Soru:")){
-                answers[i] = answers[i].substring(0, answers[i].indexOf("Soru:"));
+            elements = questions[i].split("CevapMobiloby:");
+            if(answers[i].contains("SoruMobiloby:")){
+                answers[i] = answers[i].substring(0, answers[i].indexOf("SoruMobiloby:"));
             }
             if(i==1){
                 findViewById(R.id.l_questions1).setVisibility(View.VISIBLE);
@@ -240,7 +246,7 @@ public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
 
-        final String url = "http://mobiloby.com/_filter/delete_istek.php";
+        final String url = "https://mobiloby.com/_filter/delete_istek.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -251,8 +257,8 @@ public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
 
                 HashMap<String, String> jsonData = new HashMap<>();
 
-                jsonData.put("user_name_unique", istek_username);
-                jsonData.put("friend_user_name_unique", username);
+                jsonData.put("user_name_unique", username);
+                jsonData.put("friend_user_name_unique", istek_username);
 
                 int success = 0;
                 try {
@@ -295,7 +301,7 @@ public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
 //        progressDialog.show();
 
 
-        final String url = "http://mobiloby.com/_filter/insert_friend.php";
+        final String url = "https://mobiloby.com/_filter/insert_friend.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -306,8 +312,8 @@ public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
 
                 HashMap<String, String> jsonData = new HashMap<>();
 
-                jsonData.put("user_name_unique", username);
-                jsonData.put("friend_user_name_unique", istek_username);
+                jsonData.put("user_name_unique", istek_username);
+                jsonData.put("friend_user_name_unique", username);
 
                 int success = 0;
                 try {
@@ -331,6 +337,17 @@ public class ActivityCategory2_ShowAnswers extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if (res.equals("1")) {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    String countArkadas = preferences.getString("count_arkadas", "");
+                    String countIstek = preferences.getString("count_istek", "");
+                    int ca = Integer.parseInt(countArkadas);
+                    int ci = Integer.parseInt(countIstek);
+                    ca++;
+                    ci--;
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("count_arkadas", ""+ca);
+                    editor.putString("count_istek", ""+ci);
+                    editor.commit();
                     finish();
                 }
                 else{

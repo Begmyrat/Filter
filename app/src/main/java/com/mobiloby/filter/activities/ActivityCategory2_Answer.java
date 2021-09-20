@@ -6,10 +6,12 @@ import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +82,7 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
             friend_username = extras.getString("friend_username");
 //            t_title.setText(wanted_username);
 
-            questions = soru.split("Soru:");
+            questions = soru.split("SoruMobiloby:");
         }
 
         findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorBackground));
@@ -117,7 +119,7 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/insert_wanted_answer.php";
+        final String url = "https://mobiloby.com/_filter/insert_wanted_answer.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -175,7 +177,7 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         progressDialog.setMax(100);
         progressDialog.show();
 
-        final String url = "http://mobiloby.com/_filter/update_wanted_answers.php";
+        final String url = "https://mobiloby.com/_filter/update_wanted_answers.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -225,79 +227,6 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         }.execute(null, null, null);
     }
 
-    private void getAnswers() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-        progressDialog.show();
-
-        final String url = "http://mobiloby.com/_filter/get_wanted_answers.php";
-
-        new AsyncTask<String, Void, String>() {
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                jsonParser = new JSONParser();
-
-                HashMap<String, String> jsonData = new HashMap<>();
-
-                jsonData.put("wanted_id", wantedID);
-                jsonData.put("user_name", username);
-
-                int success = 0;
-                try {
-
-                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
-
-                    success = jsonObject.getInt("success");
-
-                } catch (Exception ex) {
-                    if (ex.getMessage() != null) {
-                        Log.e("", ex.getMessage());
-                    }
-                }
-                return String.valueOf(success);
-            }
-
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected void onPostExecute(String res) {
-
-                progressDialog.dismiss();
-
-                if (res.equals("1")) {
-                    try {
-                        JSONArray pro = jsonObject.getJSONArray("pro");
-
-                        for(int i=0;i<pro.length();i++){
-                            JSONObject c = pro.getJSONObject(i);
-                            cevap1 = c.getString("answer_1");
-                            cevap2 = c.getString("answer_2");
-                            cevap3 = c.getString("answer_3");
-                        }
-                        e_cevap1.setText(cevap1);
-                        e_cevap2.setText(cevap2);
-                        e_cevap3.setText(cevap3);
-
-                        isAnswerExist = true;
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(ActivityCategory2_Answer.this, "error jiim", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-//                    makeAlert.uyarıVer("E-Mobil Saglyk", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCategory3.this, true);
-//                    Toast.makeText(ActivityCategory2_Answer.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }.execute(null, null, null);
-    }
-
     private void sendQAToChat() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Filter");
@@ -308,7 +237,7 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
 
         Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
 
-        final String url = "http://mobiloby.com/_filter/insert_qa_to_chat.php";
+        final String url = "https://mobiloby.com/_filter/insert_qa_to_chat.php";
 
         new AsyncTask<String, Void, String>() {
 
@@ -324,13 +253,9 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
                 jsonData.put("soru1", soru1);
                 jsonData.put("soru2", soru2);
                 jsonData.put("soru3", soru3);
-                jsonData.put("soru4", soru4);
-                jsonData.put("soru5", soru5);
                 jsonData.put("cevap1", answer1);
                 jsonData.put("cevap2", answer2);
                 jsonData.put("cevap3", answer3);
-                jsonData.put("cevap4", answer4);
-                jsonData.put("cevap5", answer5);
                 jsonData.put("numberOfQuestions", ""+(index-1));
 
                 int success = 0;
@@ -382,13 +307,13 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
             popup();
         }
         else{
-            elements = questions[index].split("Cevap:");
+            elements = questions[index].split("CevapMobiloby:");
             t_soru.setText(elements[0]);
             t_answer1.setText(elements[1]);
             t_answer2.setText(elements[2]);
             t_answer3.setText(elements[3]);
 
-            answers += "Soru:" + elements[0] + "Cevap:";
+            answers += "SoruMobiloby:" + elements[0] + "CevapMobiloby:";
 
             if(index==1){
                 soru1 = elements[0];
@@ -398,12 +323,6 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
             }
             else if(index==3){
                 soru3 = elements[0];
-            }
-            else if(index==4){
-                soru4 = elements[0];
-            }
-            else if(index==5){
-                soru5 = elements[0];
             }
 
             if (countDownTimer != null)
@@ -461,12 +380,6 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         else if(index==3){
             answer3 = elements[1];
         }
-        else if(index==4){
-            answer4 = elements[1];
-        }
-        else if(index==5){
-            answer5 = elements[1];
-        }
 
         makeInit();
         t_answer1.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -493,12 +406,6 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         else if(index==3){
             answer3 = elements[2];
         }
-        else if(index==4){
-            answer4 = elements[2];
-        }
-        else if(index==5){
-            answer5 = elements[2];
-        }
 
         makeInit();
         t_answer2.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -524,12 +431,6 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         else if(index==3){
             answer3 = elements[3];
         }
-        else if(index==4){
-            answer4 = elements[3];
-        }
-        else if(index==5){
-            answer5 = elements[3];
-        }
 
         makeInit();
         t_answer3.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -549,29 +450,5 @@ public class ActivityCategory2_Answer extends AppCompatActivity {
         findViewById(R.id.r_answer1).setBackground(getResources().getDrawable(R.drawable.rounded_stroked_background));
         findViewById(R.id.r_answer2).setBackground(getResources().getDrawable(R.drawable.rounded_stroked_background));
         findViewById(R.id.r_answer3).setBackground(getResources().getDrawable(R.drawable.rounded_stroked_background));
-    }
-
-    private void checkAnswer(final int checkedId) {
-
-//        findViewById(R.id.r_unclick).setVisibility(View.VISIBLE);
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//                // yourMethod();
-//                if (checkedId != correctAnswer)
-//                    makeWrong(checkedId);
-//
-//                makeCorrect(correctAnswer);
-//            }
-//        }, 500);
-//
-//        Handler handler2 = new Handler();
-//        handler2.postDelayed(new Runnable() {
-//            public void run() {
-////                getCurrentQuestion();
-//
-//            }
-//        }, 1500);
     }
 }
