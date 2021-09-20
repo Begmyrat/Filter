@@ -34,6 +34,7 @@ public class SplashScreen extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         isLoggedIn = preferences.getBoolean("isLoggedIn", false);
 
         i_bubble1 = findViewById(R.id.i_ortaDaire);
