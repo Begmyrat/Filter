@@ -230,10 +230,10 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("user_profile_url", secilenAvatarID);
                     editor.commit();
-//                    Intent intent = new Intent(ActivityAvatar.this, InformationActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    intent.putExtra("username", preferences.getString("username_unique", ""));
-//                    startActivity(intent);
+                    Intent intent = new Intent(ActivityAvatar.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.putExtra("username", preferences.getString("username_unique", ""));
+                    startActivity(intent);
                     finish();
                 }
                 else{
