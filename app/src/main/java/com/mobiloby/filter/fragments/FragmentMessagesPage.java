@@ -9,10 +9,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.mobiloby.filter.R;
@@ -30,9 +34,13 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
     TabLayout tabLayout;
     ViewPager2 viewPager;
     ArrayList<Fragment> fragments;
+    TabFragmentFriends tabFragmentFriends;
+    TabFragmentMessages tabFragmentMessages;
     FragmentManager fm;
     ViewPagerFragmentAdapter pagerAdapter;
     MessageViewModel viewModel;
+    EditText e_search;
+    boolean isMessagesFragment = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +49,38 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
         activity = (MainActivity) getActivity();
 
         prepareMe();
+
+        e_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(isMessagesFragment){
+                    if(charSequence.length()==0){
+                        tabFragmentMessages.initList();
+                    }
+                    else{
+                        tabFragmentMessages.performSearch(charSequence.toString());
+                    }
+                }
+                else{
+                    if(charSequence.length()==0){
+                        tabFragmentFriends.initList();
+                    }
+                    else{
+                        tabFragmentFriends.performSearch(charSequence.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         viewModel = new ViewModelProvider(activity).get(MessageViewModel.class);
 
@@ -52,6 +92,17 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+
+                e_search.setText("");
+                e_search.clearFocus();
+
+                if(position==0){
+                    isMessagesFragment = true;
+                }
+                else{
+                    isMessagesFragment = false;
+                }
+
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
@@ -65,9 +116,13 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     viewPager.setCurrentItem(1);
+                    isMessagesFragment = false;
+                    Toast.makeText(activity, "friends", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     viewPager.setCurrentItem(0);
+                    isMessagesFragment = true;
+                    Toast.makeText(activity, "messages", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -89,12 +144,16 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.friendicon));
         viewPager = view.findViewById(R.id.viewPager);
         fragments = new ArrayList<>();
-        fragments.add(new TabFragmentMessages());
-        fragments.add(new TabFragmentFriends());
+        tabFragmentMessages = new TabFragmentMessages();
+        tabFragmentFriends = new TabFragmentFriends();
+        fragments.add(tabFragmentMessages);
+        fragments.add(tabFragmentFriends);
         fm = getChildFragmentManager();
         pagerAdapter = new ViewPagerFragmentAdapter(fm, getLifecycle(), fragments);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setSaveEnabled(false);
+
+        e_search = view.findViewById(R.id.e_search);
     }
 
     @Override
@@ -104,6 +163,14 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        e_search.setText("");
+        e_search.clearFocus();
+        if(tab.getPosition()==0){
+            isMessagesFragment = true;
+        }
+        else{
+            isMessagesFragment = false;
+        }
         viewPager.setCurrentItem(tab.getPosition());
     }
 

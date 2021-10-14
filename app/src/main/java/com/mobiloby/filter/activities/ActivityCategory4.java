@@ -93,7 +93,7 @@ public class ActivityCategory4 extends AppCompatActivity implements MySocialMedi
 
         recyclerView = findViewById(R.id.recycleView);
         adapter = new MySocialMediaRecycleListAdapter(this, aramalar);
-        adapterSocialMedia = new MySocialRecycleListAdapter(this, socialMedias);
+//        adapterSocialMedia = new MySocialRecycleListAdapter(this, socialMedias);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         layoutManagerSocialMedia = new GridLayoutManager(this, GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

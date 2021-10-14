@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="1dp"
     android:id="@+id/r_main"
+    android:layout_marginHorizontal="10dp"
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
@@ -24,14 +25,12 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_black"
+    <View
+        android:id="@+id/v_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="100dp"
-        app:cardBackgroundColor="@color/black"
-        android:alpha="0.5">
-
-    </androidx.cardview.widget.CardView>
+        android:visibility="gone"
+        android:background="@drawable/circular_border"
+        android:elevation="2dp"/>
 
 </RelativeLayout>

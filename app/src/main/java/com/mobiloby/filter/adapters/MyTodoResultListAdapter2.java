@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.activities.InformationActivity;
 import com.mobiloby.filter.helpers.JSONParser;
@@ -51,7 +53,7 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
         this.context = context;
         this.list = list;
         this.listAll = listAll;
-        isFriendsActive = true;
+        isFriendsActive = false;
     }
 
     public List<TodoObject> getItems(){
@@ -84,16 +86,40 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if(getItemViewType(position)==0){
+            HeaderHolder headerHolder = (HeaderHolder) holder;
+            ((HeaderHolder) holder).e_search.requestFocus();
         }
         else{
             ResultHolder resultHolder = (ResultHolder) holder;
             TodoObject todoObject = list.get(position);
             try{
-//                resultHolder.t_username.setText(""+todoObject.getUsername());
+                resultHolder.t_username.setText(""+todoObject.getUsername());
                 resultHolder.t_activity.setText(""+todoObject.getTodoDescription());
-                resultHolder.t_feeling.setText(""+todoObject.getFeeling());
                 resultHolder.t_location.setText(""+todoObject.getLocation());
                 resultHolder.t_time.setText(""+todoObject.getTime());
+
+                String todo_minutes = todoObject.getTime();
+                int minutes = Integer.parseInt(todo_minutes);
+                String hour = "";
+                String message = "";
+                if(minutes/60>0){
+                    hour += " "+minutes/60;
+                    minutes -= 60*(minutes/60);
+                    message += hour + "s";
+                }
+                if(minutes>0){
+                    message += " " + minutes + "d";
+                }
+
+                resultHolder.t_time.setText(""+message);
+
+                Glide
+                        .with(context)
+                        .load("https:mobiloby.com/_filter/assets/profile/" + todoObject.getUserProfileUrl())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_f_char)
+                        .into(((ResultHolder) holder).i_avatar);
+
             }catch (Exception e){}
 
         }
@@ -113,7 +139,6 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
     public void onItemClick(View view, int position) {
         // click horizontal recommend object
         istek_pos = position;
-        popupIstekGonder(istek_pos);
     }
 
     public class HeaderHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -131,12 +156,14 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View v) {
                     isFriendsActive = !isFriendsActive;
+                    e_search.setText("");
                     if(isFriendsActive){
                         i_personActivePassive.setImageResource(R.drawable.person_active);
                     }
                     else{
                         i_personActivePassive.setImageResource(R.drawable.person_passive);
                     }
+                    performFilter();
                 }
             });
 
@@ -145,23 +172,23 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                     for (int i=list.size()-1;i>0;i--){
                         list.remove(i);
                     }
                     if(s.length()==0){
-                        for(int i=0;i<listAll.size(); i++){
+                        for(int i=1;i<listAll.size();i++)
                             list.add(listAll.get(i));
-                        }
                     }
                     else{
                         for(int i=1;i<listAll.size();i++){
-//                            if(list.contains(listAll.get(i)))
-                                if(listAll.get(i).getFeeling().contains(s) || listAll.get(i).getLocation().contains(s) || listAll.get(i).getTodoDescription().contains(s)){
-                                    list.add(listAll.get(i));
-                                }
+                            if(listAll.get(i).getLocation().contains(s) || listAll.get(i).getTodoDescription().contains(s)){
+                                list.add(listAll.get(i));
+                            }
                         }
                     }
                     notifyDataSetChanged();
+//                    e_search.setSelection(0);
                 }
 
                 @Override
@@ -176,9 +203,28 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
+    private void performFilter() {
+        list.clear();
+
+        if(isFriendsActive){
+            TodoObject o = new TodoObject();
+            o.setView_type(0);
+            list.add(o);
+            for(int i=1;i<listAll.size();i++){
+                if(listAll.get(i).getTodoIsFriend().equals("1")){
+                    list.add(listAll.get(i));
+                }
+            }
+        }
+        else{
+            list.addAll(listAll);
+        }
+        notifyDataSetChanged();
+    }
+
     public class ResultHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView t_username, t_activity, t_feeling, t_location, t_time;
+        TextView t_username, t_activity, t_location, t_time;
         ImageView i_avatar, i_activity, i_feeling;
 
         public ResultHolder(@NonNull View itemView) {
@@ -186,7 +232,7 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
 
 //            t_username = itemView.findViewById(R.id.t_username);
             t_activity = itemView.findViewById(R.id.t_activity);
-            t_feeling = itemView.findViewById(R.id.t_feeling);
+            t_username = itemView.findViewById(R.id.t_username);
             t_location = itemView.findViewById(R.id.t_location);
             t_time = itemView.findViewById(R.id.t_time);
             i_avatar = itemView.findViewById(R.id.i_avatar);
@@ -210,117 +256,6 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
     // allows clicks events to be caught
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
-    }
-
-    public void popupIstekGonder(int pos){
-
-//        builder = new Dialog(context, R.style.AlertDialogCustom);
-//        View view;
-//        view = LayoutInflater.from(context).inflate(R.layout.popup_istek_kabul, null);
-//
-//        TextView t_username = view.findViewById(R.id.t_username);
-//        t_username.setText(list.get(0).getRecommendedUsers().get(pos).getUsername());
-//        TextView t_subtitle = view.findViewById(R.id.t_subtitle);
-//        t_subtitle.setText("İstek göndermek istiyor musunuz?");
-//        TextView t_reddet = view.findViewById(R.id.t_reddet);
-//        t_reddet.setText("Hayır");
-//        TextView t_kabulEt = view.findViewById(R.id.t_kabulEt);
-//        t_kabulEt.setText("Evet");
-//        LinearLayout l_profile = view.findViewById(R.id.l_profile);
-//
-//        view.findViewById(R.id.l_answers).setVisibility(View.GONE);
-//
-//
-//        if(list.get(0).getRecommendedUsers().get(istek_pos).getProfil_gizlilik().equals("1"))
-//            l_profile.setVisibility(View.GONE);
-//        else
-//            l_profile.setVisibility(View.VISIBLE);
-//
-//        l_profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder.dismiss();
-//                Intent intent = new Intent(context, InformationActivity.class);
-//                intent.putExtra("username", list.get(0).getRecommendedUsers().get(istek_pos).getUsername());
-//                context.startActivity(intent);
-//            }
-//        });
-//
-//        view.findViewById(R.id.r_clickReddet).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder.dismiss();
-//            }
-//        });
-//
-//        view.findViewById(R.id.r_clickKabulEt).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder.dismiss();
-//                sendIstek(list.get(0).getRecommendedUsers().get(istek_pos).getUsername(), istek_pos);
-//            }
-//        });
-//
-//        builder.setCancelable(true);
-//        builder.setContentView(view);
-//        builder.show();
-    }
-
-    private void sendIstek(final String friend_username_unique, int pos) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-//        progressDialog.show();
-
-        final String url = "https://mobiloby.com/_filter/insert_istek.php";
-
-        new AsyncTask<String, Void, String>() {
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                jsonParser = new JSONParser();
-
-                HashMap<String, String> jsonData = new HashMap<>();
-
-                jsonData.put("user_name_unique", username);
-                jsonData.put("friend_user_name_unique", friend_username_unique);
-                jsonData.put("from_where", "1");
-
-                int success = 0;
-                try {
-
-                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
-
-                    success = jsonObject.getInt("success");
-
-                } catch (Exception ex) {
-                    if (ex.getMessage() != null) {
-                        Log.e("", ex.getMessage());
-                    }
-                }
-                return String.valueOf(success);
-            }
-
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected void onPostExecute(String res) {
-
-                progressDialog.dismiss();
-
-                if (res.equals("1")) {
-//                    list.get(0).getRecommendedUsers().remove(pos);
-//                    mainPageObjectsAdapter.notifyItemRemoved(pos);
-                    notifyDataSetChanged();
-                }
-                else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. 3", context, true);
-                }
-
-            }
-        }.execute(null, null, null);
     }
 }
 

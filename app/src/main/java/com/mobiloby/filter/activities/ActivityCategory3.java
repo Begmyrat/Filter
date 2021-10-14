@@ -306,10 +306,10 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
                             }
                             t_profilDoluluk.setText(message);
 
-                            TodoObject o = new TodoObject(todo_id, user_name, todo_desc);
+                            TodoObject o = new TodoObject(todo_id, user_name, todo_desc,"");
                             todoList.add(o);
                         }
-                        todoList.add(new TodoObject("-1","-1","+"));
+                        todoList.add(new TodoObject("-1","-1","+",""));
                         adapterRecycle = new MyRecycleListAdapter(ActivityCategory3.this, todoList);
                         adapterRecycle.setClickListener(ActivityCategory3.this);
                         recyclerView.setAdapter(adapterRecycle);
@@ -386,7 +386,7 @@ public class ActivityCategory3 extends AppCompatActivity implements MyRecycleLis
                             String todo_desc = c.getString("todo_description");
                             String minutes = c.getString("todo_minutes");
                             String user_profile_url = c.getString("user_profile_url");
-                            TodoObject o = new TodoObject(todo_id, user_name, todo_desc);
+                            TodoObject o = new TodoObject(todo_id, user_name, todo_desc,"");
                             o.setTime(minutes);
                             o.setUserProfileUrl(user_profile_url);
                             todoResultList.add(o);

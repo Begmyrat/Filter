@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.activities.ActivityCategory3;
 import com.mobiloby.filter.activities.MainActivity;
@@ -53,11 +54,10 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
     JSONParser jsonParser;
     JSONObject jsonObject;
     SharedPreferences preferences;
-    String username;
+    String username, userImgUrl="";
     TextView t_activity, t_feeling, t_location, t_time;
-    ImageView i_activity, i_feeling;
-    Dialog builder;
-    EditText e_todo;
+    ImageView i_activity, i_feeling, i_avatar;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +66,6 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
         activity = (MainActivity) getActivity();
 
         prepareMe();
-        getTodo();
 
         t_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +91,17 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
 
         activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
         activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity,R.color.colorBackground3));// set status background white
+        todoObjects.clear();
+        todoObjectsAll.clear();
+        getTodo();
     }
 
     private void prepareMe() {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         username = preferences.getString("username_unique","");
+        userImgUrl = preferences.getString("avatar_id","");
+        i_avatar = view.findViewById(R.id.i_avatar);
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         todoObjects = new ArrayList<>();
@@ -108,6 +112,12 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
         recyclerView.setAdapter(adapter);
         todoObjects.add(new TodoObject(0));
 
+        progressDialog = new ProgressDialog(activity);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+
         t_activity = view.findViewById(R.id.t_activity);
         t_feeling = view.findViewById(R.id.t_feeling);
         t_location = view.findViewById(R.id.t_location);
@@ -117,14 +127,10 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
     }
 
     private void getTodo() {
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-        progressDialog.show();
 
+        progressDialog.show();
         todoObjects.clear();
+        todoObjectsAll.clear();
 
         TodoObject o = new TodoObject();
         o.setView_type(0);
@@ -163,7 +169,7 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
             @Override
             protected void onPostExecute(String res) {
 
-                progressDialog.dismiss();
+
 
                 if (res.equals("1")) {
 
@@ -175,52 +181,44 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                             String todo_id = c.getString("todo_id");
                             String user_name = c.getString("user_name");
                             String todo_desc = c.getString("todo_description");
+                            String todo_loc = c.getString("todo_location");
 
                             String todo_minutes = c.getString("todo_minutes");
                             int minutes = Integer.parseInt(todo_minutes);
                             String hour = "";
-                            String message = "Bu Aktivite için son";
+                            String message = "";
                             if(minutes/60>0){
                                 hour += " "+minutes/60;
                                 minutes -= 60*(minutes/60);
-                                message += hour + " saat";
+                                message += hour + "s";
                             }
                             if(minutes>0){
-                                message += " " + minutes + " dakika";
+                                message += " " + minutes + "d";
                             }
                             t_time.setText(message);
-                            t_location.setText("Cinemax, ANKARA");
-                            t_feeling.setText("Feeling excited");
+                            t_location.setText(todo_loc);
                             t_activity.setText(todo_desc);
+
+                            Glide
+                                    .with(activity)
+                                    .load("https:mobiloby.com/_filter/assets/profile/" + userImgUrl)
+                                    .centerCrop()
+                                    .placeholder(R.drawable.ic_f_char)
+                                    .into(i_avatar);
                         }
 
-                        for(int i=0;i<10;i++){
-                            todoObjects.add(new TodoObject("1", ""+i, "i: " + i, "Feeling sad", "Ankara: " + i));
-                        }
-                        Toast.makeText(activity, "size: " + todoObjects.size(), Toast.LENGTH_SHORT).show();
-                        adapter.notifyDataSetChanged();
-
-//                        getUsersByTODO();
+                        getUsersByTODO();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        progressDialog.dismiss();
                         Toast.makeText(activity, "error jiim getTODO", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
 //                    popup();
-                    for(int i=0;i<10;i++){
-                        TodoObject o = new TodoObject("1", ""+i, "i: " + i, "Feeling sad", "Ankara: " + i);
-                        o.setView_type(1);
-                        o.setUsername("hehehe");
-                        TodoObject o1 = new TodoObject("1", ""+i, "i: " + i, "Feeling sad", "Ankara: " + i);
-                        o1.setView_type(1);
-                        o1.setUsername("hehehe");
-                        todoObjects.add(o);
-                        todoObjectsAll.add(o1);
-                    }
-                    Toast.makeText(activity, "size: " + todoObjects.size(), Toast.LENGTH_SHORT).show();
-                    adapter.notifyDataSetChanged();
+                    getUsersByTODO();
+//                    adapter.notifyDataSetChanged();
                 }
 
             }
@@ -228,14 +226,7 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
     }
 
     private void getUsersByTODO() {
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-        progressDialog.show();
 
-        todoObjects.clear();
 
         final String url = "https://mobiloby.com/_filter/get_users_by_todo.php";
 
@@ -281,12 +272,17 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                             String todo_id = c.getString("todo_id");
                             String user_name = c.getString("user_name");
                             String todo_desc = c.getString("todo_description");
+                            String todo_location = c.getString("todo_location");
+                            String todo_is_friend = c.getString("todo_is_friend");
                             String minutes = c.getString("todo_minutes");
                             String user_profile_url = c.getString("user_profile_url");
-                            TodoObject o = new TodoObject(todo_id, user_name, todo_desc);
+                            TodoObject o = new TodoObject(todo_id, user_name, todo_desc, todo_location);
                             o.setTime(minutes);
                             o.setUserProfileUrl(user_profile_url);
+                            o.setTodoIsFriend(todo_is_friend);
+                            o.setView_type(1);
                             todoObjects.add(o);
+                            todoObjectsAll.add(o);
                             Toast.makeText(activity, "minYusuf: " + minutes, Toast.LENGTH_SHORT).show();
                         }
 
@@ -299,141 +295,11 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                 }
                 else{
 //                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCategory3.this, true);
+
                 }
-
-            }
-        }.execute(null, null, null);
-    }
-
-    public void popupIstekGonder(int pos){
-
-        builder = new Dialog(activity, R.style.AlertDialogCustom);
-        View view;
-        view = LayoutInflater.from(activity).inflate(R.layout.popup_istek_kabul, null);
-
-        TextView t_username = view.findViewById(R.id.t_username);
-        t_username.setText(todoObjects.get(pos).getUsername());
-        TextView t_subtitle = view.findViewById(R.id.t_subtitle);
-        t_subtitle.setText("İstek göndermek istiyor musunuz?");
-        TextView t_reddet = view.findViewById(R.id.t_reddet);
-        t_reddet.setText("Hayır");
-        TextView t_kabulEt = view.findViewById(R.id.t_kabulEt);
-        t_kabulEt.setText("Evet");
-        LinearLayout l_profile = view.findViewById(R.id.l_profile);
-
-        view.findViewById(R.id.l_answers).setVisibility(View.GONE);
-
-
-//        if(todoObjects.get(pos).getProfil_gizlilik().equals("1"))
-//            l_profile.setVisibility(View.GONE);
-//        else
-//            l_profile.setVisibility(View.VISIBLE);
-//
-//        l_profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder.dismiss();
-//                Intent intent = new Intent(activity, InformationActivity.class);
-//                intent.putExtra("username", list.get(0).getRecommendedUsers().get(istek_pos).getUsername());
-//                activity.startActivity(intent);
-//            }
-//        });
-//
-//        view.findViewById(R.id.r_clickReddet).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder.dismiss();
-//            }
-//        });
-//
-//        view.findViewById(R.id.r_clickKabulEt).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder.dismiss();
-//                sendIstek(list.get(0).getRecommendedUsers().get(istek_pos).getUsername(), istek_pos);
-//            }
-//        });
-
-        builder.setCancelable(true);
-        builder.setContentView(view);
-        builder.show();
-    }
-
-    private void sendIstek(final String friend_username_unique, int pos) {
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-//        progressDialog.show();
-
-        final String url = "https://mobiloby.com/_filter/insert_istek.php";
-
-        new AsyncTask<String, Void, String>() {
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                jsonParser = new JSONParser();
-
-                HashMap<String, String> jsonData = new HashMap<>();
-
-                jsonData.put("user_name_unique", username);
-                jsonData.put("friend_user_name_unique", friend_username_unique);
-                jsonData.put("from_where", "1");
-
-                int success = 0;
-                try {
-
-                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
-
-                    success = jsonObject.getInt("success");
-
-                } catch (Exception ex) {
-                    if (ex.getMessage() != null) {
-                        Log.e("", ex.getMessage());
-                    }
-                }
-                return String.valueOf(success);
-            }
-
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected void onPostExecute(String res) {
-
                 progressDialog.dismiss();
-
-                if (res.equals("1")) {
-//                    list.get(0).getRecommendedUsers().remove(pos);
-//                    mainPageObjectsAdapter.notifyItemRemoved(pos);
-//                    notifyDataSetChanged();
-                }
-                else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. 3", activity, true);
-                }
-
             }
         }.execute(null, null, null);
-    }
-
-    public void popup(Boolean isExist){
-        builder = new Dialog(activity, R.style.AlertDialogCustom);
-        View view;
-        view = LayoutInflater.from(activity).inflate(R.layout.popup_layout_todo, null);
-        e_todo = view.findViewById(R.id.e_info);
-        e_todo.setHint("örnek: kitap veya müzik adı girebilirsiniz...");
-
-        TextView t_title = view.findViewById(R.id.t_title);
-        if(isExist){
-            t_title.setText("Aktiviteyi Güncelle");
-        }
-        else{
-            t_title.setText("Aktivite Ekle");
-        }
-
-        builder.setCancelable(true);
-        builder.setContentView(view);
-        builder.show();
     }
 
     @Override

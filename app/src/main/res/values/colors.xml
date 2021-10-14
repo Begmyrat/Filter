@@ -127,6 +127,8 @@
     <color name="textPrimaryColor">#51023E</color>
     <color name="colorBackground">#FFF6F5</color>
     <color name="colorBackground2">#FFEAE8</color>
+
+    <color name="colortop">#f17881</color>
     <color name="colorBackground3">#f7bbc1</color>
     <color name="Altbaslik_gri">#998B8A</color>
     <color name="secondtextcolor">#FD6256</color>

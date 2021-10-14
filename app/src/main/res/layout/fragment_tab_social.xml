@@ -207,11 +207,11 @@
                 android:id="@+id/t_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History"
                 android:layout_centerInParent="true"
-                android:translationX="-10dp"
+                android:text="History"
+                android:textColor="@color/PrimaryTextColor"
                 android:textSize="18sp"
-                android:textColor="@color/PrimaryTextColor"/>
+                android:translationX="-10dp" />
 
         </RelativeLayout>
 

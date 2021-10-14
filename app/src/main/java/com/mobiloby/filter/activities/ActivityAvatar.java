@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mobiloby.filter.adapters.MyAvatarListAdapter;
@@ -44,6 +45,8 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
     MyAvatarListAdapter adapter;
     DisplayMetrics displayMetrics;
     int height, width;
+    ImageView i_continue;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,23 +61,28 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
     private void prepareMe() {
 
         recyclerView = findViewById(R.id.recyclerView);
-        r_box = findViewById(R.id.r_box);
+        i_continue = findViewById(R.id.i_continue);
         avatars = new ArrayList<>();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        secilenAvatarID = preferences.getString("user_profile_url", "");
-
-        if(!secilenAvatarID.equals("")){
-            findViewById(R.id.i_right).setVisibility(View.VISIBLE);
+        secilenAvatarID = preferences.getString("avatar_id", "");
+        if(secilenAvatarID.equals("")){
+            i_continue.setImageResource(R.drawable.contunie_passive);
         }
         else{
-            findViewById(R.id.i_right).setVisibility(View.GONE);
+            i_continue.setImageResource(R.drawable.contunie_active);
         }
 
         isSignUp = preferences.getBoolean("isLoggedIn", false);
 
-        username_unique = preferences.getString("username_unique","");
+
         username_visible = preferences.getString("username_visible","");
         user_password = preferences.getString("user_password","");
         player_id = preferences.getString("player_id","");
@@ -83,9 +91,14 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
                 Settings.Secure.ANDROID_ID);
 
         extras = getIntent().getExtras();
-        if(extras!=null){
-            username_unique = extras.getString("username");
-            user_password = extras.getString("password");
+        if(isSignUp){
+            username_unique = preferences.getString("username_unique","");
+        }
+        else{
+            if(extras!=null){
+                username_unique = extras.getString("username");
+                user_password = extras.getString("password");
+            }
         }
         displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -111,11 +124,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
     }
 
     private void insertUser() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
+
         progressDialog.show();
 
         final String url = "https://mobiloby.com/_filter/insert_user.php";
@@ -180,11 +189,6 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
     }
 
     private void updateAvatar() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
         progressDialog.show();
 
         final String url = "https://mobiloby.com/_filter/update_avatar.php";
@@ -228,7 +232,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
 
                 if (res.equals("1")) {
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("user_profile_url", secilenAvatarID);
+                    editor.putString("avatar_id", secilenAvatarID);
                     editor.commit();
                     Intent intent = new Intent(ActivityAvatar.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -245,11 +249,6 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
     }
 
     private void getAvatars() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
         progressDialog.show();
 
         final String url = "https://mobiloby.com/_filter/get_avatars.php";
@@ -314,9 +313,10 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
 
     @Override
     public void onItemClick(View view, int position) {
+        i_continue.setImageResource(R.drawable.contunie_active);
         secilenAvatarID = avatars.get(position).getUrl();
         MyAvatarListAdapter.secilenURL = secilenAvatarID;
         adapter.notifyDataSetChanged();
-        findViewById(R.id.i_right).setVisibility(View.VISIBLE);
+//        findViewById(R.id.i_right).setVisibility(View.VISIBLE);
     }
 }

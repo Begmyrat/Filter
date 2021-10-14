@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/black_background_selected.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/blue_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/category_item_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/circular_border.xml" value="0.5166666666666667" />
         <entry key="app/src/main/res/drawable/customtab.xml" value="0.27870370370370373" />
         <entry key="app/src/main/res/drawable/facebook_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/full_rounded_dialog.xml" value="0.18611111111111112" />
@@ -52,6 +53,9 @@
         <entry key="app/src/main/res/drawable/orange_background_selected.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/primarybutton.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/recycle_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/rounded_backdround_17.xml" value="0.328125" />
+        <entry key="app/src/main/res/drawable/rounded_background_30.xml" value="0.43148148148148147" />
+        <entry key="app/src/main/res/drawable/rounded_background_30_pink.xml" value="0.5333333333333333" />
         <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.45" />
         <entry key="app/src/main/res/drawable/secondarybutton.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/signup_edittext_background.xml" value="0.1" />
@@ -67,6 +71,7 @@
         <entry key="app/src/main/res/layout-small/activity_splash_screen.xml" value="0.23565573770491804" />
         <entry key="app/src/main/res/layout-small/fragment_main_page.xml" value="0.30027173913043476" />
         <entry key="app/src/main/res/layout-small/item_list_onerilenler.xml" value="0.24722222222222223" />
+        <entry key="app/src/main/res/layout/activity_avatar.xml" value="0.2151268115942029" />
         <entry key="app/src/main/res/layout/activity_category1.xml" value="0.37273550724637683" />
         <entry key="app/src/main/res/layout/activity_category2.xml" value="0.26422018348623855" />
         <entry key="app/src/main/res/layout/activity_category2__answer.xml" value="0.24375" />
@@ -76,15 +81,16 @@
         <entry key="app/src/main/res/layout/activity_category2new.xml" value="0.45" />
         <entry key="app/src/main/res/layout/activity_category3.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_category4.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_current_searches.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_friend_message.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_friends.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_information.xml" value="0.3072916666666667" />
         <entry key="app/src/main/res/layout/activity_istek.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/activity_login1.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2174969623329283" />
+        <entry key="app/src/main/res/layout/activity_login1.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="3.0" />
+        <entry key="app/src/main/res/layout/activity_profile_edit.xml" value="0.31197916666666664" />
         <entry key="app/src/main/res/layout/activity_register1.xml" value="0.2687950566426365" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/alertbox.xml" value="0.1" />
@@ -96,9 +102,11 @@
         <entry key="app/src/main/res/layout/fragment_tab_friends.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/fragment_tab_messages.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_tab_social.xml" value="0.2336065573770492" />
-        <entry key="app/src/main/res/layout/fragment_tab_to_do.xml" value="1.1" />
+        <entry key="app/src/main/res/layout/fragment_tab_to_do.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_list_avatars.xml" value="0.3233695652173913" />
+        <entry key="app/src/main/res/layout/item_list_chat.xml" value="0.25557244174265453" />
         <entry key="app/src/main/res/layout/item_list_current_search.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/item_list_friends.xml" value="0.18414387031408308" />
+        <entry key="app/src/main/res/layout/item_list_friends.xml" value="0.75" />
         <entry key="app/src/main/res/layout/item_list_gridview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_list_info.xml" value="0.2615369606149068" />
         <entry key="app/src/main/res/layout/item_list_info_type.xml" value="0.5765625" />
@@ -107,6 +115,7 @@
         <entry key="app/src/main/res/layout/item_list_search_result.xml" value="0.37273550724637683" />
         <entry key="app/src/main/res/layout/item_list_wanted.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_list_wanted_similar.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/list_item_social_history.xml" value="0.5911458333333334" />
         <entry key="app/src/main/res/layout/list_item_todo_header.xml" value="0.284375" />
         <entry key="app/src/main/res/layout/list_item_todo_result.xml" value="0.284375" />
         <entry key="app/src/main/res/layout/main_screen.xml" value="0.37273550724637683" />
@@ -119,13 +128,14 @@
         <entry key="app/src/main/res/layout/popup_option.xml" value="0.5765625" />
         <entry key="app/src/main/res/layout/popup_question.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/layout/popup_renk.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/popup_social_history.xml" value="0.5911458333333334" />
         <entry key="app/src/main/res/layout/popup_uyari.xml" value="0.25" />
         <entry key="app/src/main/res/layout/popup_var_yok.xml" value="0.3567708333333333" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.394140625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

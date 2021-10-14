@@ -40,7 +40,7 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
     MainActivity activity;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<UserObject> friendList;
+    ArrayList<UserObject> friendList, friendListAll;
     JSONParser jsonParser;
     JSONObject jsonObject;
     MyFriendListAdapter adapter;
@@ -50,6 +50,7 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
     HashSet<String> hashSet;
     HashMap<String, String> hashMap;
     HashMap<String, String> hashMapDate;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,10 +72,32 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
 
         getFriendMessages();
 
-//        adapter.notifyDataSetChanged();
+    }
+
+    public void initList(){
+        friendList.clear();
+        friendList.addAll(friendListAll);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void performSearch(String input){
+        friendList.clear();
+        for(int i=0;i<friendListAll.size();i++){
+            if(friendListAll.get(i).getUsername().contains(input) || input.contains(friendListAll.get(i).getUsername())){
+                friendList.add(friendListAll.get(i));
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void prepareMe() {
+
+        progressDialog = new ProgressDialog(activity);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         username = preferences.getString("username_unique", "");
         userProfileUrl = preferences.getString("user_profile_url", "");
@@ -82,6 +105,7 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
         layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         friendList = new ArrayList<>();
+        friendListAll = new ArrayList<>();
         adapter = new MyFriendListAdapter(activity, friendList);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -91,14 +115,10 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
     }
 
     private void getFriendMessages() {
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-//        progressDialog.show();
+        progressDialog.show();
 
         friendList.clear();
+        friendListAll.clear();
         hashMap.clear();
         hashMapDate.clear();
         hashSet.clear();
@@ -159,9 +179,10 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
 
                             String lastMessage = preferences.getString(username+"-"+friend_user_name, "");
                             o.setLastMessage(lastMessage);
-
+                            o.setFriend(true);
                             if(!hashSet.contains(friend_user_name)){
                                 friendList.add(o);
+                                friendListAll.add(o);
                             }
 
                             hashSet.add(friend_user_name);
@@ -193,10 +214,16 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
                             if(!lastMessage.equals(hashMap.get(friendList.get(i).getUsername()))) {
                                 friendList.get(i).setLastMessage(hashMap.get(friendList.get(i).getUsername()));
                                 friendList.get(i).setNewMessage(true);
+
+                                friendListAll.get(i).setLastMessage(hashMap.get(friendListAll.get(i).getUsername()));
+                                friendListAll.get(i).setNewMessage(true);
                             }
                             else{
                                 friendList.get(i).setLastMessage(lastMessage);
                                 friendList.get(i).setNewMessage(false);
+
+                                friendListAll.get(i).setLastMessage(lastMessage);
+                                friendListAll.get(i).setNewMessage(false);
                             }
                         }
 

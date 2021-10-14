@@ -9,22 +9,21 @@
         android:id="@+id/r_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="3dp"
-        android:paddingHorizontal="5dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
         android:layout_marginRight="100dp"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/rounded_background"
+        android:background="@drawable/rounded_background_30"
         android:backgroundTint="@color/colorWhite">
 
         <TextView
             android:id="@+id/t_chatLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_sans_semi_bold"
             android:text="Bolmasa yene guk diyayerin"
-            android:textSize="16sp"
-            android:fontFamily="@font/nunitosans_bold"
-            android:textColor="@color/colorDarkGray"/>
+            android:textColor="@color/colorDarkGray"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/t_dateLeft"
@@ -35,7 +34,7 @@
             android:foregroundGravity="right"
             android:layout_below="@+id/t_chatLeft"
             android:textColor="@color/colorDarkGray"
-            android:fontFamily="@font/nunitosans_regular"
+            android:fontFamily="@font/josefin_sans_regular"
             android:textSize="14sp"/>
 
     </RelativeLayout>
@@ -44,14 +43,12 @@
         android:id="@+id/r_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="3dp"
-        android:paddingHorizontal="5dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
         android:layout_marginLeft="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/r_left"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/colorChatRight2">
+        android:background="@drawable/rounded_background_30_pink">
 
         <TextView
             android:id="@+id/t_chatRight"
@@ -61,7 +58,7 @@
             android:textSize="16sp"
             android:foregroundGravity="left"
             android:gravity="left"
-            android:fontFamily="@font/nunitosans_bold"
+            android:fontFamily="@font/josefin_sans_semi_bold"
             android:textColor="@color/colorWhite"/>
 
         <TextView
@@ -71,7 +68,7 @@
             android:text="2:44 PM"
             android:layout_below="@+id/t_chatRight"
             android:textColor="@color/colorWhite"
-            android:fontFamily="@font/nunitosans_regular"
+            android:fontFamily="@font/josefin_sans_regular"
             android:textSize="14sp"/>
 
     </RelativeLayout>

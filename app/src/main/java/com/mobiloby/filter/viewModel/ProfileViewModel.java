@@ -137,7 +137,7 @@ public class ProfileViewModel extends ViewModel {
                             u.setUsername(username);
                             u.setUser_player_id(userPlayerID);
                             u.setAvatar_id(userProfileURL);
-                            u.setUserProfilDoluluk(""+Integer.parseInt(profilDoluluk)*100/7);
+                            u.setUserProfilDoluluk(""+Integer.parseInt(profilDoluluk)*100/25);
                             u.setFriendCount(countArkadas);
                             u.setRequestCount(countIstek);
                             userData.postValue(u);
@@ -150,12 +150,12 @@ public class ProfileViewModel extends ViewModel {
                     } catch (JSONException e) {
                         e.printStackTrace();
                         userDataError.postValue(true);
-//                        userDataLoading.postValue(false);
+                        userDataLoading.postValue(false);
                     }
                 }
                 else{
                     userDataError.postValue(true);
-//                    userDataLoading.postValue(false);
+                    userDataLoading.postValue(false);
                 }
 
             }

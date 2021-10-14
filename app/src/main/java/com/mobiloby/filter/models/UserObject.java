@@ -19,6 +19,15 @@ public class UserObject {
     String wantedQuestion;
     String lastMessage;
     String friendCount, requestCount;
+    Boolean isFriend = false;
+
+    public Boolean getFriend() {
+        return isFriend;
+    }
+
+    public void setFriend(Boolean friend) {
+        isFriend = friend;
+    }
 
     public String getFriendCount() {
         return friendCount;

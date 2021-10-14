@@ -181,4 +181,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         return true;
     }
+
+    public void changeCurrentItem(int index){
+        initNavButtons();
+        if(index==0)
+            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.discover_selected);
+        else if(index==1)
+            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.messages_selected);
+        else if(index==2)
+            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.describe_selected);
+        else if(index==3)
+            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.profil_selected);
+
+        viewPager.setCurrentItem(index, false);
+    }
 }

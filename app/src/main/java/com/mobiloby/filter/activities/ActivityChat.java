@@ -18,10 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mobiloby.filter.adapters.MyMessageListAdapter;
 import com.mobiloby.filter.models.ChatObject;
 import com.mobiloby.filter.helpers.JSONParser;
@@ -52,8 +54,10 @@ public class ActivityChat extends AppCompatActivity {
     public static String username="", friend_username="", user_profile_url="", user_profile_url_other="", user_player_id_other="";
     public static TextView t_friendUsername;
     public static Dialog builder;
+    ImageView i_avatar;
     public static HashSet<String> hashSet;
     SharedPreferences preferences;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -75,22 +79,34 @@ public class ActivityChat extends AppCompatActivity {
 
     private void prepareMe() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorChatBackground));// set status background white
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colortop));// set status background white
         // remove focus to edittext
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorChatBackground));
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Filter");
+        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMax(100);
+
+        i_avatar = findViewById(R.id.i_avatar);
+        findViewById(R.id.r_main).getBackground().setTint(getResources().getColor(R.color.colorBackground2));
         hashSet = new HashSet<>();
         extras = getIntent().getExtras();
-        t_friendUsername = findViewById(R.id.t_usernameFriend);
+
         if(extras!=null){
             username = extras.getString("username");
             friend_username = extras.getString("username_friend");
-            t_friendUsername.setText(friend_username);
-//            friend_token = extras.getString("token_friend");
             user_player_id_other = extras.getString("user_player_id_other");
             user_profile_url = extras.getString("user_profile_url");
             user_profile_url_other = extras.getString("user_profile_url_other");
+
+            Glide
+                    .with(getApplicationContext())
+                    .load("https:mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_f_char)
+                    .into(i_avatar);
         }
 
         recyclerView = findViewById(R.id.recyclerview_chat);
@@ -108,18 +124,15 @@ public class ActivityChat extends AppCompatActivity {
     }
 
     public void clickSend(View view) {
-        sendChat();
+        if(e_message.getText().toString().length()>0)
+            sendChat();
     }
 
     private void sendChat() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-//        progressDialog.show();
 
-        Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
+        progressDialog.show();
+
+
 
         final String url = "https://mobiloby.com/_filter/insert_chat.php";
 
@@ -159,6 +172,8 @@ public class ActivityChat extends AppCompatActivity {
 
                 if (res.equals("1")) {
 
+                    e_message.setText("");
+
                     Calendar calendar = Calendar.getInstance();
                     int hour = calendar.get(Calendar.HOUR_OF_DAY);
                     String hs = ""+hour;
@@ -175,6 +190,7 @@ public class ActivityChat extends AppCompatActivity {
 //                    adapter.notifyDataSetChanged();
 //                    recyclerView.scrollToPosition(chatObjects.size()-1);
                     pushNotification();
+                    getChats();
                 }
                 else{
                     makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
@@ -291,14 +307,14 @@ public class ActivityChat extends AppCompatActivity {
             @Override
             protected void onPostExecute(String res) {
 
-                e_message.setText("");
+
 
                 if (res.equals("1")) {
                     Toast.makeText(ActivityChat.this, "gonderdik", Toast.LENGTH_SHORT).show();
                 }
-//                else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
-//                }
+                else{
+                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+                }
 
             }
         }.execute(null, null, null);

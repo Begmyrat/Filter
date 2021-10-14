@@ -50,14 +50,14 @@ public class MyAvatarListAdapter extends RecyclerView.Adapter<MyAvatarListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.r_main.getLayoutParams().width = width/3-30;
-        holder.r_main.getLayoutParams().height = width/3-30;
+        holder.r_main.getLayoutParams().width = width/3-60;
+        holder.r_main.getLayoutParams().height = width/3-60;
 
         if(secilenURL.equals(list.get(position).getUrl())){
-            holder.cardview_black.setVisibility(View.VISIBLE);
+            holder.v_border.setVisibility(View.VISIBLE);
         }
         else{
-            holder.cardview_black.setVisibility(View.GONE);
+            holder.v_border.setVisibility(View.GONE);
         }
 
         try{
@@ -82,13 +82,13 @@ public class MyAvatarListAdapter extends RecyclerView.Adapter<MyAvatarListAdapte
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView icon;
-        CardView cardview_black;
+        View v_border;
         RelativeLayout r_main;
 
         ViewHolder(View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.icon);
-            cardview_black = itemView.findViewById(R.id.cardview_black);
+            v_border = itemView.findViewById(R.id.v_border);
             r_main = itemView.findViewById(R.id.r_main);
 
             itemView.setOnClickListener(this);

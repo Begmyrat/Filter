@@ -1,7 +1,7 @@
 package com.mobiloby.filter.models;
 
 public class TodoObject {
-    String username, todoDescription, todoID, time, userProfileUrl, feeling, location;
+    String username, todoDescription, todoID, time, userProfileUrl, feeling, location, todoLocation, todoIsFriend;
     int view_type;
 
     public TodoObject(){}
@@ -10,10 +10,11 @@ public class TodoObject {
         this.view_type = view_type;
     }
 
-    public TodoObject(String todoID, String username, String todoDescription) {
+    public TodoObject(String todoID, String username, String todoDescription, String todoLocation) {
         this.todoID = todoID;
         this.username = username;
         this.todoDescription = todoDescription;
+        this.location = todoLocation;
     }
 
     public TodoObject(String todoID, String username, String todoDescription, String feeling, String location) {
@@ -22,6 +23,22 @@ public class TodoObject {
         this.todoDescription = todoDescription;
         this.feeling = feeling;
         this.location = location;
+    }
+
+    public String getTodoIsFriend() {
+        return todoIsFriend;
+    }
+
+    public void setTodoIsFriend(String todoIsFriend) {
+        this.todoIsFriend = todoIsFriend;
+    }
+
+    public String getTodoLocation() {
+        return todoLocation;
+    }
+
+    public void setTodoLocation(String todoLocation) {
+        this.todoLocation = todoLocation;
     }
 
     public String getFeeling() {

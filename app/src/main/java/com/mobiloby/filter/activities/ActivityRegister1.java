@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,30 +30,43 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.adapters.MyAvatarListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
+import com.mobiloby.filter.models.Avatars;
 import com.mobiloby.filter.models.ProfilInfo;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ActivityRegister1 extends AppCompatActivity {
+public class ActivityRegister1 extends AppCompatActivity implements MyAvatarListAdapter.ItemClickListener{
 
     EditText e_answer;
     Toast toast;
-    TextView alerttext, t_question;
+    TextView alerttext, t_question, t_titleAvatar;
     View toastlayout;
     JSONParser jsonParser;
     JSONObject jsonObject;
     ImageView i_continue;
-    int currentIndex=0, totalIndex=2;
+    int currentIndex=0, totalIndex=3;
     ArrayList<ProfilInfo> profilInfos;
     ProgressBar progressBar;
+    ArrayList<Avatars> avatars;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    MyAvatarListAdapter adapter;
+    DisplayMetrics displayMetrics;
+    int height, width;
+    String secilenAvatarID="-1";
+    Boolean isValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -73,6 +87,7 @@ public class ActivityRegister1 extends AppCompatActivity {
         alerttext = (TextView) toastlayout.findViewById(R.id.alerttext);
 
         t_question = findViewById(R.id.t_question);
+        t_titleAvatar = findViewById(R.id.t_titleAvatar);
         e_answer = findViewById(R.id.e_answer);
         i_continue = findViewById(R.id.i_continue);
         progressBar = findViewById(R.id.progressBar);
@@ -80,7 +95,21 @@ public class ActivityRegister1 extends AppCompatActivity {
         profilInfos = new ArrayList<>();
         profilInfos.add(new ProfilInfo("Okay, Let's get started with your name?",""));
         profilInfos.add(new ProfilInfo("Choose your password",""));
+        profilInfos.add(new ProfilInfo("Choose your password",""));
         t_question.setText(profilInfos.get(0).getTitle());
+
+        avatars = new ArrayList<>();
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
+        layoutManager = new GridLayoutManager(this, 3);
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new MyAvatarListAdapter(this, avatars, width, secilenAvatarID);
+        recyclerView.setAdapter(adapter);
+        adapter.setClickListener(this);
+
 
         e_answer.addTextChangedListener(new TextWatcher() {
 
@@ -196,9 +225,10 @@ public class ActivityRegister1 extends AppCompatActivity {
 //                    Intent intent = new Intent(ActivityRegister1.this, ActivityRegister2.class);
 //                    intent.putExtra("username", e_answer.getText().toString());
 //                    startActivity(intent);
+                    profilInfos.get(1).setInfo(e_answer.getText().toString());
                     Intent intent = new Intent(ActivityRegister1.this, ActivityAvatar.class);
                     intent.putExtra("username", profilInfos.get(0).getInfo());
-                    intent.putExtra("password", profilInfos.get(1).getInfo());
+                    intent.putExtra("password", e_answer.getText().toString());
                     startActivity(intent);
                 }
 
@@ -206,12 +236,12 @@ public class ActivityRegister1 extends AppCompatActivity {
         }.execute(null, null, null);
     }
 
+
+
     public void clickContinue(View view) {
 
-        if(currentIndex==totalIndex-1){
-            getUser();
-        }
-        else{
+//
+//        else{
             i_continue.setImageResource(R.drawable.contunie_passive);
 
             t_question.animate().alpha(0).setDuration(600);
@@ -235,6 +265,17 @@ public class ActivityRegister1 extends AppCompatActivity {
             };
 
             handler.postDelayed(runnable, 600);
+
+        if(currentIndex==totalIndex-2){
+            profilInfos.get(currentIndex).setInfo(e_answer.getText().toString());
+            getUser();
         }
+//        }
+    }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }

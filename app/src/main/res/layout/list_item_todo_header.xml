@@ -34,7 +34,7 @@
         android:id="@+id/i_personActivePassive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/person_active"
+        android:src="@drawable/person_passive"
         app:layout_constraintRight_toRightOf="@+id/e_search"
         app:layout_constraintTop_toTopOf="@+id/e_search"
         app:layout_constraintBottom_toBottomOf="@+id/e_search"/>

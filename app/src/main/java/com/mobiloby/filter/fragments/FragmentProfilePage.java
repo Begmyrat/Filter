@@ -44,6 +44,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.activities.ActivityAvatar;
 import com.mobiloby.filter.activities.ActivityLogin1;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MyRecommendListAdapter;
@@ -78,7 +79,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     ViewPagerFragmentAdapter pagerAdapter;
     String username, token;
     SharedPreferences preferences;
-    TextView t_friendCount, t_requestCount, t_username, t_percentage, t_friendCountTitle, t_requestCountTitle;
+    TextView t_friendCount, t_requestCount, t_username, t_percentage, t_friendCountTitle, t_requestCountTitle, t_changeyouravatarbutton;
     ImageView i_avatar, i_profile;
     CircularProgressBar circularProgressBar;
     int width, height;
@@ -100,6 +101,13 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         prepareMe();
 
         tabLayout.setOnTabSelectedListener(this);
+        t_changeyouravatarbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, ActivityAvatar.class);
+                startActivity(intent);
+            }
+        });
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -144,6 +152,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         t_username = view.findViewById(R.id.t_username);
         t_percentage = view.findViewById(R.id.t_percentage);
         circularProgressBar = view.findViewById(R.id.circularProgressBar);
+        t_changeyouravatarbutton = view.findViewById(R.id.t_changeyouravatarbutton);
 
         tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -367,6 +376,9 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
 
         switch (v.getId()){
             case R.id.i_profile:
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("isLoggedIn", false);
+                editor.commit();
                 startActivity(new Intent(activity, ActivityLogin1.class));
                 break;
             case R.id.t_friendNumber:
