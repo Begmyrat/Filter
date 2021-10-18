@@ -25,7 +25,7 @@
             android:textColor="@color/colorTextPrimaryPurple"
             android:textSize="18sp"
             android:fontFamily="@font/josefin_sans_light"
-            android:text="Hi Ada,"/>
+            android:text="@string/FragmentProfile_hi"/>
 
         <TextView
             android:id="@+id/t_whatAreWeDoing"
@@ -34,7 +34,7 @@
             app:layout_constraintLeft_toRightOf="@+id/t_hiAda"
             app:layout_constraintBottom_toBottomOf="@+id/t_hiAda"
             app:layout_constraintTop_toTopOf="@+id/t_hiAda"
-            android:text="What are we doing?"
+            android:text="@string/FragmentProfile_whatAreWeDoing"
             android:textSize="18sp"
             android:fontFamily="@font/josefin_sans_medium"
             android:textColor="@color/colorTextPrimaryPurple"
@@ -53,7 +53,7 @@
             android:id="@+id/e_location"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="I am at ..."
+            android:hint="@string/FragmentProfile_iAmAt"
             android:translationY="-5dp"
             android:background="@android:color/transparent"
             app:layout_constraintLeft_toLeftOf="@id/i_location"
@@ -80,7 +80,7 @@
             android:id="@+id/e_todo"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="I am doing ..."
+            android:hint="@string/FragmentProfile_iAmDoing"
             android:translationY="-3dp"
             android:inputType="text"
             android:background="@android:color/transparent"
@@ -109,7 +109,7 @@
             android:id="@+id/t_discover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Discover"
+            android:text="@string/FragmentProfile_discover"
             android:textSize="18sp"
             android:translationY="-2dp"
             android:textColor="@color/backgroundColor"

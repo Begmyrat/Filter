@@ -8,58 +8,51 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiloby.filter.R;
-import com.mobiloby.filter.models.SocialObject;
+import com.mobiloby.filter.models.TodoObject;
 
 import java.util.ArrayList;
 
-public class MySocialMediaRecycleListAdapter extends RecyclerView.Adapter<MySocialMediaRecycleListAdapter.ViewHolder> {
+public class MyRecycleAnswersListAdapter extends RecyclerView.Adapter<MyRecycleAnswersListAdapter.ViewHolder> {
 
     private Activity context;
-    private ArrayList<SocialObject> list;
-    int selected_pos;
+    private ArrayList<String> list;
+    public static int selected_pos=-1;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public MySocialMediaRecycleListAdapter(Activity context, ArrayList<SocialObject> list) {
+    public MyRecycleAnswersListAdapter(Activity context, ArrayList<String> list, int index) {
         this.mInflater = LayoutInflater.from(context);
         this.list = list;
         this.context = context;
+        this.selected_pos = index;
     }
 
     // inflates the row layout from xml when needed
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_list_onerilenler, parent, false);
+        View view = mInflater.inflate(R.layout.list_item_answers, parent, false);
         return new ViewHolder(view);
     }
 
     // binds the data to the view and textview in each row
     @Override
-    public void onBindViewHolder(@NonNull MySocialMediaRecycleListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        SocialObject object = list.get(position);
+        holder.t_title.setText(list.get(position));
 
-        holder.t_username.setText(object.getUsername());
-        holder.t_username_other.setText(object.getUsername_other());
-        holder.t_follow.setText("sil");
-
-        if(object.getType().toLowerCase().equals("facebook")){
-            holder.i_logo.setImageResource(R.drawable.ic_facebook);
-        }
-        else if(object.getType().toLowerCase().equals("instagram")){
-            holder.i_logo.setImageResource(R.drawable.ic_instagram);
-        }
-        else if(object.getType().toLowerCase().equals("snapchat")){
-            holder.i_logo.setImageResource(R.drawable.ic_snapchat);
+        if(position==selected_pos){
+            holder.cons_box.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorBackground3));
         }
         else{
-            holder.i_logo.setImageResource(R.drawable.tiktokicon);
+            holder.cons_box.setBackgroundTintList(context.getResources().getColorStateList(R.color.white));
         }
+
 
     }
 
@@ -72,18 +65,13 @@ public class MySocialMediaRecycleListAdapter extends RecyclerView.Adapter<MySoci
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView t_username, t_username_other, t_follow;
-        ImageView i_logo;
-//        RelativeLayout r_stick;
+        TextView t_title;
+        ConstraintLayout cons_box;
 
         ViewHolder(View itemView) {
             super(itemView);
-
-            i_logo = itemView.findViewById(R.id.i_icon);
-            t_username = itemView.findViewById(R.id.t_username);
-            t_username_other = itemView.findViewById(R.id.t_status);
-            t_follow = itemView.findViewById(R.id.t_follow);
-//            r_stick = itemView.findViewById(R.id.r_stick);
+            t_title = itemView.findViewById(R.id.t_title);
+            cons_box = itemView.findViewById(R.id.cons_box);
 
             itemView.setOnClickListener(this);
         }
@@ -95,7 +83,7 @@ public class MySocialMediaRecycleListAdapter extends RecyclerView.Adapter<MySoci
     }
 
     // convenience method for getting data at click position
-    public SocialObject getItem(int id) {
+    public String getItem(int id) {
         return list.get(id);
     }
 

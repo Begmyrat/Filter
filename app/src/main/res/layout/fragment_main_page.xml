@@ -7,6 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.FragmentProfilePage">
 
+
+
     <ImageView
         android:id="@+id/i_settings"
         android:layout_width="30dp"
@@ -32,11 +34,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
-        android:text="Sasha BOY"
+        android:text=""
         android:gravity="center"
         android:textSize="24sp"
         android:textColor="#612c63"
-        android:textStyle="bold"
+        android:fontFamily="@font/josefin_sans_bold"
         app:layout_constraintLeft_toRightOf="@id/i_settings"
         app:layout_constraintRight_toLeftOf="@+id/i_profile"
         app:layout_constraintTop_toTopOf="@id/i_settings"
@@ -54,7 +56,7 @@
         app:cpb_progressbar_width="3dp"
         app:cpb_round_border="false"
         app:cpb_start_angle="180"
-        app:layout_constraintBottom_toTopOf="@+id/i_changeyouravatarbutton"
+        app:layout_constraintBottom_toTopOf="@+id/t_requestTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t_username" />
@@ -94,38 +96,12 @@
         app:layout_constraintTop_toBottomOf="@id/circularProgressBar"
         app:layout_constraintRight_toRightOf="@id/circularProgressBar"/>
 
-    <ImageView
-        android:id="@+id/i_changeyouravatarbutton"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:src="@drawable/changeyouravatarbutton"
-        android:translationY="-20dp"
-        app:layout_constraintBottom_toTopOf="@+id/t_friendsTitle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t_percentage"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/t_changeyouravatarbutton"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/i_changeyouravatarbutton"
-        app:layout_constraintBottom_toBottomOf="@+id/i_changeyouravatarbutton"
-        android:text="Change your avatar"
-        android:translationY="-22dp"
-        android:gravity="center"
-        android:textColor="#fd766b"
-        android:textStyle="bold"/>
-
     <TextView
         android:id="@+id/t_friendsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:text="Friends"
+        android:text="@string/FragmentProfile_friends"
         android:textColor="#612c63"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -140,15 +116,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:text="Requests"
+        android:text="@string/FragmentProfile_requests"
         android:textColor="#612c63"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/c_recyclerview"
         app:layout_constraintLeft_toRightOf="@+id/t_friendsTitle"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/i_changeyouravatarbutton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/t_percentage"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/t_friendNumber"
@@ -158,7 +134,7 @@
         app:layout_constraintRight_toRightOf="@+id/t_friendsTitle"
         app:layout_constraintTop_toBottomOf="@+id/t_friendsTitle"
         android:gravity="center"
-        android:text="10"
+        android:text=""
         android:textColor="#612c63"
         android:textSize="14sp"/>
 
@@ -170,7 +146,7 @@
         app:layout_constraintRight_toRightOf="@+id/t_requestTitle"
         app:layout_constraintTop_toBottomOf="@+id/t_requestTitle"
         android:gravity="center"
-        android:text="10"
+        android:text=""
         android:textColor="#612c63"
         android:textSize="14sp"/>
 
@@ -186,8 +162,9 @@
             android:id="@+id/t_newMatches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Matches"
+            android:text="@string/FragmentProfile_newMatches"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/josefin_sans_light"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="10dp"
@@ -200,6 +177,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/recyclerview"
             android:text="View all"
+            android:visibility="invisible"
             android:layout_marginRight="20dp"
             android:alpha="0.6"
             android:layout_marginBottom="10dp"
@@ -207,9 +185,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:layout_constraintRight_toRightOf="parent"
             android:foregroundGravity="center_vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

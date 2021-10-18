@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="This module is coming soon..."
+        android:text="@string/FragmentDescribe_message"
         android:fontFamily="@font/josefin_sans_semi_bold"
         android:textColor="@color/textPrimaryColor"
         android:textSize="18sp"

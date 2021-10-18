@@ -194,6 +194,7 @@ public class ProfileViewModel extends ViewModel {
                 return String.valueOf(success);
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @SuppressLint("StaticFieldLeak")
             @Override
             protected void onPostExecute(String res) {
@@ -218,7 +219,7 @@ public class ProfileViewModel extends ViewModel {
                             o.setId(user_id);
                             o.setUsername(user_name);
                             o.setUsername_visible(user_name);
-                            double d  = Math.round((Double.parseDouble(similarity)*100/7));
+                            double d  = Math.round((Double.parseDouble(similarity)*100/25));
                             o.setSimilarity(""+(int)d);
                             o.setProfil_gizlilik(profil_gizlilik);
                             o.setAvatar_id(user_profile_url);
@@ -231,7 +232,7 @@ public class ProfileViewModel extends ViewModel {
                             else if(Double.parseDouble(schedule1.getSimilarity()) < Double.parseDouble(schedule2.getSimilarity()))	return 1;
                             return returnValue;
                         });
-                        userObjects.add(new UserObject());
+//                        userObjects.add(new UserObject());
 
                         recommendedUsers.postValue(userObjects);
                         recommendedUsersLoading.postValue(false);

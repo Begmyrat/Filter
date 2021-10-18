@@ -48,7 +48,8 @@ public class ActivityLogin1 extends AppCompatActivity {
     View toastlayout;
     JSONParser jsonParser;
     JSONObject jsonObject;
-    ImageView i_balloon, i_fltr;
+//    ImageView i_balloon;
+    ImageView i_fltr;
     String username, password;
     SharedPreferences preferences;
     int maxLength = 10;
@@ -97,12 +98,13 @@ public class ActivityLogin1 extends AppCompatActivity {
         int width  = Resources.getSystem().getDisplayMetrics().widthPixels;
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-        i_balloon = findViewById(R.id.i_filtryenilogo);
+
+//        i_balloon = findViewById(R.id.i_filtryenilogo);
         i_fltr = findViewById(R.id.i_fltr);
 
         if(height<1780){
-            i_balloon.getLayoutParams().width = dpToPx(70, this);
-            i_balloon.getLayoutParams().height = dpToPx(70, this);
+//            i_balloon.getLayoutParams().width = dpToPx(70, this);
+//            i_balloon.getLayoutParams().height = dpToPx(70, this);
 
             i_fltr.getLayoutParams().width = dpToPx(50, this);
             i_fltr.getLayoutParams().height = dpToPx(50, this);

@@ -1,5 +1,6 @@
 package com.mobiloby.filter.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -21,109 +22,87 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.ShowToastMessage;
 
 
 public class ActivityRegister2 extends AppCompatActivity {
 
-    EditText username;
+    EditText e_password;
     Toast toast;
     TextView alerttext;
     View toastlayout;
     Bundle extras;
-    String name="", password="";
+    String name="";
+    ImageView i_continue;
+    Boolean isValid = false;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_register2);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground2));// set status background white
+
+        prepareMe();
+
+        e_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length()>6 && charSequence.length()<20){
+                    i_continue.setImageResource(R.drawable.contunie_active);
+                    isValid = true;
+                }
+                else{
+                    i_continue.setImageResource(R.drawable.contunie_passive);
+                    isValid = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+    }
+
+    private void prepareMe() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        activity = this;
         extras = getIntent().getExtras();
-
-        if(extras!=null)
-            name = extras.getString("username");
-
-        //Custom Toast
+        if(extras!=null){
+            name = extras.getString("name");
+        }
         LayoutInflater inflater = getLayoutInflater();
         toastlayout = inflater.inflate(R.layout.alertbox, (ViewGroup)findViewById(R.id.alertlayout));
         toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.TOP,0,0);
         toast.setDuration(Toast.LENGTH_LONG);
         alerttext = (TextView) toastlayout.findViewById(R.id.alerttext);
-
-        username = findViewById(R.id.username);
-
-        int maxLength = 10;
-        username.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-        username.addTextChangedListener(new TextWatcher() {
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.length()>4 && s.length()<15)
-                    findViewById(R.id.phoneacceptbut).setVisibility(View.VISIBLE);
-                else
-                    findViewById(R.id.phoneacceptbut).setVisibility(View.INVISIBLE);
-
-                if(s.length()>15) {
-                    username.setText(s.subSequence(0, 15));
-                    alerttext.setText("En az 4 ve en fazla 15 rakamlı olacak şekilde kullanıcı adınızı giriniz.");
-                    toast.setView(toastlayout);
-                    toast.show();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0)
-                    if (s.charAt(0) != '5'){
-                        alerttext.setText("Eksik veya hatalı giriş yaptınız!");
-                        toast.setView(toastlayout);
-                        toast.show();}
-            }
-        });
-
-        ImageView backbut = findViewById(R.id.backbut);
-
-
-        backbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-                finish();
-            }
-        });
-
-        ImageButton phoneacceptbut = (ImageButton)findViewById(R.id.phoneacceptbut);
-        phoneacceptbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityRegister2.this, ActivityAvatar.class);
-                intent.putExtra("username", name);
-                intent.putExtra("password", username.getText().toString());
-                startActivity(intent);
-            }
-        });
-
+        i_continue = findViewById(R.id.i_continue);
+        e_password = findViewById(R.id.e_password);
     }
 
-    @Override
-    public void onBackPressed() {
-
-        finish();
-    }
-
-    private Boolean isNetworkAvailable() {
-
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    public void clickContinue(View view) {
+        if(isValid){
+            Intent intent = new Intent(ActivityRegister2.this, ActivityAvatar.class);
+            intent.putExtra("password", e_password.getText().toString());
+            intent.putExtra("username", name);
+            startActivity(intent);
+        }
+        else{
+            ShowToastMessage.show(activity, "Şifre en az 7 ve en fazla 19 karakter olmalıdır");
+        }
     }
 }

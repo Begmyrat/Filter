@@ -1,6 +1,7 @@
 package com.mobiloby.filter.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.ShowToastMessage;
 import com.mobiloby.filter.adapters.MyAvatarListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
@@ -47,25 +49,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ActivityRegister1 extends AppCompatActivity implements MyAvatarListAdapter.ItemClickListener{
+public class ActivityRegister1 extends AppCompatActivity{
 
     EditText e_answer;
-    Toast toast;
-    TextView alerttext, t_question, t_titleAvatar;
-    View toastlayout;
+    Activity activity;
     JSONParser jsonParser;
     JSONObject jsonObject;
     ImageView i_continue;
-    int currentIndex=0, totalIndex=3;
-    ArrayList<ProfilInfo> profilInfos;
-    ProgressBar progressBar;
-    ArrayList<Avatars> avatars;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    MyAvatarListAdapter adapter;
-    DisplayMetrics displayMetrics;
-    int height, width;
-    String secilenAvatarID="-1";
     Boolean isValid = false;
 
     @Override
@@ -74,42 +64,15 @@ public class ActivityRegister1 extends AppCompatActivity implements MyAvatarList
 
         setContentView(R.layout.activity_register1);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        activity = this;
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
         getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground2));// set status background white
 
         //Custom Toast
-        LayoutInflater inflater = getLayoutInflater();
-        toastlayout = inflater.inflate(R.layout.alertbox, (ViewGroup)findViewById(R.id.alertlayout));
-        toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.TOP,0,0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        alerttext = (TextView) toastlayout.findViewById(R.id.alerttext);
 
-        t_question = findViewById(R.id.t_question);
-        t_titleAvatar = findViewById(R.id.t_titleAvatar);
+
         e_answer = findViewById(R.id.e_answer);
         i_continue = findViewById(R.id.i_continue);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setProgress(100/totalIndex+ (100/totalIndex)*currentIndex);
-        profilInfos = new ArrayList<>();
-        profilInfos.add(new ProfilInfo("Okay, Let's get started with your name?",""));
-        profilInfos.add(new ProfilInfo("Choose your password",""));
-        profilInfos.add(new ProfilInfo("Choose your password",""));
-        t_question.setText(profilInfos.get(0).getTitle());
-
-        avatars = new ArrayList<>();
-        displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height = displayMetrics.heightPixels;
-        width = displayMetrics.widthPixels;
-        layoutManager = new GridLayoutManager(this, 3);
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new MyAvatarListAdapter(this, avatars, width, secilenAvatarID);
-        recyclerView.setAdapter(adapter);
-        adapter.setClickListener(this);
-
 
         e_answer.addTextChangedListener(new TextWatcher() {
 
@@ -117,14 +80,13 @@ public class ActivityRegister1 extends AppCompatActivity implements MyAvatarList
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(s.length()>=3) {
-//                    alerttext.setText("En az 4 ve en fazla 15 rakamlı olacak şekilde kullanıcı adınızı giriniz.");
-//                    toast.setView(toastlayout);
-//                    toast.show();
+                if(s.length()>3) {
                     i_continue.setImageResource(R.drawable.contunie_active);
+                    isValid = true;
                 }
                 else{
                     i_continue.setImageResource(R.drawable.contunie_passive);
+                    isValid = false;
                 }
             }
 
@@ -132,43 +94,6 @@ public class ActivityRegister1 extends AppCompatActivity implements MyAvatarList
             public void afterTextChanged(Editable s) {
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "current: " + currentIndex, Toast.LENGTH_SHORT).show();
-        if(currentIndex==0){
-            finish();
-        }
-        else{
-            t_question.animate().alpha(0).setDuration(600);
-            e_answer.animate().alpha(0).setDuration(600);
-
-            Handler handler = new Handler();
-
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    profilInfos.get(currentIndex).setInfo(e_answer.getText().toString());
-                    currentIndex--;
-                    t_question.setText(profilInfos.get(currentIndex).getTitle());
-                    e_answer.setText(profilInfos.get(currentIndex).getInfo());
-                    progressBar.setProgress(100/totalIndex+ (100/totalIndex)*currentIndex);
-                    t_question.animate().alpha(1).setDuration(600);
-                    e_answer.animate().alpha(1).setDuration(600);
-                }
-            };
-
-            handler.postDelayed(runnable, 600);
-        }
-    }
-
-    private Boolean isNetworkAvailable() {
-
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     private void getUser() {
@@ -180,8 +105,6 @@ public class ActivityRegister1 extends AppCompatActivity implements MyAvatarList
         progressDialog.show();
 
         final String url = "http://mobiloby.com/_filter/get_user.php";
-
-//        final String username_unique = username.replaceAll("İ", "i").replaceAll("ı", "i").replaceAll("Ğ", "g").replaceAll("ğ","g").toLowerCase();
 
         new AsyncTask<String, Void, String>() {
 
@@ -216,19 +139,11 @@ public class ActivityRegister1 extends AppCompatActivity implements MyAvatarList
                 progressDialog.dismiss();
 
                 if (res.equals("1")) {
-                    makeAlert.uyarıVer("Filter", "Bu kullanıcı adı sistemimizde zaten mevcuttur. Lütfen başka bir kullanıcı adı seçiniz.", ActivityRegister1.this, true);
-                    alerttext.setText("Bu kullanıcı adı sistemimizde zaten mevcuttur. Lütfen başka bir kullanıcı adı seçiniz.");
-                    toast.setView(toastlayout);
-                    toast.show();
+                    ShowToastMessage.show(activity, "Bu kullanıcı ismi başka birisi tarafından kullanılıyor. Lütfen farklı bir kullanıcı adı seçiniz.");
                 }
                 else{
-//                    Intent intent = new Intent(ActivityRegister1.this, ActivityRegister2.class);
-//                    intent.putExtra("username", e_answer.getText().toString());
-//                    startActivity(intent);
-                    profilInfos.get(1).setInfo(e_answer.getText().toString());
-                    Intent intent = new Intent(ActivityRegister1.this, ActivityAvatar.class);
-                    intent.putExtra("username", profilInfos.get(0).getInfo());
-                    intent.putExtra("password", e_answer.getText().toString());
+                    Intent intent = new Intent(ActivityRegister1.this, ActivityRegister2.class);
+                    intent.putExtra("name", e_answer.getText().toString());
                     startActivity(intent);
                 }
 
@@ -239,43 +154,11 @@ public class ActivityRegister1 extends AppCompatActivity implements MyAvatarList
 
 
     public void clickContinue(View view) {
-
-//
-//        else{
-            i_continue.setImageResource(R.drawable.contunie_passive);
-
-            t_question.animate().alpha(0).setDuration(600);
-            e_answer.animate().alpha(0).setDuration(600);
-
-            Handler handler = new Handler();
-
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-
-                    profilInfos.get(currentIndex).setInfo(e_answer.getText().toString());
-
-                    currentIndex++;
-                    progressBar.setProgress(100/totalIndex+ (100/totalIndex)*currentIndex);
-                    t_question.setText(profilInfos.get(currentIndex).getTitle());
-                    e_answer.setText(profilInfos.get(currentIndex).getInfo());
-                    t_question.animate().alpha(1).setDuration(600);
-                    e_answer.animate().alpha(1).setDuration(600);
-                }
-            };
-
-            handler.postDelayed(runnable, 600);
-
-        if(currentIndex==totalIndex-2){
-            profilInfos.get(currentIndex).setInfo(e_answer.getText().toString());
+        if(isValid){
             getUser();
         }
-//        }
-    }
-
-
-    @Override
-    public void onItemClick(View view, int position) {
-
+        else{
+            ShowToastMessage.show(activity, "Kullanıcı adı en az 4 en fazla 19 karakter olmalıdır");
+        }
     }
 }

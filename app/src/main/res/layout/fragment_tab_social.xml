@@ -84,7 +84,7 @@
             android:id="@+id/e_location"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="Username"
+            android:hint="@string/FragmentProfile_username"
             android:translationY="-3dp"
             android:background="@android:color/transparent"
             app:layout_constraintLeft_toLeftOf="@id/i_location"
@@ -111,7 +111,7 @@
             android:id="@+id/e_todo"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="Find people"
+            android:hint="@string/FragmentProfile_findPeople"
             android:translationY="-13dp"
             android:elevation="1dp"
             android:inputType="text"
@@ -137,31 +137,6 @@
             app:layout_constraintTop_toBottomOf="@+id/i_todo"
             android:src="@drawable/match"/>
 
-        <TextView
-            android:id="@+id/t_match"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Match"
-            android:visibility="gone"
-            android:translationY="-15dp"
-            android:layout_marginRight="10dp"
-            app:layout_constraintLeft_toLeftOf="@+id/i_match"
-            app:layout_constraintRight_toRightOf="@+id/i_match"
-            app:layout_constraintTop_toTopOf="@+id/i_match"
-            app:layout_constraintBottom_toBottomOf="@+id/i_match"
-            android:textSize="18sp"
-            android:textColor="@color/backgroundColor"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="@+id/i_todo"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:translationY="-15dp"
-            app:layout_constraintTop_toTopOf="@+id/i_match"
-            android:src="@drawable/match"/>
-
         <RelativeLayout
             android:id="@+id/i_match2"
             android:layout_width="120dp"
@@ -176,7 +151,7 @@
                 android:id="@+id/t_match2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Match"
+                android:text="@string/FragmentProfile_match"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/i_alev2"
                 android:textSize="18sp"
@@ -208,7 +183,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="History"
+                android:text="@string/FragmentProfile_history"
                 android:textColor="@color/PrimaryTextColor"
                 android:textSize="18sp"
                 android:translationX="-10dp" />

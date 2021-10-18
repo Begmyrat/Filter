@@ -17,22 +17,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.mobiloby.filter.R;
-import com.mobiloby.filter.activities.ActivityCategory4;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MySocialRecycleListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
 import com.mobiloby.filter.models.SocialMediaObject;
-import com.mobiloby.filter.models.SocialObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;

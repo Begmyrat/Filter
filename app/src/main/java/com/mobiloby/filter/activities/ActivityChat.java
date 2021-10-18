@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -416,5 +417,12 @@ public class ActivityChat extends AppCompatActivity {
 
             }
         }.execute(null, null, null);
+    }
+
+    public void clickAvatar(View view) {
+        Intent intent = new Intent(getApplicationContext(), ActivityProfileEdit2.class);
+        intent.putExtra("username", friend_username);
+        intent.putExtra("userProfileUrl", user_profile_url_other);
+        startActivity(intent);
     }
 }

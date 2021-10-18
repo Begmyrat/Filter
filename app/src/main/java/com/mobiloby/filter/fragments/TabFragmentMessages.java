@@ -100,7 +100,7 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
 
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         username = preferences.getString("username_unique", "");
-        userProfileUrl = preferences.getString("user_profile_url", "");
+        userProfileUrl = preferences.getString("avatar_id", "");
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);

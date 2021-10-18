@@ -132,6 +132,8 @@
     <color name="colorBackground3">#f7bbc1</color>
     <color name="Altbaslik_gri">#998B8A</color>
     <color name="secondtextcolor">#FD6256</color>
+    <color name="thirdtextcolor">#998B8A</color>
+    <color name="colorStick">#e5e5e5</color>
     <color name="buttonwhite">#FFFFFF</color>
 
 

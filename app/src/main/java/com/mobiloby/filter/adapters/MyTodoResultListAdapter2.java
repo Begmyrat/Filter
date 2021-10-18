@@ -225,7 +225,7 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
     public class ResultHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView t_username, t_activity, t_location, t_time;
-        ImageView i_avatar, i_activity, i_feeling;
+        ImageView i_avatar, i_activity;
 
         public ResultHolder(@NonNull View itemView) {
             super(itemView);
@@ -237,7 +237,6 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
             t_time = itemView.findViewById(R.id.t_time);
             i_avatar = itemView.findViewById(R.id.i_avatar);
             i_activity = itemView.findViewById(R.id.i_activity);
-            i_feeling = itemView.findViewById(R.id.i_feeling);
 
             itemView.setOnClickListener(this);
         }

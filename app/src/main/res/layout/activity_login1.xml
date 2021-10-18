@@ -15,16 +15,17 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ust_resim"/>
 
-    <ImageView
-        android:id="@+id/i_filtryenilogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/filtryenilogo"
-        android:translationY="-60dp"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ust_resim" />
+<!--    <ImageView-->
+<!--        android:id="@+id/i_filtryenilogo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/filtryenilogo"-->
+<!--        android:translationY="-60dp"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintHorizontal_bias="0.49"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ust_resim" />-->
 
     <TextView
         android:id="@+id/t_subtitle"
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@+id/l_usernamePssword"
         app:layout_constraintRight_toRightOf="@id/l_usernamePssword"
-        app:layout_constraintTop_toTopOf="@+id/i_fltr"
+        app:layout_constraintTop_toBottomOf="@+id/i_fltr"
         app:layout_constraintBottom_toTopOf="@+id/l_usernamePssword"
         android:text="Share and Match, find friends and do much more fun stuff with us!"
         android:fontFamily="@font/josefin_sans_medium"
@@ -41,13 +42,12 @@
 
     <ImageView
         android:id="@+id/i_fltr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/fltr"
-        android:translationY="-60dp"
+        android:layout_width="99dp"
+        android:layout_height="54dp"
+        android:src="@drawable/fltr_new"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/i_filtryenilogo" />
+        app:layout_constraintTop_toBottomOf="@+id/ust_resim" />
 
     <ImageView
         android:id="@+id/i_alt_daire"

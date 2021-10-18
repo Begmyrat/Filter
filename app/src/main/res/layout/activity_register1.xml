@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/colorBackground2"
-    android:background="@color/bg">
+    android:background="@color/colorBackground2">
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:progress="20"
+        android:progress="33"
         android:progressBackgroundTint="#FFD5D2"
         android:progressTint="#FD6256"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,6 +72,7 @@
         android:background="@android:color/transparent"
         android:fontFamily="@font/josefin_sans_light"
         android:hint="Ada"
+        android:maxLength="19"
         android:elevation="2dp"
         android:minHeight="48dp"
         android:textColor="@color/secondtextcolor"

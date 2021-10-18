@@ -78,4 +78,77 @@
     <string name="kayit">KAYIT OL</string>
     <string name="wgiris">Giriş Yapmadan Devam Et</string>
 
+    <!-- Strings in Turkish -->
+
+    <!-- Fragment Profile -->
+    <string name="FragmentProfile_friends">Arkadaşlar</string>
+    <string name="FragmentProfile_requests">İstekler</string>
+    <string name="FragmentProfile_newMatches">Profil bilgilerinize yakın eşleşmeler</string>
+    <string name="FragmentProfile_hi">Selam</string>
+    <string name="FragmentProfile_whatAreWeDoing">Neler yapıyorsun?</string>
+    <string name="FragmentProfile_iAmAt">Şurada</string>
+    <string name="FragmentProfile_iAmDoing">Şunu yapıyorum</string>
+    <string name="FragmentProfile_discover">Keşfet</string>
+    <string name="FragmentProfile_username">Kullanıcı adın</string>
+    <string name="FragmentProfile_findPeople">Kullanıcı adı</string>
+    <string name="FragmentProfile_match">Eşleştir</string>
+    <string name="FragmentProfile_history">Geçmiş</string>
+
+    <!-- Fragment Describe  -->
+    <string name="FragmentDescribe_message">This module is coming soon...</string>
+
+    <!-- Fragment Messages -->
+    <string name="FragmentMessages_messages">Mesajlar</string>
+    <string name="FragmentMessages_confirm">Kabul et</string>
+    <string name="FragmentMessages_search">ara</string>
+
+    <!-- Fragment Discover -->
+    <string name="FragmentDiscover_activity">Aktivite eklenmedi</string>
+    <string name="FragmentDiscover_location">Konum eklenmedı</string>
+    <string name="FragmentDiscover_time">Tarih eklenmedi</string>
+    <string name="FragmentDiscover_seeWhatOthersAreDoing">Diğerlerinin\nne yaptığını gör</string>
+    <string name="FragmentDiscover_searchFriend">Ara (arkadaş)</string>
+    <string name="FragmentDiscover_searchAll">Ara (hepsi)</string>
+
+    <!-- ActivityProfileEdit -->
+    <string name="ActivityProfileEdit_sendRequest">İstek gönder</string>
+    <string name="ActivityProfileEdit_block">Blokla</string>
+    <string name="ActivityProfileEdit_changeYourAvatar">Profil Resmi Düzenle</string>
+    <string name="ActivityProfileEdit_fillYourProfileForBestMatch">İyi eşleşmeler için profil bilgilerinizi doldurunuz</string>
+    <string name="ActivityProfileEdit_personal">Kişisel</string>
+    <string name="ActivityProfileEdit_nameSurname">İsim/Soyisim</string>
+    <string name="ActivityProfileEdit_dateOfBirth">Doğum tarihi</string>
+    <string name="ActivityProfileEdit_from">Şehir</string>
+    <string name="ActivityProfileEdit_appearance">Fiziksel Özellikler</string>
+    <string name="ActivityProfileEdit_height">Boy</string>
+    <string name="ActivityProfileEdit_weight">Kilo</string>
+    <string name="ActivityProfileEdit_tattoo">Dövme</string>
+    <string name="ActivityProfileEdit_school">Eğitim Bilgileri</string>
+    <string name="ActivityProfileEdit_primarySchool">İlkokul</string>
+    <string name="ActivityProfileEdit_middleSchool">Ortaokul</string>
+    <string name="ActivityProfileEdit_highSchool">Lise</string>
+    <string name="ActivityProfileEdit_university">Üniversite</string>
+    <string name="ActivityProfileEdit_job">Meslek</string>
+    <string name="ActivityProfileEdit_yourJob">Meslek</string>
+    <string name="ActivityProfileEdit_dreamJob">Hayalinizdeki Meslek</string>
+    <string name="ActivityProfileEdit_charmHoroscope">Enler ve Burçlar</string>
+    <string name="ActivityProfileEdit_color">En Sevdiğiniz Renk</string>
+    <string name="ActivityProfileEdit_number">Şanslı Sayınız</string>
+    <string name="ActivityProfileEdit_zodiacSign">Burcunuz</string>
+    <string name="ActivityProfileEdit_music">Müzik</string>
+    <string name="ActivityProfileEdit_favoriteGenre">Müzik Tarzınız</string>
+    <string name="ActivityProfileEdit_favoriteArtist">En Sevdiğiniz Sanatçı</string>
+    <string name="ActivityProfileEdit_interests">İlgi Alanlarınız</string>
+    <string name="ActivityProfileEdit_hobby">Hobi</string>
+    <string name="ActivityProfileEdit_talents">Yetenek</string>
+    <string name="ActivityProfileEdit_culture">Kültürel</string>
+    <string name="ActivityProfileEdit_favoriteBookGenre">Sevdiğiniz Kitap Türü</string>
+    <string name="ActivityProfileEdit_favoriteBook">Okumaya Doyamadığınız Kitap</string>
+    <string name="ActivityProfileEdit_favoriteMovieGenre">Sevdiğiniz Sinema Türü</string>
+    <string name="ActivityProfileEdit_favoriteMovie">İzlemeye Doyamadığınız Film</string>
+    <string name="ActivityProfileEdit_favoriteTheatre">En Sevdiğiniz Tiyatro Oyunu</string>
+    <string name="ActivityProfileEdit_food">Yemek</string>
+    <string name="ActivityProfileEdit_favoriteMeal">En Sevdiğiniz Öğün</string>
+    <string name="ActivityProfileEdit_favoriteFood">Yemeye Doyamadığınız Yemek</string>
+
 </resources>

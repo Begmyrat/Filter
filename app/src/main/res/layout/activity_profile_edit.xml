@@ -4,6 +4,720 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ActivityProfileEdit">
+    android:background="@color/colorBackground"
+    android:id="@+id/cons_main"
+    tools:context=".activities.ActivityProfileEdit2">
+
+    <ImageView
+        android:id="@+id/i_cross"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/cross_friends"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#998B8A"/>
+
+    <ImageView
+        android:id="@+id/i_tickRed"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/tick_red"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/c_avatar"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/i_cross"
+        app:cardCornerRadius="41dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="2dp">
+
+        <ImageView
+            android:id="@+id/i_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/t_percentage"
+        android:layout_width="43dp"
+        android:layout_height="30dp"
+        android:text="%25"
+        android:gravity="center"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:textSize="14sp"
+        android:textColor="@color/secondtextcolor"
+        android:elevation="2dp"
+        android:background="@drawable/profil_percentage"
+        app:layout_constraintTop_toBottomOf="@+id/c_avatar"
+        app:layout_constraintLeft_toLeftOf="@id/c_avatar"
+        app:layout_constraintRight_toRightOf="@+id/c_avatar"
+        android:translationY="-15dp"/>
+
+    <TextView
+        android:id="@+id/t_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="John Doe"
+        android:textSize="24sp"
+        android:textColor="@color/textPrimaryColor"
+        android:fontFamily="@font/josefin_sans_semi_bold"
+        app:layout_constraintLeft_toRightOf="@+id/c_avatar"
+        app:layout_constraintTop_toTopOf="@+id/c_avatar"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/t_changeYourAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/changeyouravatarbutton"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:gravity="center"
+        android:text="@string/ActivityProfileEdit_changeYourAvatar"
+        android:textColor="@color/secondtextcolor"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/t_percentage"
+        app:layout_constraintLeft_toLeftOf="@+id/t_username"
+        app:layout_constraintTop_toBottomOf="@+id/t_username"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/t_fillYourProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/c_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/t_percentage"
+        android:textSize="18dp"
+        android:fontFamily="@font/josefin_sans_extra_light"
+        android:textColor="@color/thirdtextcolor"
+        android:text="@string/ActivityProfileEdit_fillYourProfileForBestMatch"/>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t_fillYourProfile">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/i_personal"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/personal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/t_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_personal"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_personal"
+                app:layout_constraintLeft_toRightOf="@+id/i_personal"
+                app:layout_constraintTop_toTopOf="@+id/i_personal" />
+
+            <TextView
+                android:id="@+id/t_nameSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_nameSurname"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_personal"
+                app:layout_constraintTop_toBottomOf="@+id/t_personal" />
+
+            <TextView
+                android:id="@+id/t_dateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_dateOfBirth"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_personal"
+                app:layout_constraintTop_toBottomOf="@+id/t_nameSurname" />
+
+            <TextView
+                android:id="@+id/t_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_from"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_personal"
+                app:layout_constraintTop_toBottomOf="@+id/t_dateOfBirth" />
+
+            <View
+                android:id="@+id/v_1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_from" />
+
+            <ImageView
+                android:id="@+id/i_appearance"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/physical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_1" />
+
+            <TextView
+                android:id="@+id/t_appearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_appearance"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_appearance"
+                app:layout_constraintLeft_toRightOf="@+id/i_appearance"
+                app:layout_constraintTop_toTopOf="@+id/i_appearance" />
+
+            <TextView
+                android:id="@+id/t_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_height"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_appearance"
+                app:layout_constraintTop_toBottomOf="@+id/t_appearance" />
+
+            <TextView
+                android:id="@+id/t_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_weight"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_appearance"
+                app:layout_constraintTop_toBottomOf="@+id/t_height" />
+
+            <TextView
+                android:id="@+id/t_tatto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_tattoo"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_appearance"
+                app:layout_constraintTop_toBottomOf="@+id/t_weight" />
+
+            <View
+                android:id="@+id/v_2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_tatto" />
+
+            <ImageView
+                android:id="@+id/i_school"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/school"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_2" />
+
+            <TextView
+                android:id="@+id/t_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_school"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_school"
+                app:layout_constraintLeft_toRightOf="@+id/i_school"
+                app:layout_constraintTop_toTopOf="@+id/i_school" />
+
+            <TextView
+                android:id="@+id/t_primarySchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_primarySchool"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_school"
+                app:layout_constraintTop_toBottomOf="@+id/t_school" />
+
+            <TextView
+                android:id="@+id/t_middleSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_middleSchool"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_school"
+                app:layout_constraintTop_toBottomOf="@+id/t_primarySchool" />
+
+            <TextView
+                android:id="@+id/t_highSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_highSchool"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_appearance"
+                app:layout_constraintTop_toBottomOf="@+id/t_middleSchool" />
+
+            <TextView
+                android:id="@+id/t_university"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_university"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_appearance"
+                app:layout_constraintTop_toBottomOf="@+id/t_highSchool" />
+
+            <View
+                android:id="@+id/v_3"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_university" />
+
+            <ImageView
+                android:id="@+id/i_job"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/work"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_3" />
+
+            <TextView
+                android:id="@+id/t_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_job"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_job"
+                app:layout_constraintLeft_toRightOf="@+id/i_job"
+                app:layout_constraintTop_toTopOf="@+id/i_job" />
+
+            <TextView
+                android:id="@+id/t_yourJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_yourJob"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_job"
+                app:layout_constraintTop_toBottomOf="@+id/t_job" />
+
+            <TextView
+                android:id="@+id/t_yourDreamJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_dreamJob"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_yourJob"
+                app:layout_constraintTop_toBottomOf="@+id/t_yourJob" />
+
+            <View
+                android:id="@+id/v_4"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_yourDreamJob" />
+
+            <ImageView
+                android:id="@+id/i_charm"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/charm"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_4" />
+
+            <TextView
+                android:id="@+id/t_charm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_charmHoroscope"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_charm"
+                app:layout_constraintLeft_toRightOf="@+id/i_charm"
+                app:layout_constraintTop_toTopOf="@+id/i_charm" />
+
+            <TextView
+                android:id="@+id/t_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_color"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_charm"
+                app:layout_constraintTop_toBottomOf="@+id/t_charm" />
+
+            <TextView
+                android:id="@+id/t_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_number"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_color"
+                app:layout_constraintTop_toBottomOf="@+id/t_color" />
+
+            <TextView
+                android:id="@+id/t_zodiacSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_zodiacSign"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_number"
+                app:layout_constraintTop_toBottomOf="@+id/t_number" />
+
+            <View
+                android:id="@+id/v_6"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_zodiacSign" />
+
+            <ImageView
+                android:id="@+id/i_music"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/music"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_6" />
+
+            <TextView
+                android:id="@+id/t_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_music"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_music"
+                app:layout_constraintLeft_toRightOf="@+id/i_music"
+                app:layout_constraintTop_toTopOf="@+id/i_music" />
+
+            <TextView
+                android:id="@+id/t_favoriteGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteGenre"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_music"
+                app:layout_constraintTop_toBottomOf="@+id/t_music" />
+
+            <TextView
+                android:id="@+id/t_favoriteArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteArtist"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_favoriteGenre"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteGenre" />
+
+            <View
+                android:id="@+id/v_7"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteArtist" />
+
+            <ImageView
+                android:id="@+id/i_interests"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/interests"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_7" />
+
+            <TextView
+                android:id="@+id/t_interests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_interests"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_interests"
+                app:layout_constraintLeft_toRightOf="@+id/i_interests"
+                app:layout_constraintTop_toTopOf="@+id/i_interests" />
+
+            <TextView
+                android:id="@+id/t_hobbies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_hobby"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_interests"
+                app:layout_constraintTop_toBottomOf="@+id/t_interests" />
+
+            <TextView
+                android:id="@+id/t_talents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_talents"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_hobbies"
+                app:layout_constraintTop_toBottomOf="@+id/t_hobbies" />
+
+            <View
+                android:id="@+id/v_8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_talents" />
+
+            <ImageView
+                android:id="@+id/i_culture"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/culture"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_8" />
+
+            <TextView
+                android:id="@+id/t_books"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_culture"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_culture"
+                app:layout_constraintLeft_toRightOf="@+id/i_culture"
+                app:layout_constraintTop_toTopOf="@+id/i_culture" />
+
+            <TextView
+                android:id="@+id/t_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteBookGenre"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_books"
+                app:layout_constraintTop_toBottomOf="@+id/t_books" />
+
+            <TextView
+                android:id="@+id/t_favoriteBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteBook"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_genre"
+                app:layout_constraintTop_toBottomOf="@+id/t_genre" />
+
+            <TextView
+                android:id="@+id/t_favoriteMovieGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteMovieGenre"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_favoriteBook"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteBook" />
+
+            <TextView
+                android:id="@+id/t_favoriteMovie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteMovie"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_favoriteMovieGenre"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteMovieGenre" />
+
+            <TextView
+                android:id="@+id/t_favoriteTheatre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteTheatre"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_favoriteMovie"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteMovie" />
+
+            <View
+                android:id="@+id/v_9"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteTheatre" />
+
+            <ImageView
+                android:id="@+id/i_food"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/food"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_9" />
+
+            <TextView
+                android:id="@+id/t_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/josefin_sans_regular"
+                android:text="@string/ActivityProfileEdit_food"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/i_food"
+                app:layout_constraintLeft_toRightOf="@+id/i_food"
+                app:layout_constraintTop_toTopOf="@+id/i_food" />
+
+            <TextView
+                android:id="@+id/t_favoriteMeal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteMeal"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_food"
+                app:layout_constraintTop_toBottomOf="@+id/t_food" />
+
+            <TextView
+                android:id="@+id/t_favoriteFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/josefin_sans_light"
+                android:text="@string/ActivityProfileEdit_favoriteFood"
+                android:textColor="@color/Altbaslik_gri"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/t_favoriteMeal"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteMeal" />
+
+            <View
+                android:id="@+id/v_10"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorStick"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/t_favoriteFood" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

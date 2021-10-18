@@ -46,9 +46,11 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.activities.ActivityAvatar;
 import com.mobiloby.filter.activities.ActivityLogin1;
+import com.mobiloby.filter.activities.ActivityProfileEdit2;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MyRecommendListAdapter;
 import com.mobiloby.filter.adapters.ViewPagerFragmentAdapter;
+import com.mobiloby.filter.databinding.ActivityProfileEditBinding;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
 import com.mobiloby.filter.models.UserObject;
@@ -77,10 +79,10 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     ArrayList<UserObject> userObjects;
     MyRecommendListAdapter adapter;
     ViewPagerFragmentAdapter pagerAdapter;
-    String username, token;
+    String username, token, userProfileUrl="", userProfilDoluluk="";
     SharedPreferences preferences;
-    TextView t_friendCount, t_requestCount, t_username, t_percentage, t_friendCountTitle, t_requestCountTitle, t_changeyouravatarbutton;
-    ImageView i_avatar, i_profile;
+    TextView t_friendCount, t_requestCount, t_username, t_percentage, t_friendCountTitle, t_requestCountTitle;
+    ImageView i_avatar, i_profile, i_settings;
     CircularProgressBar circularProgressBar;
     int width, height;
     CardView cardView_avatar;
@@ -89,6 +91,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     MessageViewModel messageViewModel;
     MainViewModel mainViewModel;
     UserObject userSelf;
+
 
 
     @Override
@@ -101,13 +104,6 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         prepareMe();
 
         tabLayout.setOnTabSelectedListener(this);
-        t_changeyouravatarbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, ActivityAvatar.class);
-                startActivity(intent);
-            }
-        });
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -150,9 +146,10 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         t_requestCount = view.findViewById(R.id.t_requestNumber);
         t_requestCountTitle = view.findViewById(R.id.t_requestTitle);
         t_username = view.findViewById(R.id.t_username);
+        i_settings = view.findViewById(R.id.i_settings);
+        i_settings.setOnClickListener(this);
         t_percentage = view.findViewById(R.id.t_percentage);
         circularProgressBar = view.findViewById(R.id.circularProgressBar);
-        t_changeyouravatarbutton = view.findViewById(R.id.t_changeyouravatarbutton);
 
         tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -189,6 +186,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         t_friendCount.setOnClickListener(this);
         t_friendCountTitle.setOnClickListener(this);
 
+
         if(height<1790){
             cardView_avatar.getLayoutParams().width = dpToPx(80, activity);
             cardView_avatar.getLayoutParams().height = dpToPx(80, activity);
@@ -196,7 +194,6 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             circularProgressBar.getLayoutParams().height = dpToPx(85, activity);
             circularProgressBar.setTranslationY(dpToPx(-20, activity));
             cardView_avatar.setTranslationY(dpToPx(-20, activity));
-            view.findViewById(R.id.i_changeyouravatarbutton).setTranslationY(dpToPx(-20, activity));
             view.findViewById(R.id.t_friendsTitle).setTranslationY(dpToPx(-130, activity));
             view.findViewById(R.id.t_requestTitle).setTranslationY(dpToPx(-130, activity));
             view.findViewById(R.id.t_friendNumber).setTranslationY(dpToPx(-130, activity));
@@ -206,12 +203,6 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             view.findViewById(R.id.t_friendNumber).setTranslationX(dpToPx(-30, activity));
             view.findViewById(R.id.t_requestNumber).setTranslationX(dpToPx(30, activity));
             view.findViewById(R.id.t_percentage).setTranslationY(dpToPx(-30, activity));
-            view.findViewById(R.id.i_changeyouravatarbutton).setTranslationY(dpToPx(-35, activity));
-            view.findViewById(R.id.t_changeyouravatarbutton).setTranslationY(dpToPx(-38, activity));
-            TextView t_change = view.findViewById(R.id.t_changeyouravatarbutton);
-            t_change.setTextSize(10);
-            view.findViewById(R.id.i_changeyouravatarbutton).getLayoutParams().width = dpToPx(140, activity);
-            view.findViewById(R.id.i_changeyouravatarbutton).getLayoutParams().height = dpToPx(40, activity);
             view.findViewById(R.id.c_recyclerview).setTranslationY(dpToPx(-40, activity));
         }
         else if(height>2200){
@@ -263,7 +254,9 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
         activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity,R.color.colorBackground));// set status background white
 
-//        profileViewModel.getUser();
+        userProfilDoluluk = preferences.getString("userProfilDoluluk", "0");
+        t_percentage.setText("%"+userProfilDoluluk);
+
         profileViewModel.updateToken(token);
     }
 
@@ -276,13 +269,14 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 t_requestCount.setText(userObject.getRequestCount());
                 t_friendCount.setText(userObject.getFriendCount());
                 t_requestCount.setText(userObject.getRequestCount());
-                t_percentage.setText(userObject.getUserProfilDoluluk());
+//                t_percentage.setText(userObject.getUserProfilDoluluk());
+                userProfileUrl = userObject.getAvatar_id();
 
                 circularProgressBar.setProgress(Float.parseFloat(userObject.getUserProfilDoluluk()));
 
                 Glide
                         .with(activity)
-                        .load("https:mobiloby.com/_filter/assets/profile/" + userObject.getAvatar_id())
+                        .load("https:mobiloby.com/_filter/assets/profile/" + userProfileUrl)
                         .centerCrop()
                         .placeholder(R.drawable.ic_f_char)
                         .into(i_avatar);
@@ -353,7 +347,10 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
 
     @Override
     public void onItemClick(View view, int position) {
-
+        Intent intent = new Intent(activity, ActivityProfileEdit2.class);
+        intent.putExtra("username", userObjects.get(position).getUsername());
+        intent.putExtra("userProfileUrl", userObjects.get(position).getAvatar_id());
+        startActivity(intent);
     }
 
     @Override
@@ -375,11 +372,17 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     public void onClick(View v) {
 
         switch (v.getId()){
-            case R.id.i_profile:
+            case R.id.i_settings:
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean("isLoggedIn", false);
                 editor.commit();
                 startActivity(new Intent(activity, ActivityLogin1.class));
+                break;
+            case R.id.i_profile:
+                Intent intent = new Intent(activity, ActivityProfileEdit2.class);
+                intent.putExtra("username", username);
+                intent.putExtra("userProfileUrl", userProfileUrl);
+                startActivity(intent);
                 break;
             case R.id.t_friendNumber:
                 messageViewModel.setIsFriends(true);
@@ -399,6 +402,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 break;
             case R.id.i_avatar:
                 break;
+
         }
     }
 }

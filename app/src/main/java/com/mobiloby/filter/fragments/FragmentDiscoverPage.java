@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.activities.ActivityCategory3;
+import com.mobiloby.filter.activities.ActivityProfileEdit2;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MyRecycleListAdapter;
 import com.mobiloby.filter.adapters.MyTodoResultListAdapter;
@@ -55,8 +56,8 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
     JSONObject jsonObject;
     SharedPreferences preferences;
     String username, userImgUrl="";
-    TextView t_activity, t_feeling, t_location, t_time;
-    ImageView i_activity, i_feeling, i_avatar;
+    TextView t_activity, t_location, t_time;
+    ImageView i_activity, i_avatar;
     ProgressDialog progressDialog;
 
     @Override
@@ -74,13 +75,6 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
             }
         });
 
-        t_feeling.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, "feeling", Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
         return view;
     }
@@ -88,6 +82,16 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
     @Override
     public void onResume() {
         super.onResume();
+
+        userImgUrl = preferences.getString("avatar_id","");
+
+        Glide
+                .with(activity)
+                .load("https:mobiloby.com/_filter/assets/profile/" + userImgUrl)
+                .centerCrop()
+                .circleCrop()
+                .placeholder(R.drawable.filtryenilogo)
+                .into(i_avatar);
 
         activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
         activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity,R.color.colorBackground3));// set status background white
@@ -100,7 +104,6 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
 
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         username = preferences.getString("username_unique","");
-        userImgUrl = preferences.getString("avatar_id","");
         i_avatar = view.findViewById(R.id.i_avatar);
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
@@ -119,11 +122,9 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
         progressDialog.setMax(100);
 
         t_activity = view.findViewById(R.id.t_activity);
-        t_feeling = view.findViewById(R.id.t_feeling);
         t_location = view.findViewById(R.id.t_location);
         t_time = view.findViewById(R.id.t_time);
         i_activity = view.findViewById(R.id.i_activity);
-        i_feeling = view.findViewById(R.id.i_feeling);
     }
 
     private void getTodo() {
@@ -198,13 +199,6 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                             t_time.setText(message);
                             t_location.setText(todo_loc);
                             t_activity.setText(todo_desc);
-
-                            Glide
-                                    .with(activity)
-                                    .load("https:mobiloby.com/_filter/assets/profile/" + userImgUrl)
-                                    .centerCrop()
-                                    .placeholder(R.drawable.ic_f_char)
-                                    .into(i_avatar);
                         }
 
                         getUsersByTODO();
@@ -304,6 +298,9 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
 
     @Override
     public void onItemClick(View view, int position, ArrayList<TodoObject> list) {
-        Toast.makeText(activity, "pos: " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(activity, ActivityProfileEdit2.class);
+        intent.putExtra("username", list.get(position).getUsername());
+        intent.putExtra("userProfileUrl", list.get(position).getUserProfileUrl());
+        startActivity(intent);
     }
 }

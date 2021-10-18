@@ -53,11 +53,11 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if(height>2000){
-            holder.cardView.getLayoutParams().height = dpToPx(80, context);
-            holder.cardView.getLayoutParams().width = dpToPx(80, context);
+        if(height>1790){
+            holder.cardView.getLayoutParams().height = dpToPx(70, context);
+            holder.cardView.getLayoutParams().width = dpToPx(70, context);
         }
-        else if(height<1790){
+        else{
             holder.cardView.getLayoutParams().height = dpToPx(50, context);
             holder.cardView.getLayoutParams().width = dpToPx(50, context);
             holder.t_percentage.setTextSize(8);
@@ -65,23 +65,18 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
             holder.t_percentage.getLayoutParams().height = dpToPx(12, context);
         }
 
-        if(position==list.size()-1){
-            holder.i_avatar.setImageResource(R.drawable.addmatches);
-            holder.t_percentage.setVisibility(View.GONE);
-        }
-        else{
-            holder.t_percentage.setVisibility(View.VISIBLE);
-            holder.t_percentage.setText("%"+list.get(position).getSimilarity());
-            try{
-                Glide
-                        .with(context)
-                        .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getAvatar_id())
-                        .centerCrop()
-                        .placeholder(R.drawable.ic_f_char)
-                        .into(holder.i_avatar);
-            }catch (Exception e){
+        holder.t_percentage.setVisibility(View.VISIBLE);
+        holder.t_percentage.setText("%"+list.get(position).getSimilarity());
+        holder.t_username2.setText(""+list.get(position).getUsername());
+        try{
+            Glide
+                    .with(context)
+                    .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getAvatar_id())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_f_char)
+                    .into(holder.i_avatar);
+        }catch (Exception e){
 
-            }
         }
     }
 
@@ -100,7 +95,7 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView t_percentage;
+        TextView t_percentage, t_username2;
         ImageView i_avatar;
         CardView cardView;
 
@@ -109,6 +104,7 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
             i_avatar = itemView.findViewById(R.id.i_avatar);
             t_percentage = itemView.findViewById(R.id.t_percentage);
             cardView = itemView.findViewById(R.id.cardview2);
+            t_username2 = itemView.findViewById(R.id.t_username2);
 
             itemView.setOnClickListener(this);
         }
