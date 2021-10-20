@@ -424,8 +424,11 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                                     binding.tChangeYourAvatar.setText("Arkadaşsınız");
                                     isFriend = true;
                                 }
-                                else if(c.getString("is_friend").equals("0")){
+                                else if(c.getString("is_friend").equals("3")){
                                     binding.tChangeYourAvatar.setText("İsteği kabul et");
+                                }
+                                else if(c.getString("is_friend").equals("4")){
+                                    binding.tChangeYourAvatar.setText("Beklemede");
                                 }
                                 else if(c.getString("is_friend").equals("-1")){
                                     binding.tChangeYourAvatar.setText("İstek gönder");

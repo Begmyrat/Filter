@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.activities.ActivityChat;
 import com.mobiloby.filter.activities.ActivityFriends;
+import com.mobiloby.filter.activities.ActivityProfileEdit2;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MyFriendListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
@@ -271,6 +272,10 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
         }
         else{
             // profile gidecek
+            Intent intent = new Intent(activity, ActivityProfileEdit2.class);
+            intent.putExtra("username", friendList.get(position).getUsername());
+            intent.putExtra("userProfileUrl", friendList.get(position).getAvatar_id());
+            startActivity(intent);
         }
     }
 }
