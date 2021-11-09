@@ -137,7 +137,8 @@ public class ProfileViewModel extends ViewModel {
                             u.setUsername(username);
                             u.setUser_player_id(userPlayerID);
                             u.setAvatar_id(userProfileURL);
-                            u.setUserProfilDoluluk(""+Integer.parseInt(profilDoluluk)*100/25);
+                            u.setUserProfilDoluluk(""+Integer.parseInt(profilDoluluk)*100/27);
+                            Toast.makeText(activity, "per: " + u.getUserProfilDoluluk(), Toast.LENGTH_SHORT).show();
                             u.setFriendCount(countArkadas);
                             u.setRequestCount(countIstek);
                             userData.postValue(u);
@@ -218,8 +219,9 @@ public class ProfileViewModel extends ViewModel {
                             UserObject o = new UserObject();
                             o.setId(user_id);
                             o.setUsername(user_name);
+                            o.setUser_player_id(user_device_id);
                             o.setUsername_visible(user_name);
-                            double d  = Math.round((Double.parseDouble(similarity)*100/25));
+                            double d  = Double.parseDouble(similarity);
                             o.setSimilarity(""+(int)d);
                             o.setProfil_gizlilik(profil_gizlilik);
                             o.setAvatar_id(user_profile_url);

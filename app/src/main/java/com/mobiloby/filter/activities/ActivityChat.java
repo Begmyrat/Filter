@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -59,7 +60,15 @@ public class ActivityChat extends AppCompatActivity {
     public static HashSet<String> hashSet;
     SharedPreferences preferences;
     ProgressDialog progressDialog;
+    public static Context context;
+    TextView t_username;
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        context = null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,7 @@ public class ActivityChat extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         prepareMe();
+        context = getApplicationContext();
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         getChats();
@@ -76,6 +86,7 @@ public class ActivityChat extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        t_username.setText(friend_username);
     }
 
     private void prepareMe() {
@@ -104,7 +115,7 @@ public class ActivityChat extends AppCompatActivity {
 
             Glide
                     .with(getApplicationContext())
-                    .load("https:mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
+                    .load("https://mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
                     .centerCrop()
                     .placeholder(R.drawable.ic_f_char)
                     .into(i_avatar);
@@ -118,6 +129,7 @@ public class ActivityChat extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         e_message = findViewById(R.id.e_message);
+        t_username = findViewById(R.id.t_username);
     }
 
     public void clickBack(View view) {
@@ -173,7 +185,7 @@ public class ActivityChat extends AppCompatActivity {
 
                 if (res.equals("1")) {
 
-                    e_message.setText("");
+
 
                     Calendar calendar = Calendar.getInstance();
                     int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -287,7 +299,10 @@ public class ActivityChat extends AppCompatActivity {
                 HashMap<String, String> jsonData = new HashMap<>();
 
                 jsonData.put("friend_token", user_player_id_other);
+                jsonData.put("title", username);
+                jsonData.put("username", friend_username);
                 jsonData.put("message", e_message.getText().toString());
+
 
                 int success = 0;
                 try {
@@ -308,13 +323,13 @@ public class ActivityChat extends AppCompatActivity {
             @Override
             protected void onPostExecute(String res) {
 
-
+                e_message.setText("");
 
                 if (res.equals("1")) {
                     Toast.makeText(ActivityChat.this, "gonderdik", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
                 }
 
             }

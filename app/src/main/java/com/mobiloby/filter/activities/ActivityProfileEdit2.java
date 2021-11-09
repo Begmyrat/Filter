@@ -1,10 +1,12 @@
 package com.mobiloby.filter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +14,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -36,15 +40,16 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
     ArrayList<String> infoList;
     ArrayList<String> titleList;
     ArrayList<String> optionsList;
-    int clickedItemIndex = -1;
+    int clickedItemIndex = -1, isHidden=0;
     Boolean isSelf = false, isFriend=false;
     SharedPreferences preferences;
-    String username="", userProfileUrl="", usernameSelf="", friendStatus="-1";
+    String username="", userProfileUrl="", usernameSelf="", friendStatus="-1", playerId="";
     JSONParser jsonParser;
     JSONObject jsonObject;
     ProgressDialog progressDialog;
     Bundle extras;
     Activity activity;
+    Dialog builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +72,11 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         if(usernameSelf.equals(username)){
             isSelf = true;
             userProfileUrl = preferences.getString("avatar_id","");
+            binding.tProfilHidden.setVisibility(View.VISIBLE);
         }
         else{
             isSelf = false;
-            binding.iTickRed.setVisibility(View.GONE);
+            binding.tProfilHidden.setVisibility(View.GONE);
 //            binding.tChangeYourAvatar.setVisibility(View.INVISIBLE);
         }
 
@@ -87,7 +93,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
 
     private void setListeners() {
         binding.iCross.setOnClickListener(this);
-        binding.iTickRed.setOnClickListener(this);
+        binding.tProfilHidden.setOnClickListener(this);
         binding.tChangeYourAvatar.setOnClickListener(this);
         binding.tNameSurname.setOnClickListener(this);
         binding.tDateOfBirth.setOnClickListener(this);
@@ -125,6 +131,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         extras = getIntent().getExtras();
         if(extras!=null){
             username = extras.getString("username");
+            playerId = extras.getString("player_id");
             userProfileUrl = extras.getString("userProfileUrl");
         }
 
@@ -328,8 +335,9 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                 case R.id.i_cross:
                     clickedItemIndex = 27;
                     break;
-                case R.id.i_tickRed:
+                case R.id.t_profilHidden:
                     clickedItemIndex = 28;
+                    updateProfil();
                     break;
             }
 
@@ -344,7 +352,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
             }
             else if(clickedItemIndex==28){
                 // finish
-                finish();
+//                finish();
             }
             else{
                 Intent intent = new Intent(getApplicationContext(),ActivityProfileEditForm.class);
@@ -360,7 +368,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         else if(view.getId() == R.id.t_changeYourAvatar && friendStatus.equals("-1")){
             sendIstek();
         }
-        else if(view.getId() == R.id.t_changeYourAvatar && friendStatus.equals("0")){
+        else if(view.getId() == R.id.t_changeYourAvatar && friendStatus.equals("3")){
             insertFriend();
         }
         else if(view.getId() == R.id.t_changeYourAvatar && friendStatus.equals("1")){
@@ -417,20 +425,19 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                         for (int i = 0; i < pro.length(); i++) {
                             c = pro.getJSONObject(i);
 
-                            Toast.makeText(getApplicationContext(), "self: " + usernameSelf + " -> " + username, Toast.LENGTH_SHORT).show();
                             friendStatus = c.getString("is_friend");
                             if(!usernameSelf.equals(username)){
-                                if(c.getString("is_friend").equals("1")){
+                                if(friendStatus.equals("1")){
                                     binding.tChangeYourAvatar.setText("Arkadaşsınız");
                                     isFriend = true;
                                 }
-                                else if(c.getString("is_friend").equals("3")){
+                                else if(friendStatus.equals("3")){
                                     binding.tChangeYourAvatar.setText("İsteği kabul et");
                                 }
-                                else if(c.getString("is_friend").equals("4")){
+                                else if(friendStatus.equals("4")){
                                     binding.tChangeYourAvatar.setText("Beklemede");
                                 }
-                                else if(c.getString("is_friend").equals("-1")){
+                                else if(friendStatus.equals("-1")){
                                     binding.tChangeYourAvatar.setText("İstek gönder");
                                     isFriend = false;
                                 }
@@ -463,15 +470,93 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                             infoList.add(c.getString("yemek_ogun"));
                             infoList.add(c.getString("yemek"));
 
+                            if((""+c.getString("status")).equals("1")){
+                                isHidden = 1;
+                                binding.tProfilHidden.setText("Profilimi Gizle");
+                            }
+                            else{
+                                isHidden = 0;
+                                binding.tProfilHidden.setText("Profilimi Herkese Aç");
+                            }
+
                             binding.tPercentage.setText("%"+c.getString("percent"));
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("userProfilDoluluk", c.getString("percent"));
                             editor.commit();
 
-                            setDataToUI();
-
+                            if(username.equals(usernameSelf)){
+                                binding.tFillYourProfile.setText("En iyi eşleşme için profilini doldur.");
+                                binding.tContinue.setVisibility(View.VISIBLE);
+                                binding.iContinue.setVisibility(View.VISIBLE);
+                            }
+                            else if(!username.equals(usernameSelf) && isHidden==0 && !friendStatus.equals("1")){
+                                //t_fillYourProfile
+                                binding.tFillYourProfile.setText("Bu Profil Gizlidir");
+                            }
+                            else{
+                                binding.tFillYourProfile.setText("Profil Bilgileri");
+                                setDataToUI();
+                            }
                         }
                     }catch (Exception e){
+                    }
+
+                }
+                else{
+                    ShowToastMessage.show(activity, "Bir hata oldu. Tekrar deneyiniz");
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void updateProfil() {
+        progressDialog.show();
+        infoList.clear();
+        final String url = "https://mobiloby.com/_filter/update_profile_hidden.php";
+
+        isHidden = (isHidden+1)%2;
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("user_name_unique", usernameSelf);
+                jsonData.put("status", ""+isHidden);
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+
+                    if(isHidden == 0){
+                        binding.tProfilHidden.setText("Profilimi Herkese Aç");
+                    }
+                    else{
+                        binding.tProfilHidden.setText("Profilimi Gizle");
                     }
 
                 }
@@ -526,6 +611,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                 if (res.equals("1")) {
                     ShowToastMessage.show(activity, "İstek gönderildi.");
                     getInfo();
+                    pushNotification(""+usernameSelf+" size istek gönderdi.");
                 }
                 else{
                     makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", getApplicationContext(), true);
@@ -577,10 +663,121 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
 
                 if (res.equals("1")) {
                     ShowToastMessage.show(activity, "Arkadaş eklendi");
+                    pushNotification(""+usernameSelf+" sizi arkadaş olarak ekledi.");
                     getInfo();
                 }
                 else{
                     ShowToastMessage.show(activity, "Arkadaş eklemede bir hata oldu. Tekrar deneyiniz.");
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void deleteUser() {
+
+        progressDialog.show();
+
+        final String url = "https://mobiloby.com/_filter/delete_user.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("user_name_unique", usernameSelf);
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("isLoggedIn", false);
+                    editor.putString("username_unique", "");
+                    editor.putString("user_password", "");
+                    editor.putString("user_profile_url", "");
+                    editor.commit();
+
+                    Intent intent = new Intent(ActivityProfileEdit2.this, ActivityLogin1.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+                else{
+                    ShowToastMessage.show(activity, "Hesap silmede bir hata oldu. Tekrar deneyiniz.");
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void pushNotification(String message) {
+
+        progressDialog.show();
+        System.out.println("PLAYERID: " + playerId);
+
+        final String url = "https://mobiloby.com/_filter/bildirim_gonder_deneme.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("friend_token", ""+playerId);
+                jsonData.put("message", message);
+                jsonData.put("username", username);
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+
+                }
+                else{
+                    ShowToastMessage.show(activity, "Bildirim gonderilemedi");
                 }
 
             }
@@ -693,5 +890,37 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         else
             binding.tFavoriteFood.setText(infoList.get(25));
 
+    }
+
+    public void clickDeleteAccount(View view) {
+        popup();
+    }
+
+    private void popup() {
+        builder = new Dialog(this, R.style.AlertDialogCustom);
+        View view;
+        view = LayoutInflater.from(this).inflate(R.layout.popup_uyari_sil, null);
+
+        CardView cardViewEvet = view.findViewById(R.id.cardviewEvet);
+        CardView cardViewVazgec = view.findViewById(R.id.cardviewVazgec);
+
+        cardViewEvet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+                deleteUser();
+            }
+        });
+
+        cardViewVazgec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+            }
+        });
+
+        builder.setCancelable(true);
+        builder.setContentView(view);
+        builder.show();
     }
 }

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,9 +22,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiloby.filter.R;
+import com.mobiloby.filter.ShowToastMessage;
+import com.mobiloby.filter.activities.ActivityChat;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MySocialRecycleListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
@@ -206,7 +210,44 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
 
     @Override
     public void onItemClick(View view, int position) {
+        // popup sil
 
+        popupUyari(position);
+
+
+    }
+
+    private void popupUyari(int position) {
+        builder = new Dialog(activity, R.style.AlertDialogCustom);
+        View view;
+        view = LayoutInflater.from(activity).inflate(R.layout.popup_uyari_sil, null);
+
+        CardView cardViewEvet = view.findViewById(R.id.cardviewEvet);
+        CardView cardViewVazgec = view.findViewById(R.id.cardviewVazgec);
+        TextView e_info = view.findViewById(R.id.e_info);
+        TextView t_title = view.findViewById(R.id.t_title);
+
+        t_title.setText("Aramayı Sil");
+        e_info.setText("Silmek üzeresiniz...");
+
+        cardViewEvet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+                deleteSearch(position);
+            }
+        });
+
+        cardViewVazgec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+            }
+        });
+
+        builder.setCancelable(true);
+        builder.setContentView(view);
+        builder.show();
     }
 
     private void sendBilgiler() {
@@ -258,14 +299,14 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
                     makeAlert.uyarıVer("Filter", "Bilgileriniz başarıyla yüklenmiştir. En kısa zamanda bulacağız. Teşekkür ederiz.", activity, false);
                     e_username.setText("");
                     e_username_other.setText("");
-                    getCurrentSearches();
+//                    getCurrentSearches();
                 }
                 else if(res.equals("2")){
                     try {
                         JSONArray pro = jsonObject.getJSONArray("pro");
                         JSONObject c = pro.getJSONObject(0);
                         String friend_user_name_unique = c.getString("friend_user_name_unique");
-                        makeAlert.uyarıVer("Filter", "Sizi arayan birisi bulundu\n"+friend_user_name_unique, activity, false);
+                        makeAlert.uyarıVer("Filter", "Sizi arayan kişi ile eşleştiniz\n"+friend_user_name_unique, activity, false);
                         e_username.setText("");
                         e_username_other.setText("");
                         insertFriend(friend_user_name_unique);
@@ -326,8 +367,107 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
 
                 if (res.equals("1")) {
                     Toast.makeText(activity, "Arkadas eklendi", Toast.LENGTH_SHORT).show();
+                    pushNotification(friend_username_unique);
                 }
                 else{
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void pushNotification(String friend_username_unique) {
+
+        final String url = "https://mobiloby.com/_filter/bildirim_gonder_deneme.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("title", "");
+                jsonData.put("username", friend_username_unique);
+                jsonData.put("message", username + " adlı kişi ile sosyal medya aramasından eşleştiniz.");
+
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                if (res.equals("1")) {
+
+                }
+                else{
+//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void deleteSearch(int index) {
+
+        progressDialog.show();
+
+        final String url = "https://mobiloby.com/_filter/delete_current_searches.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("id", list.get(index).getId());
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+                    list.remove(index);
+                    adapter.notifyDataSetChanged();
+                }
+                else{
+                    ShowToastMessage.show(activity, "Bir hata oldu. Tekrar deneyiniz");
                 }
 
             }

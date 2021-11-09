@@ -56,6 +56,10 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
         isFriendsActive = false;
     }
 
+    public void setFriendsPassive(){
+        isFriendsActive = false;
+    }
+
     public List<TodoObject> getItems(){
         return list;
     }
@@ -88,6 +92,13 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
         if(getItemViewType(position)==0){
             HeaderHolder headerHolder = (HeaderHolder) holder;
             ((HeaderHolder) holder).e_search.requestFocus();
+
+            if(isFriendsActive){
+                ((HeaderHolder) holder).i_personActivePassive.setImageResource(R.drawable.person_active);
+            }
+            else{
+                ((HeaderHolder) holder).i_personActivePassive.setImageResource(R.drawable.person_passive);
+            }
         }
         else{
             ResultHolder resultHolder = (ResultHolder) holder;
@@ -98,20 +109,20 @@ public class MyTodoResultListAdapter2 extends RecyclerView.Adapter<RecyclerView.
                 resultHolder.t_location.setText(""+todoObject.getLocation());
                 resultHolder.t_time.setText(""+todoObject.getTime());
 
-                String todo_minutes = todoObject.getTime();
-                int minutes = Integer.parseInt(todo_minutes);
-                String hour = "";
-                String message = "";
-                if(minutes/60>0){
-                    hour += " "+minutes/60;
-                    minutes -= 60*(minutes/60);
-                    message += hour + "s";
-                }
-                if(minutes>0){
-                    message += " " + minutes + "d";
-                }
+//                String todo_minutes = todoObject.getTime();
+//                int minutes = Integer.parseInt(todo_minutes);
+//                String hour = "";
+//                String message = "";
+//                if(minutes/60>0){
+//                    hour += " "+minutes/60;
+//                    minutes -= 60*(minutes/60);
+//                    message += hour + "s";
+//                }
+//                if(minutes>0){
+//                    message += " " + minutes + "d";
+//                }
 
-                resultHolder.t_time.setText(""+message);
+                resultHolder.t_time.setText(""+todoObject.getTime());
 
                 Glide
                         .with(context)

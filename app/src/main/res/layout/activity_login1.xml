@@ -10,7 +10,8 @@
         android:id="@+id/ust_resim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:translationY="-10dp"
+        android:translationY="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ust_resim"/>

@@ -18,12 +18,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#998B8A"/>
 
-    <ImageView
-        android:id="@+id/i_tickRed"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+    <TextView
+        android:id="@+id/t_profilHidden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:src="@drawable/tick_red"
+        android:text=""
+        android:textColor="@color/secondtextcolor"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:textSize="15sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -713,6 +716,38 @@
                 android:background="@color/colorStick"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/t_favoriteFood" />
+
+
+            <ImageView
+                android:id="@+id/i_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clickDeleteAccount"
+                android:src="@drawable/contunie_active"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"
+                android:paddingBottom="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/v_10"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintVertical_bias="0.9"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/t_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hesabımı Sil"
+                android:translationY="-3dp"
+                android:visibility="gone"
+                android:textSize="28sp"
+                android:paddingBottom="30dp"
+                android:textColor="@color/colorBackground"
+                android:fontFamily="@font/josefin_sans_light"
+                app:layout_constraintLeft_toLeftOf="@+id/i_continue"
+                app:layout_constraintRight_toRightOf="@+id/i_continue"
+                app:layout_constraintTop_toTopOf="@+id/i_continue"
+                app:layout_constraintBottom_toBottomOf="@+id/i_continue"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

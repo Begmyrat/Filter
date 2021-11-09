@@ -2,6 +2,7 @@ package com.mobiloby.filter.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -85,12 +86,15 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     ImageView i_avatar, i_profile, i_settings;
     CircularProgressBar circularProgressBar;
     int width, height;
-    CardView cardView_avatar;
+//    CardView cardView_avatar;
     ProgressDialog progressDialog;
     ProfileViewModel profileViewModel;
     MessageViewModel messageViewModel;
     MainViewModel mainViewModel;
     UserObject userSelf;
+    Dialog builder;
+    JSONParser jsonParser;
+    JSONObject jsonObject;
 
 
 
@@ -102,6 +106,8 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         activity = (MainActivity) getActivity();
 
         prepareMe();
+
+        setResponsibility();
 
         tabLayout.setOnTabSelectedListener(this);
 
@@ -116,6 +122,50 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         return view;
     }
 
+    private void setResponsibility() {
+        Toast.makeText(activity, "height: " + height, Toast.LENGTH_SHORT).show();
+        if(height<700){
+            i_avatar.getLayoutParams().width = dpToPx(80, activity);
+            i_avatar.getLayoutParams().height = dpToPx(80, activity);
+            circularProgressBar.getLayoutParams().width = dpToPx(85, activity);
+            circularProgressBar.getLayoutParams().height = dpToPx(85, activity);
+            circularProgressBar.setTranslationY(dpToPx(0, activity));
+            i_avatar.setTranslationY(dpToPx(0, activity));
+            view.findViewById(R.id.t_friendsTitle).setTranslationY(dpToPx(-80, activity));
+            view.findViewById(R.id.t_requestTitle).setTranslationY(dpToPx(-80, activity));
+            view.findViewById(R.id.t_friendNumber).setTranslationY(dpToPx(-80, activity));
+            view.findViewById(R.id.t_requestNumber).setTranslationY(dpToPx(-80, activity));
+            view.findViewById(R.id.t_friendsTitle).setTranslationX(dpToPx(-30, activity));
+            view.findViewById(R.id.t_requestTitle).setTranslationX(dpToPx(10, activity));
+            view.findViewById(R.id.t_friendNumber).setTranslationX(dpToPx(-30, activity));
+            view.findViewById(R.id.t_requestNumber).setTranslationX(dpToPx(10, activity));
+            view.findViewById(R.id.t_percentage).setTranslationY(dpToPx(-10, activity));
+            if(height<660)
+                view.findViewById(R.id.c_recyclerview).setTranslationY(dpToPx(-15, activity));
+            else
+                view.findViewById(R.id.c_recyclerview).setTranslationY(dpToPx(-35, activity));
+
+        }
+        else{
+//            holder.cardView.getLayoutParams().height = dpToPx(50, context);
+//            holder.cardView.getLayoutParams().width = dpToPx(50, context);
+//            holder.t_percentage.setTextSize(8);
+//            holder.t_percentage.getLayoutParams().width = dpToPx(27, context);
+//            holder.t_percentage.getLayoutParams().height = dpToPx(12, context);
+            i_avatar.getLayoutParams().height = dpToPx(100, activity);
+            i_avatar.getLayoutParams().width = dpToPx(100, activity);
+            circularProgressBar.getLayoutParams().height = dpToPx(110, activity);
+            circularProgressBar.getLayoutParams().width = dpToPx(110, activity);
+        }
+
+        if(height<1790){
+
+        }
+        else if(height>2200){
+
+        }
+    }
+
     private void prepareMe() {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -123,7 +173,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         username = preferences.getString("username_unique", "");
         token = preferences.getString("token","");
-        cardView_avatar = view.findViewById(R.id.cardview_avatar);
+//        cardView_avatar = view.findViewById(R.id.cardview_avatar);
         userSelf = new UserObject();
         userObjects = new ArrayList<>();
 
@@ -165,8 +215,8 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         viewPager.setAdapter(pagerAdapter);
         viewPager.setSaveEnabled(false);
 
-        width  = Resources.getSystem().getDisplayMetrics().widthPixels;
-        height = Resources.getSystem().getDisplayMetrics().heightPixels;
+        width  = (int) (Resources.getSystem().getDisplayMetrics().widthPixels / activity.getResources().getDisplayMetrics().density);
+        height = (int) (Resources.getSystem().getDisplayMetrics().heightPixels / activity.getResources().getDisplayMetrics().density);
 
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
@@ -187,30 +237,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         t_friendCountTitle.setOnClickListener(this);
 
 
-        if(height<1790){
-            cardView_avatar.getLayoutParams().width = dpToPx(80, activity);
-            cardView_avatar.getLayoutParams().height = dpToPx(80, activity);
-            circularProgressBar.getLayoutParams().width = dpToPx(85, activity);
-            circularProgressBar.getLayoutParams().height = dpToPx(85, activity);
-            circularProgressBar.setTranslationY(dpToPx(-20, activity));
-            cardView_avatar.setTranslationY(dpToPx(-20, activity));
-            view.findViewById(R.id.t_friendsTitle).setTranslationY(dpToPx(-130, activity));
-            view.findViewById(R.id.t_requestTitle).setTranslationY(dpToPx(-130, activity));
-            view.findViewById(R.id.t_friendNumber).setTranslationY(dpToPx(-130, activity));
-            view.findViewById(R.id.t_requestNumber).setTranslationY(dpToPx(-130, activity));
-            view.findViewById(R.id.t_friendsTitle).setTranslationX(dpToPx(-30, activity));
-            view.findViewById(R.id.t_requestTitle).setTranslationX(dpToPx(30, activity));
-            view.findViewById(R.id.t_friendNumber).setTranslationX(dpToPx(-30, activity));
-            view.findViewById(R.id.t_requestNumber).setTranslationX(dpToPx(30, activity));
-            view.findViewById(R.id.t_percentage).setTranslationY(dpToPx(-30, activity));
-            view.findViewById(R.id.c_recyclerview).setTranslationY(dpToPx(-40, activity));
-        }
-        else if(height>2200){
-            cardView_avatar.getLayoutParams().width = dpToPx(110, activity);
-            cardView_avatar.getLayoutParams().height = dpToPx(110, activity);
-            circularProgressBar.getLayoutParams().width = dpToPx(120, activity);
-            circularProgressBar.getLayoutParams().height = dpToPx(120, activity);
-        }
+
 
         LocalBroadcastManager.getInstance(activity).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -269,10 +296,14 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 t_requestCount.setText(userObject.getRequestCount());
                 t_friendCount.setText(userObject.getFriendCount());
                 t_requestCount.setText(userObject.getRequestCount());
-//                t_percentage.setText(userObject.getUserProfilDoluluk());
+                t_percentage.setText(userObject.getUserProfilDoluluk());
                 userProfileUrl = userObject.getAvatar_id();
 
                 circularProgressBar.setProgress(Float.parseFloat(userObject.getUserProfilDoluluk()));
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("avatar_id", userObject.getAvatar_id());
+                editor.commit();
 
                 Glide
                         .with(activity)
@@ -297,7 +328,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    progressDialog.show();
+//                    progressDialog.show();
                 }
                 else{
                     progressDialog.dismiss();
@@ -329,7 +360,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    progressDialog.show();
+//                    progressDialog.show();
                 }
                 else{
                     progressDialog.dismiss();
@@ -349,6 +380,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(activity, ActivityProfileEdit2.class);
         intent.putExtra("username", userObjects.get(position).getUsername());
+        intent.putExtra("player_id", userObjects.get(position).getUser_player_id());
         intent.putExtra("userProfileUrl", userObjects.get(position).getAvatar_id());
         startActivity(intent);
     }
@@ -373,14 +405,12 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
 
         switch (v.getId()){
             case R.id.i_settings:
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("isLoggedIn", false);
-                editor.commit();
-                startActivity(new Intent(activity, ActivityLogin1.class));
+                popup();
                 break;
             case R.id.i_profile:
                 Intent intent = new Intent(activity, ActivityProfileEdit2.class);
                 intent.putExtra("username", username);
+                intent.putExtra("player_id", "");
                 intent.putExtra("userProfileUrl", userProfileUrl);
                 startActivity(intent);
                 break;
@@ -404,5 +434,88 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 break;
 
         }
+    }
+
+    private void popup() {
+        builder = new Dialog(activity, R.style.AlertDialogCustom);
+        View view;
+        view = LayoutInflater.from(activity).inflate(R.layout.popup_uyari_sil, null);
+
+        CardView cardViewEvet = view.findViewById(R.id.cardviewEvet);
+        CardView cardViewVazgec = view.findViewById(R.id.cardviewVazgec);
+        TextView e_info = view.findViewById(R.id.e_info);
+        TextView t_title = view.findViewById(R.id.t_title);
+
+        t_title.setText("Çıkış Yap");
+        e_info.setText("Çıkış yapmak istediğinizden emin misiniz?");
+
+        cardViewEvet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateToken("");
+                builder.dismiss();
+            }
+        });
+
+        cardViewVazgec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+            }
+        });
+
+        builder.setCancelable(true);
+        builder.setContentView(view);
+        builder.show();
+    }
+
+    public void updateToken(String token) {
+
+        final String url = "https://mobiloby.com/_filter/update_token.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("user_name_unique", username);
+                jsonData.put("user_player_id", "");
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                if (res.equals("1")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("isLoggedIn", false);
+                    editor.commit();
+                    startActivity(new Intent(activity, ActivityLogin1.class));
+                }
+                else{
+                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. TOKEN", activity, true);
+                }
+
+            }
+        }.execute(null, null, null);
     }
 }

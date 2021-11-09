@@ -160,18 +160,18 @@ public class TabFragmentToDo extends Fragment {
                             String todo_location = c.getString("todo_location");
 
                             String todo_minutes = c.getString("todo_minutes");
-                            Toast.makeText(activity, "min: " + todo_minutes, Toast.LENGTH_SHORT).show();
-                            int minutes = Integer.parseInt(todo_minutes);
-                            String hour = "";
-                            String message = "Bu Aktivite için son";
-                            if(minutes/60>0){
-                                hour += " "+minutes/60;
-                                minutes -= 60*(minutes/60);
-                                message += hour + " saat";
-                            }
-                            if(minutes>0){
-                                message += " " + minutes + " dakika";
-                            }
+//                            Toast.makeText(activity, "min: " + todo_minutes, Toast.LENGTH_SHORT).show();
+//                            int minutes = Integer.parseInt(todo_minutes);
+//                            String hour = "";
+//                            String message = "Bu Aktivite için son";
+//                            if(minutes/60>0){
+//                                hour += " "+minutes/60;
+//                                minutes -= 60*(minutes/60);
+//                                message += hour + " saat";
+//                            }
+//                            if(minutes>0){
+//                                message += " " + minutes + " dakika";
+//                            }
                             e_location.setText(todo_location);
                             e_todo.setText(todo_desc);
                             isTodoExist = true;

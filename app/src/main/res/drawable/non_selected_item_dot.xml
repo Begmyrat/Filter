@@ -5,5 +5,5 @@
 
     <size android:height="8dp" android:width="8dp"/>
 
-    <solid android:color="@color/idle_dot"/>
+    <solid android:color="@color/colorBackground3"/>
 </shape>

@@ -72,7 +72,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         tvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OnBoardingActivity.this, main_screen.class);
+                Intent intent = new Intent(OnBoardingActivity.this, ActivityLogin1.class);
                 startActivity(intent);
 
             }
@@ -85,7 +85,7 @@ public class OnBoardingActivity extends AppCompatActivity {
                 if (tvNext.getText().equals("Sonraki")){
                     onboard_pager.setCurrentItem(onboard_pager.getCurrentItem()+1);
                 }else{
-                    Intent intent = new Intent(OnBoardingActivity.this, main_screen.class);
+                    Intent intent = new Intent(OnBoardingActivity.this, ActivityLogin1.class);
                     startActivity(intent);
                 }
 
@@ -142,7 +142,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         int[] header = {R.string.ob_header1, R.string.ob_header2, R.string.ob_header3, R.string.ob_header4, R.string.ob_header5 };
         int[] desc = {R.string.ob_desc1, R.string.ob_desc2, R.string.ob_desc3, R.string.ob_desc4, R.string.ob_desc5 };
-        int[] imageId = {R.drawable.onboarding_01, R.drawable.onboarding_02, R.drawable.onboarding_03, R.drawable.onboarding_04, R.drawable.onboarding_05 };
+        int[] imageId = {R.drawable.frame_3, R.drawable.frame_4, R.drawable.frame_5, R.drawable.frame_6};
 
         for(int i=0;i<imageId.length;i++)
         {

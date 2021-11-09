@@ -10,10 +10,10 @@
     android:orientation="vertical">
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="100dp">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:cardCornerRadius="100dp">-->
 
         <ImageView
             android:id="@+id/icon"
@@ -23,7 +23,7 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_f_char" />
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
     <View
         android:id="@+id/v_border"

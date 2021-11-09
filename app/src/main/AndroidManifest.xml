@@ -55,7 +55,7 @@
             android:theme="@style/MyFullScreenTheme" />
         <activity android:name=".activities.ActivityLogin2" />
         <activity android:name=".activities.ActivityCategory3" />
-        <activity android:name=".activities.OnBoardingActivity" />
+        <activity android:name=".activities.OnBoardingActivity" android:theme="@style/MyFullScreenTheme"/>
         <activity android:name=".activities.ActivityCategory2_ShowAnswers" />
         <activity android:name=".activities.ActivityRegister1" />
         <activity android:name=".activities.ActivityRegister2" />

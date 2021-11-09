@@ -72,7 +72,7 @@
         android:background="@android:color/transparent"
         android:fontFamily="@font/josefin_sans_light"
         android:hint="Ada1234"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:maxLength="19"
         android:elevation="2dp"
         android:minHeight="48dp"

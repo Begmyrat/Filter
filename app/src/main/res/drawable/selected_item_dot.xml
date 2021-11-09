@@ -5,5 +5,5 @@
 
     <size android:height="8dp" android:width="8dp"/>
 
-    <solid android:color="@color/selected_dot"/>
+    <solid android:color="@color/secondtextcolor"/>
 </shape>

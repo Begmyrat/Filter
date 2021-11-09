@@ -53,13 +53,17 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if(height>1790){
-            holder.cardView.getLayoutParams().height = dpToPx(70, context);
-            holder.cardView.getLayoutParams().width = dpToPx(70, context);
+        if(height>=700){
+            holder.i_avatar.getLayoutParams().height = dpToPx(70, context);
+            holder.i_avatar.getLayoutParams().width = dpToPx(70, context);
+            holder.r_main.getLayoutParams().height = dpToPx(110, context);
+            holder.r_main.getLayoutParams().width = dpToPx(70, context);
         }
         else{
-            holder.cardView.getLayoutParams().height = dpToPx(50, context);
-            holder.cardView.getLayoutParams().width = dpToPx(50, context);
+            holder.i_avatar.getLayoutParams().height = dpToPx(60, context);
+            holder.i_avatar.getLayoutParams().width = dpToPx(60, context);
+            holder.r_main.getLayoutParams().height = dpToPx(100, context);
+            holder.r_main.getLayoutParams().width = dpToPx(60, context);
             holder.t_percentage.setTextSize(8);
             holder.t_percentage.getLayoutParams().width = dpToPx(27, context);
             holder.t_percentage.getLayoutParams().height = dpToPx(12, context);
@@ -73,6 +77,7 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
                     .with(context)
                     .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getAvatar_id())
                     .centerCrop()
+                    .circleCrop()
                     .placeholder(R.drawable.ic_f_char)
                     .into(holder.i_avatar);
         }catch (Exception e){
@@ -97,14 +102,16 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView t_percentage, t_username2;
         ImageView i_avatar;
-        CardView cardView;
+        RelativeLayout r_main;
+//        CardView cardView;
 
         ViewHolder(View itemView) {
             super(itemView);
             i_avatar = itemView.findViewById(R.id.i_avatar);
             t_percentage = itemView.findViewById(R.id.t_percentage);
-            cardView = itemView.findViewById(R.id.cardview2);
+//            cardView = itemView.findViewById(R.id.cardview2);
             t_username2 = itemView.findViewById(R.id.t_username2);
+            r_main = itemView.findViewById(R.id.r_main);
 
             itemView.setOnClickListener(this);
         }

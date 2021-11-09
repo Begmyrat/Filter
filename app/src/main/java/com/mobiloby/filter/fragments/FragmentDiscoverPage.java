@@ -84,6 +84,8 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
         super.onResume();
 
         userImgUrl = preferences.getString("avatar_id","");
+        adapter.setFriendsPassive();
+        adapter.notifyDataSetChanged();
 
         Glide
                 .with(activity)
@@ -129,7 +131,7 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
 
     private void getTodo() {
 
-        progressDialog.show();
+//        progressDialog.show();
         todoObjects.clear();
         todoObjectsAll.clear();
 
@@ -185,18 +187,19 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                             String todo_loc = c.getString("todo_location");
 
                             String todo_minutes = c.getString("todo_minutes");
-                            int minutes = Integer.parseInt(todo_minutes);
-                            String hour = "";
-                            String message = "";
-                            if(minutes/60>0){
-                                hour += " "+minutes/60;
-                                minutes -= 60*(minutes/60);
-                                message += hour + "s";
-                            }
-                            if(minutes>0){
-                                message += " " + minutes + "d";
-                            }
-                            t_time.setText(message);
+//                            int minutes = Integer.parseInt(todo_minutes);
+//                            String hour = "";
+//                            String message = "";
+//                            if(minutes/60>0){
+//                                hour += " "+minutes/60;
+////                                minutes -= 60*(minutes/60);
+//                                minutes = minutes%60;
+//                                message += hour + "s";
+//                            }
+//                            if(minutes>0){
+//                                message += " " + minutes + "d";
+//                            }
+                            t_time.setText(todo_minutes);
                             t_location.setText(todo_loc);
                             t_activity.setText(todo_desc);
                         }
@@ -269,12 +272,14 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                             String todo_location = c.getString("todo_location");
                             String todo_is_friend = c.getString("todo_is_friend");
                             String minutes = c.getString("todo_minutes");
+                            String playerID = c.getString("user_player_id");
                             String user_profile_url = c.getString("user_profile_url");
                             TodoObject o = new TodoObject(todo_id, user_name, todo_desc, todo_location);
                             o.setTime(minutes);
                             o.setUserProfileUrl(user_profile_url);
                             o.setTodoIsFriend(todo_is_friend);
                             o.setView_type(1);
+                            o.setUserPlayerID(playerID);
                             todoObjects.add(o);
                             todoObjectsAll.add(o);
                             Toast.makeText(activity, "minYusuf: " + minutes, Toast.LENGTH_SHORT).show();
@@ -300,6 +305,7 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
     public void onItemClick(View view, int position, ArrayList<TodoObject> list) {
         Intent intent = new Intent(activity, ActivityProfileEdit2.class);
         intent.putExtra("username", list.get(position).getUsername());
+        intent.putExtra("player_id", list.get(position).getUserPlayerID());
         intent.putExtra("userProfileUrl", list.get(position).getUserProfileUrl());
         startActivity(intent);
     }

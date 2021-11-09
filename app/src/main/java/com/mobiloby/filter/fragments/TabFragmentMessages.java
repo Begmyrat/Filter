@@ -115,7 +115,7 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
     }
 
     private void getFriendMessages() {
-        progressDialog.show();
+//        progressDialog.show();
 
         friendList.clear();
         friendListAll.clear();

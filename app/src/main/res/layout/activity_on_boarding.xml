@@ -61,7 +61,7 @@
                 android:fontFamily="@font/dinpromedium"
                 android:gravity="end"
                 android:text="Sonraki"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/secondtextcolor" />
             <!-- Yazı rengi colorsda tanımlanıp değiştirilmeli -->
             <!-- Diğer bazı layoutlarda kullanılan ok drawable ı buraya kopyalanmalı. Sonrasında konumlandırma için textview ile onu bir layout içine almak gerekebilir. -->
         </FrameLayout>

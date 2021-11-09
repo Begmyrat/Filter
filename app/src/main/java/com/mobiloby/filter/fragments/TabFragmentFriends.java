@@ -186,7 +186,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
 
     private void getRequests() {
 
-        progressDialog.show();
+//        progressDialog.show();
 
         friendList.clear();
         friendListAll.clear();
@@ -238,6 +238,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
                             UserObject o = new UserObject(user_id, friend_user_name, "", "", "", "", "", "", "", "");
                             o.setAvatar_id(c.getString("user_profile_url"));
                             o.setFromWhere(c.getString("from_where"));
+                            o.setUser_player_id(c.getString("user_player_id"));
                             o.setFriend(false);
                             friendList.add(o);
                             friendListAll.add(o);
@@ -274,6 +275,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
             // profile gidecek
             Intent intent = new Intent(activity, ActivityProfileEdit2.class);
             intent.putExtra("username", friendList.get(position).getUsername());
+            intent.putExtra("player_id", friendList.get(position).getUser_player_id());
             intent.putExtra("userProfileUrl", friendList.get(position).getAvatar_id());
             startActivity(intent);
         }

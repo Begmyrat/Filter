@@ -67,7 +67,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Log.e("NOTTT", "geldiiiii");
 
-        if (remoteMessage.getNotification() != null && MainActivity.context!=null) {
+        if (remoteMessage.getNotification() != null && ActivityChat.context!=null) {
             Log.d("MESSAGEBODY: ", "Message Notification Body: " + remoteMessage.getNotification().getBody());
 //            MainActivity.h ++;
 //            System.out.println("VALUEOFH: " + MainActivity.h);
@@ -87,6 +87,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (isForeground(getApplicationContext())) {
                 //if in forground then your operation
                 // if app is running them
+                if(ActivityChat.context==null)
+                    sendNotification(notification, data);
             } else {
                 //if in background then perform notification operation
                 sendNotification(notification, data);

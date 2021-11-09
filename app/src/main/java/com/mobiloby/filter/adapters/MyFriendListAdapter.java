@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapter.ViewHolder> {
+public class  MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapter.ViewHolder> {
 
     private Activity context;
     private ArrayList<UserObject> list;
@@ -73,11 +73,11 @@ public class MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapte
 
         if(list.get(position).getFriend()){
             holder.t_kabulEt.setVisibility(View.GONE);
-            holder.i_reddet.setVisibility(View.GONE);
+//            holder.i_reddet.setVisibility(View.GONE);
         }
         else{
             holder.t_kabulEt.setVisibility(View.VISIBLE);
-            holder.i_reddet.setVisibility(View.VISIBLE);
+//            holder.i_reddet.setVisibility(View.VISIBLE);
         }
 
         String lastMessage = preferences.getString(username + "-" + list.get(position).getUsername(), "");
@@ -134,19 +134,19 @@ public class MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapte
             i_reddet = itemView.findViewById(R.id.i_cross);
             t_kabulEt = itemView.findViewById(R.id.t_kabulEt);
 
-            t_kabulEt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    istekKabulEt(getAdapterPosition(), list.get(getAdapterPosition()).getUsername());
-                }
-            });
-
-            i_reddet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    istekReddet(getAdapterPosition(), list.get(getAdapterPosition()).getUsername());
-                }
-            });
+//            t_kabulEt.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    istekKabulEt(getAdapterPosition(), list.get(getAdapterPosition()).getUsername());
+//                }
+//            });
+//
+//            i_reddet.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    istekReddet(getAdapterPosition(), list.get(getAdapterPosition()).getUsername());
+//                }
+//            });
 
             itemView.setOnClickListener(this);
         }

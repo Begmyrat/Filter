@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="15dp"
+    android:layout_marginHorizontal="20dp"
+    android:paddingVertical="15dp"
+    android:background="@drawable/popup_info_background">
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/josefin_sans_semi_bold"
+        android:gravity="center_horizontal"
+        android:text="Hesabımı Sil"
+        android:textColor="@color/colorPurple"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/e_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tüm arkadaşlarınız, mesajlarınız ve profil bilgileriniz silinecektir. Onaylıyor musunuz?"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:textSize="14sp"
+        android:textColor="@color/colorPurple"
+        android:alpha="0.8"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/t_title"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewEvet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/e_info"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Evet"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:fontFamily="@font/josefin_sans_semi_bold"
+            android:textColor="@color/white"
+            android:background="@color/colortop"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewVazgec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardviewEvet"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vazgeç"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:fontFamily="@font/josefin_sans_semi_bold"
+            android:textColor="@color/black"
+            android:background="@color/colorStick"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

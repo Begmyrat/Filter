@@ -3,8 +3,17 @@ package com.mobiloby.filter.models;
 public class TodoObject {
     String username, todoDescription, todoID, time, userProfileUrl, feeling, location, todoLocation, todoIsFriend;
     int view_type;
+    String UserPlayerID;
 
     public TodoObject(){}
+
+    public String getUserPlayerID() {
+        return UserPlayerID;
+    }
+
+    public void setUserPlayerID(String userPlayerID) {
+        UserPlayerID = userPlayerID;
+    }
 
     public TodoObject(int view_type){
         this.view_type = view_type;
