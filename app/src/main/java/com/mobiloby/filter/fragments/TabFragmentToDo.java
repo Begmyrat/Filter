@@ -13,19 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobiloby.filter.R;
-import com.mobiloby.filter.activities.ActivityCategory3;
 import com.mobiloby.filter.activities.MainActivity;
-import com.mobiloby.filter.adapters.MyRecycleListAdapter;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
-import com.mobiloby.filter.models.TodoObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -102,7 +97,7 @@ public class TabFragmentToDo extends Fragment {
         e_todo = view.findViewById(R.id.e_todo);
 
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -160,7 +155,6 @@ public class TabFragmentToDo extends Fragment {
                             String todo_location = c.getString("todo_location");
 
                             String todo_minutes = c.getString("todo_minutes");
-//                            Toast.makeText(activity, "min: " + todo_minutes, Toast.LENGTH_SHORT).show();
 //                            int minutes = Integer.parseInt(todo_minutes);
 //                            String hour = "";
 //                            String message = "Bu Aktivite için son";
@@ -179,7 +173,6 @@ public class TabFragmentToDo extends Fragment {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(activity, "error jiim getTODO", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
@@ -193,7 +186,7 @@ public class TabFragmentToDo extends Fragment {
 
     private void insertTodo() {
         final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -240,7 +233,7 @@ public class TabFragmentToDo extends Fragment {
                     activity.changeCurrentItem(0);
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
 
             }
@@ -291,7 +284,7 @@ public class TabFragmentToDo extends Fragment {
                     activity.changeCurrentItem(0);
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
 
             }

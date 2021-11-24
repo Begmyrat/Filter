@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:fontFamily="@font/josefin_sans_semi_bold"
-        android:text="Choose Your Avatar"
+        android:text="Avatarını Seç"
         android:textColor="@color/colorPurple"
         android:textSize="25sp"
         android:alpha="1"
@@ -62,9 +62,10 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
+        android:id="@+id/t_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="Kayıt Ol"
         android:translationY="-3dp"
         android:textSize="28sp"
         android:textColor="@color/colorBackground"

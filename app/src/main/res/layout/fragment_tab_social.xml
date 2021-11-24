@@ -151,11 +151,11 @@
                 android:id="@+id/t_match2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/FragmentProfile_match"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/i_alev2"
-                android:textSize="18sp"
-                android:textColor="@color/backgroundColor"/>
+                android:text="@string/FragmentProfile_match"
+                android:textColor="@color/backgroundColor"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/i_alev2"
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/FragmentProfile_history"
-                android:textColor="@color/PrimaryTextColor"
+                android:textColor="@color/textPrimaryColor"
                 android:textSize="18sp"
                 android:translationX="-10dp" />
 

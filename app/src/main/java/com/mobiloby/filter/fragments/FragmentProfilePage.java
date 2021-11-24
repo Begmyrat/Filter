@@ -2,6 +2,7 @@ package com.mobiloby.filter.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -30,6 +31,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +125,6 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
     }
 
     private void setResponsibility() {
-        Toast.makeText(activity, "height: " + height, Toast.LENGTH_SHORT).show();
         if(height<700){
             i_avatar.getLayoutParams().width = dpToPx(80, activity);
             i_avatar.getLayoutParams().height = dpToPx(80, activity);
@@ -136,9 +137,9 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             view.findViewById(R.id.t_friendNumber).setTranslationY(dpToPx(-80, activity));
             view.findViewById(R.id.t_requestNumber).setTranslationY(dpToPx(-80, activity));
             view.findViewById(R.id.t_friendsTitle).setTranslationX(dpToPx(-30, activity));
-            view.findViewById(R.id.t_requestTitle).setTranslationX(dpToPx(10, activity));
+            view.findViewById(R.id.t_requestTitle).setTranslationX(dpToPx(30, activity));
             view.findViewById(R.id.t_friendNumber).setTranslationX(dpToPx(-30, activity));
-            view.findViewById(R.id.t_requestNumber).setTranslationX(dpToPx(10, activity));
+            view.findViewById(R.id.t_requestNumber).setTranslationX(dpToPx(30, activity));
             view.findViewById(R.id.t_percentage).setTranslationY(dpToPx(-10, activity));
             if(height<660)
                 view.findViewById(R.id.c_recyclerview).setTranslationY(dpToPx(-15, activity));
@@ -183,7 +184,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         mainViewModel = new ViewModelProvider(activity).get(MainViewModel.class);
 
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -204,7 +205,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
         tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.smileyface));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.kesfet));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.socailmedia));
         viewPager = view.findViewById(R.id.viewPager);
         fragments = new ArrayList<>();
@@ -296,7 +297,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 t_requestCount.setText(userObject.getRequestCount());
                 t_friendCount.setText(userObject.getFriendCount());
                 t_requestCount.setText(userObject.getRequestCount());
-                t_percentage.setText(userObject.getUserProfilDoluluk());
+                t_percentage.setText("%"+userObject.getUserProfilDoluluk());
                 userProfileUrl = userObject.getAvatar_id();
 
                 circularProgressBar.setProgress(Float.parseFloat(userObject.getUserProfilDoluluk()));
@@ -309,7 +310,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                         .with(activity)
                         .load("https:mobiloby.com/_filter/assets/profile/" + userProfileUrl)
                         .centerCrop()
-                        .placeholder(R.drawable.ic_f_char)
+                        .placeholder(R.drawable.filtryenilogo)
                         .into(i_avatar);
 
             }
@@ -319,7 +320,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    makeAlert.uyarıVer("Filter", "Kullanıcı bilgileri alınamadı. Lütfen tekrar deneyiniz.", activity, true);
+                    makeAlert.uyarıVer("Fltr", "Kullanıcı bilgileri alınamadı. Lütfen tekrar deneyiniz.", activity, true);
                 }
             }
         });
@@ -351,7 +352,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    makeAlert.uyarıVer("Filter", "Önerilenler alınamadı. Lütfen tekrar deneyiniz.", activity, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
             }
         });
@@ -412,7 +413,15 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 intent.putExtra("username", username);
                 intent.putExtra("player_id", "");
                 intent.putExtra("userProfileUrl", userProfileUrl);
-                startActivity(intent);
+
+                Pair[] pairs = new Pair[3];
+                pairs[0] = new Pair<View, String>(i_profile, "iProfileTransition");
+                pairs[1] = new Pair<View, String>(t_username, "tUsernameTransition");
+                pairs[2] = new Pair<View, String>(t_percentage, "tPercentageTransition");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, pairs);
+
+                startActivity(intent, options.toBundle());
                 break;
             case R.id.t_friendNumber:
                 messageViewModel.setIsFriends(true);
@@ -508,11 +517,18 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 if (res.equals("1")) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("isLoggedIn", false);
+                    editor.putString("username_visible", "");
+                    editor.putString("username_unique", "");
+                    editor.putString("user_password", "");
+                    editor.putString("avatar_id", "");
                     editor.commit();
-                    startActivity(new Intent(activity, ActivityLogin1.class));
+                    editor.commit();
+                    Intent intent = new Intent(activity, ActivityLogin1.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. TOKEN", activity, true);
+//                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
 
             }

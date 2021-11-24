@@ -1,7 +1,6 @@
 package com.mobiloby.filter.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,23 +17,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
-import com.mobiloby.filter.activities.ActivityCategory3;
 import com.mobiloby.filter.activities.ActivityProfileEdit2;
 import com.mobiloby.filter.activities.MainActivity;
-import com.mobiloby.filter.adapters.MyRecycleListAdapter;
-import com.mobiloby.filter.adapters.MyTodoResultListAdapter;
 import com.mobiloby.filter.adapters.MyTodoResultListAdapter2;
 import com.mobiloby.filter.helpers.JSONParser;
-import com.mobiloby.filter.helpers.makeAlert;
 import com.mobiloby.filter.models.TodoObject;
 
 import org.json.JSONArray;
@@ -71,7 +62,6 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
         t_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, "activity" , Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -118,7 +108,7 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
         todoObjects.add(new TodoObject(0));
 
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -209,7 +199,6 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                     } catch (JSONException e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
-                        Toast.makeText(activity, "error jiim getTODO", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
@@ -282,18 +271,15 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
                             o.setUserPlayerID(playerID);
                             todoObjects.add(o);
                             todoObjectsAll.add(o);
-                            Toast.makeText(activity, "minYusuf: " + minutes, Toast.LENGTH_SHORT).show();
                         }
 
                         adapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(activity, "error jiim getUserByTODO", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityCategory3.this, true);
 
                 }
                 progressDialog.dismiss();

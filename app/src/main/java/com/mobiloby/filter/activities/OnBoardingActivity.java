@@ -73,6 +73,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OnBoardingActivity.this, ActivityLogin1.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
             }
@@ -86,6 +87,7 @@ public class OnBoardingActivity extends AppCompatActivity {
                     onboard_pager.setCurrentItem(onboard_pager.getCurrentItem()+1);
                 }else{
                     Intent intent = new Intent(OnBoardingActivity.this, ActivityLogin1.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
 
@@ -140,15 +142,15 @@ public class OnBoardingActivity extends AppCompatActivity {
     public void loadData()
     {
 
-        int[] header = {R.string.ob_header1, R.string.ob_header2, R.string.ob_header3, R.string.ob_header4, R.string.ob_header5 };
-        int[] desc = {R.string.ob_desc1, R.string.ob_desc2, R.string.ob_desc3, R.string.ob_desc4, R.string.ob_desc5 };
+//        int[] header = {R.string.ob_header1, R.string.ob_header2, R.string.ob_header3, R.string.ob_header4, R.string.ob_header5 };
+        int[] desc = {R.string.ob_desc1, R.string.ob_desc2, R.string.ob_desc3, R.string.ob_desc4};
         int[] imageId = {R.drawable.frame_3, R.drawable.frame_4, R.drawable.frame_5, R.drawable.frame_6};
 
         for(int i=0;i<imageId.length;i++)
         {
             OnBoardItemObject item=new OnBoardItemObject();
             item.setImageID(imageId[i]);
-            item.setTitle(getResources().getString(header[i]));
+//            item.setTitle(getResources().getString(header[i]));
             item.setDescription(getResources().getString(desc[i]));
 
             onBoardItems.add(item);

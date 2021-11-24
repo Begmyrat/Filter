@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mobiloby.filter.adapters.MyAvatarListAdapter;
 import com.mobiloby.filter.models.Avatars;
@@ -47,6 +48,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
     int height, width;
     ImageView i_continue;
     ProgressDialog progressDialog;
+    TextView t_continue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
         avatars = new ArrayList<>();
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -81,7 +83,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
         }
 
         isSignUp = preferences.getBoolean("isLoggedIn", false);
-
+        t_continue = findViewById(R.id.t_continue);
 
         username_visible = preferences.getString("username_visible","");
         user_password = preferences.getString("user_password","");
@@ -93,11 +95,14 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
         extras = getIntent().getExtras();
         if(isSignUp){
             username_unique = preferences.getString("username_unique","");
+            t_continue.setText("Güncelle");
         }
         else{
             if(extras!=null){
+
                 username_unique = extras.getString("username");
                 user_password = extras.getString("password");
+                t_continue.setText("Kayıt Ol");
             }
         }
         displayMetrics = new DisplayMetrics();
@@ -181,7 +186,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
                     startActivity(intent);
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
                 }
 
             }
@@ -241,7 +246,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
                     finish();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
                 }
 
             }
@@ -304,7 +309,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
                     }
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityAvatar.this, true);
                 }
 
             }

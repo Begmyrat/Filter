@@ -50,6 +50,7 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
     ImageView i_instagram, i_facebook, i_snapchat, i_twitter, i_tiktok;
     RelativeLayout i_history, i_match;
     Dialog builder;
+    Dialog builderPopup;
     MySocialRecycleListAdapter adapter;
     ArrayList<SocialMediaObject> list;
     RecyclerView.LayoutManager layoutManager;
@@ -57,6 +58,8 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
     ProgressDialog progressDialog;
     JSONObject jsonObject;
     EditText e_username, e_username_other;
+    View viewPopup;
+    TextView t_aramaBulunamadi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +83,16 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        social_type = "instagram";
+        i_instagram.setImageResource(R.drawable.instagram_active);
+        i_instagram.getLayoutParams().width = dpToPx(40, activity);
+        i_instagram.getLayoutParams().height = dpToPx(40, activity);
+    }
+
     private void prepareMe() {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -99,53 +112,62 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
         adapter = new MySocialRecycleListAdapter(activity, list);
 
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
+
+//        getCurrentSearches();
     }
 
     @Override
     public void onClick(View v) {
-        initButtons();
+
         if (i_instagram.equals(v)) {
             social_type = "instagram";
+            initButtons();
             i_instagram.setImageResource(R.drawable.instagram_active);
             i_instagram.getLayoutParams().width = dpToPx(40, activity);
             i_instagram.getLayoutParams().height = dpToPx(40, activity);
         }
         else if(i_facebook.equals(v)){
             social_type = "facebook";
+            initButtons();
             i_facebook.setImageResource(R.drawable.facebook_active);
             i_facebook.getLayoutParams().width = dpToPx(40, activity);
             i_facebook.getLayoutParams().height = dpToPx(40, activity);
         }
         else if(i_snapchat.equals(v)){
             social_type = "snapchat";
+            initButtons();
             i_snapchat.setImageResource(R.drawable.snapchat_active);
             i_snapchat.getLayoutParams().width = dpToPx(40, activity);
             i_snapchat.getLayoutParams().height = dpToPx(40, activity);
         }
         else if(i_twitter.equals(v)){
             social_type = "twitter";
+            initButtons();
             i_twitter.setImageResource(R.drawable.twitter_active);
             i_twitter.getLayoutParams().width = dpToPx(40, activity);
             i_twitter.getLayoutParams().height = dpToPx(40, activity);
         }
         else if(i_tiktok.equals(v)){
             social_type = "tiktok";
+            initButtons();
             i_tiktok.setImageResource(R.drawable.tiktok_active);
             i_tiktok.getLayoutParams().width = dpToPx(40, activity);
             i_tiktok.getLayoutParams().height = dpToPx(40, activity);
         }
         else if(i_history.equals(v)){
-            popup();
+//            if(list.size()>0)
+                popup();
         }
         else if(i_match.equals(v)){
             if(e_username.getText().toString().length()>0 && e_username_other.getText().toString().length()>0)
                 sendBilgiler();
             else{
-                Toast.makeText(activity, "Missing fields. Please enter usernames and select related social media platform.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity, "Eşleşme için gerekli bilgileri doldurunuz.", Toast.LENGTH_SHORT).show();
+                ShowToastMessage.show(activity, "Eşleşme için gerekli bilgileri doldurunuz.");
             }
         }
     }
@@ -154,34 +176,35 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
     Button b_close;
 
     public void popup(){
-        builder = new Dialog(activity, R.style.AlertDialogCustom);
-        View view;
-        view = LayoutInflater.from(activity).inflate(R.layout.popup_social_history, null);
-        getCurrentSearches();
+        builderPopup = new Dialog(activity, R.style.AlertDialogCustom);
+        viewPopup = LayoutInflater.from(activity).inflate(R.layout.popup_social_history, null);
 
         adapter = new MySocialRecycleListAdapter(activity, list);
-        recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerView = viewPopup.findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.setClickListenerSocial(this);
-        b_close = view.findViewById(R.id.b_close);
+        b_close = viewPopup.findViewById(R.id.b_close);
+        t_aramaBulunamadi = viewPopup.findViewById(R.id.t_aramaBulunamadi);
+
+        getCurrentSearches();
 
         b_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                builder.dismiss();
+                builderPopup.dismiss();
             }
         });
 
 
-        builder.setCancelable(true);
-        builder.setContentView(view);
+        builderPopup.setCancelable(true);
+        builderPopup.setContentView(viewPopup);
 
     }
 
     public void initButtons(){
-        i_instagram.setImageResource(R.drawable.instagram_active);
+        i_instagram.setImageResource(R.drawable.instagram_passive);
         i_facebook.setImageResource(R.drawable.facebook_passive);
         i_snapchat.setImageResource(R.drawable.snapchat_passive);
         i_twitter.setImageResource(R.drawable.twitter_passive);
@@ -296,7 +319,7 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
                 progressDialog.dismiss();
 
                 if (res.equals("1")) {
-                    makeAlert.uyarıVer("Filter", "Bilgileriniz başarıyla yüklenmiştir. En kısa zamanda bulacağız. Teşekkür ederiz.", activity, false);
+                    makeAlert.uyarıVer("Fltr", "Bilgileriniz tamamlanmıştır. Eşleşme için takipte kalın", activity, false);
                     e_username.setText("");
                     e_username_other.setText("");
 //                    getCurrentSearches();
@@ -306,18 +329,17 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
                         JSONArray pro = jsonObject.getJSONArray("pro");
                         JSONObject c = pro.getJSONObject(0);
                         String friend_user_name_unique = c.getString("friend_user_name_unique");
-                        makeAlert.uyarıVer("Filter", "Sizi arayan kişi ile eşleştiniz\n"+friend_user_name_unique, activity, false);
+                        makeAlert.uyarıVer("Fltr", "Yeni bir eşleşmeniz var!\n"+friend_user_name_unique, activity, false);
                         e_username.setText("");
                         e_username_other.setText("");
                         insertFriend(friend_user_name_unique);
 
                     }catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(activity, "error", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. socil", activity, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
 
 
@@ -366,7 +388,6 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
                 progressDialog.dismiss();
 
                 if (res.equals("1")) {
-                    Toast.makeText(activity, "Arkadas eklendi", Toast.LENGTH_SHORT).show();
                     pushNotification(friend_username_unique);
                 }
                 else{
@@ -417,7 +438,7 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
 
                 }
                 else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+//                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
                 }
 
             }
@@ -465,9 +486,16 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
                 if (res.equals("1")) {
                     list.remove(index);
                     adapter.notifyDataSetChanged();
+                    if(list.size()==0 && builderPopup!=null){
+                        t_aramaBulunamadi.setVisibility(View.VISIBLE);
+                        builderPopup.dismiss();
+                    }
+                    else{
+                        t_aramaBulunamadi.setVisibility(View.GONE);
+                    }
                 }
                 else{
-                    ShowToastMessage.show(activity, "Bir hata oldu. Tekrar deneyiniz");
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
 
             }
@@ -531,23 +559,23 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
                         }
 
                         if(list.size()==0){
-
+                            t_aramaBulunamadi.setVisibility(View.VISIBLE);
                         }
                         else{
 //                            list.add(new SocialMediaObject("","","","","",""));
+                            t_aramaBulunamadi.setVisibility(View.GONE);
                         }
                         adapter.notifyDataSetChanged();
 
                     }catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(activity, "error social", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    Toast.makeText(activity, "size: gelmedi", Toast.LENGTH_SHORT).show();
+                    t_aramaBulunamadi.setVisibility(View.VISIBLE);
                 }
-
-                builder.show();
+                if(builderPopup!=null)
+                    builderPopup.show();
 
             }
         }.execute(null, null, null);

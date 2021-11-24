@@ -138,7 +138,6 @@ public class ProfileViewModel extends ViewModel {
                             u.setUser_player_id(userPlayerID);
                             u.setAvatar_id(userProfileURL);
                             u.setUserProfilDoluluk(""+Integer.parseInt(profilDoluluk)*100/27);
-                            Toast.makeText(activity, "per: " + u.getUserProfilDoluluk(), Toast.LENGTH_SHORT).show();
                             u.setFriendCount(countArkadas);
                             u.setRequestCount(countIstek);
                             userData.postValue(u);
@@ -298,7 +297,7 @@ public class ProfileViewModel extends ViewModel {
                     getUser();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz. TOKEN", activity, true);
+//                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", activity, true);
                 }
 
             }

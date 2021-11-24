@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.activities.ActivityChat;
-import com.mobiloby.filter.activities.ActivityFriends;
 import com.mobiloby.filter.activities.ActivityProfileEdit2;
 import com.mobiloby.filter.activities.MainActivity;
 import com.mobiloby.filter.adapters.MyFriendListAdapter;
@@ -91,7 +90,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
     private void prepareMe() {
 
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -173,7 +172,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(activity, "error jiimFriend", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(activity, "error jiimFriend", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -247,7 +246,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(activity, "error jiimFriend", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(activity, "error jiimFriend", Toast.LENGTH_SHORT).show();
                     }
 
                 }

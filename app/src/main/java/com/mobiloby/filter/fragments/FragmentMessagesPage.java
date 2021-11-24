@@ -117,12 +117,10 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
                 if(aBoolean){
                     viewPager.setCurrentItem(1);
                     isMessagesFragment = false;
-                    Toast.makeText(activity, "friends", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     viewPager.setCurrentItem(0);
                     isMessagesFragment = true;
-                    Toast.makeText(activity, "messages", Toast.LENGTH_SHORT).show();
                 }
             }
         });

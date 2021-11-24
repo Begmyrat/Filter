@@ -98,7 +98,7 @@ public class ActivityRegister1 extends AppCompatActivity{
 
     private void getUser() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);

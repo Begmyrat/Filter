@@ -9,112 +9,14 @@
     <color name="colorTextColorLight">#993E3E3E</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorRed">#ed332e</color>
-    <color name="colorPalet1">#e52165</color>
-    <color name="colorPalet2">#077b8a</color>
-    <color name="colorPalet3">#FF9800</color>
-    <color name="colorPalet4">#26495c</color>
-    <color name="colorPalet5">#8a307f</color>
-    <color name="colorPalet6">#F13C20</color>
-    <color name="colorPalet7">#E85A4F</color>
-    <color name="colorPalet8">#88BDBC</color>
-    <color name="colorPalet9">#2E9CCA</color>
-    <color name="colorForgotPassword">#feffff</color>
+    <color name="white">#fff</color>
+    <color name="black">#000000</color>
 
-    <color name="colorDarkGray">#373c44</color>
-    <color name="colorYellow">#ffa54c</color>
-    <color name="colorBlue">#37b8e2</color>
-    <color name="colorBlue2">#619df5</color>
-
-    <color name="colorPurple">#322751</color>
-    <color name="colorButtonBackBackground">#f4f5fa</color>
-    <color name="colorInfoBoxSoluk">#ABAFC1</color>
-    <color name="colorOrange">#fc7555</color>
-    <color name="colorInfoTextSoluk">#AFB5D1</color>
+    <color name="colorPrimary">@color/secondtextcolor</color>
+    <color name="colorPrimaryDark">@color/textPrimaryColor</color>
+    <color name="colorAccent">@color/colorAccentPink</color>
 
 <!--    // chat colors-->
-    <color name="colorChatLeftBox">#ebeffe</color>
-    <color name="colorChatRightBox">#03334c</color>
-    <color name="colorChatTop">#083349</color>
-    <color name="colorChatYellow">#ffe8c7</color>
-    <color name="colorSnapchat">#FFFC00</color>
-    <color name="colorTiktok">#EE1D52</color>
-    <color name="colorFacebook">#4267B2</color>
-    <color name="colorInstagram">#C13584</color>
-
-
-    <color name="colorChatBackground">#f6f6f6</color>
-    <color name="colorChatRight2">#26a2bc</color>
-    <color name="colorChatLeft2">#ffffff</color>
-
-    <color name="colorBlueTop">#0055b8</color>
-    <color name="colorBlue1">#0244a1</color>
-    <color name="colorBlue22">#0234d2</color>
-    <color name="colorBlue3">#0763e5</color>
-    <color name="colorBlue4">#0993f3</color>
-    <color name="colorBlue5">#17d4fc</color>
-    <color name="colorBlue6">#a9d1f6</color>
-
-    <color name="colorRed1">#dc143c</color>
-    <color name="colorRed22">#ff0000</color>
-    <color name="colorRed3">#ff355e</color>
-    <color name="colorRed4">#ff5349</color>
-    <color name="colorRed5">#fa8072</color>
-    <color name="colorRed6">#ff9999</color>
-
-    <color name="colorGreen1">#1e5631</color>
-    <color name="colorGreen2">#68bb59</color>
-    <color name="colorGreen3">#a4de02</color>
-    <color name="colorGreen4">#607d3b</color>
-    <color name="colorGreen5">#a4de02</color>
-    <color name="colorGreen6">#99ebc3</color>
-
-
-    <color name="gradient_start_color">#4c84ff</color>
-    <color name="gradient_end_color">#18a3fe</color>
-    <color name="tab_indicator_gray">#c0c0c0</color>
-    <color name="intro_title_color">#000000</color>
-    <color name="intro_description_color">#656565 </color>
-
-    <color name="colorPrimary">#f3faff</color>
-    <color name="colorPrimaryDark">#f3faff</color>
-    <color name="colorAccent">#0055b8</color>
-    <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
-    <color name="dark">#262e37</color>
-    <color name="whitehalf">#33FFFFFF</color>
-    <color name="bg">#f3faff</color>
-    <color name="PrimaryTextColor">#262e37</color>
-    <color name="MainBlue">#0055b8</color>
-    <color name="MainBlueTrans">#380055B8</color>
-    <color name="SecondaryButton">#deeffb</color>
-    <color name="SecondaryButtonC">#C3CFDB</color>
-    <color name="PrimaryButton1">#008edd</color>
-    <color name="SecondaryText">#8a939e</color>
-    <color name="PhoneInput">#262e37</color>
-    <color name="SemiTransparent">#CCFFFFFF</color>
-    <color name="Transparent">#00FFFFFF</color>
-    <color name="PhoneInputError">#dd1d38</color>
-    <color name="mapscreenmanu">#fafdff</color>
-    <color name="submenu">#134F92</color>
-    <color name="ssscontainer1">#f8fcff</color>
-    <color name="ssscontainer2">#dde7ef</color>
-    <color name="alertbox">#ccdd1d38</color>
-    <color name="alertsuccessbox">#0055B8</color>
-
-    <color name="spinnertext">#fbfdff</color>
-    <color name="incidenttitle">#788697</color>
-    <color name="incidentconfirm">#00b870</color>
-    <color name="incidentphoto">#e4f2fb</color>
-    <color name="incidentphoto2">#B7C7D1</color>
-    <color name="blacktrans">#99000000</color>
-    <color name="popupBackground">#b1262e37</color>
-    <color name="selected_dot">#2D9CDB</color>
-    <color name="idle_dot">#662D9CDB</color>
-    <color name="darkSkyBlu">#2981e8</color>
-
-    <color name="topBlue">#005bba</color>
-
     <color name="backgroundColor">#fff6f5</color>
     <color name="colorPrimaryPink">#fd6256</color>
     <color name="colorPrimaryPinkLight">#fea19a</color>
@@ -122,9 +24,11 @@
     <color name="colorAccentPinkLight">#ffeae8</color>
     <color name="colorTextPrimaryPurple">#51023E</color>
 
+
     <!-- yeni tasarim renkleri -->
 
     <color name="textPrimaryColor">#51023E</color>
+    <color name="colorPurple">#51023E</color>
     <color name="colorBackground">#FFF6F5</color>
     <color name="colorBackground2">#FFEAE8</color>
 

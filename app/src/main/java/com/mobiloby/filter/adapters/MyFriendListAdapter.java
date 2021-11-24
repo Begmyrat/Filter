@@ -12,16 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mobiloby.filter.R;
-import com.mobiloby.filter.activities.ActivityCategory2_ShowAnswers;
 import com.mobiloby.filter.helpers.JSONParser;
 import com.mobiloby.filter.helpers.makeAlert;
 import com.mobiloby.filter.models.UserObject;
@@ -53,7 +50,7 @@ public class  MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapt
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         username = preferences.getString("username_unique", "");
         progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -107,7 +104,7 @@ public class  MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapt
                     .with(context)
                     .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getAvatar_id())
                     .centerCrop()
-                    .placeholder(R.drawable.ic_f_char)
+                    .placeholder(R.drawable.filtryenilogo)
                     .into(holder.i_avatar);
         }catch (Exception e){
 
@@ -216,7 +213,7 @@ public class  MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapt
                     notifyDataSetChanged();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", context, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", context, true);
                 }
 
             }
@@ -268,7 +265,7 @@ public class  MyFriendListAdapter extends RecyclerView.Adapter<MyFriendListAdapt
                     notifyDataSetChanged();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", context, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", context, true);
                 }
 
             }

@@ -36,8 +36,9 @@
         app:layout_constraintRight_toRightOf="@id/l_usernamePssword"
         app:layout_constraintTop_toBottomOf="@+id/i_fltr"
         app:layout_constraintBottom_toTopOf="@+id/l_usernamePssword"
-        android:text="Share and Match, find friends and do much more fun stuff with us!"
-        android:fontFamily="@font/josefin_sans_medium"
+        android:text=""
+        android:textSize="18sp"
+        android:fontFamily="@font/josefin_sans_light"
         android:textColor="@color/Altbaslik_gri"
         android:gravity="center"/>
 
@@ -62,7 +63,7 @@
         android:id="@+id/t_or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="or"
+        android:text="ya da"
         app:layout_constraintTop_toBottomOf="@+id/i_login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -83,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/josefin_sans_medium"
-            android:text="Welcome back!"
+            android:text="Hoş geldin!"
             android:textColor="@color/colorTextPrimaryPurple"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -93,9 +94,9 @@
             android:id="@+id/e_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/josefin_sans_medium"
+            android:fontFamily="@font/josefin_sans_light"
             android:gravity="left|center_vertical"
-            android:hint="Username"
+            android:hint="Kullanıcı Adı"
             android:textColorHint="#998B8A"
             android:background="@drawable/username"
             android:textSize="16sp"
@@ -113,9 +114,9 @@
             android:id="@+id/e_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/josefin_sans_medium"
+            android:fontFamily="@font/josefin_sans_light"
             android:gravity="left|center_vertical"
-            android:hint="Password"
+            android:hint="Şifre"
             android:paddingHorizontal="20dp"
             android:textColorHint="#998B8A"
             android:textSize="16sp"
@@ -142,10 +143,12 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Log in"
-        android:textSize="14sp"
+        android:text="Giriş Yap"
+        android:textSize="24sp"
         android:textColor="@color/colorAccentPinkLight"
         android:gravity="center"
+        android:translationY="-2dp"
+        android:fontFamily="@font/josefin_sans_light"
         android:onClick="clickLogin"
         app:layout_constraintLeft_toLeftOf="@+id/i_login"
         app:layout_constraintRight_toRightOf="@+id/i_login"
@@ -182,51 +185,36 @@
         app:layout_constraintTop_toBottomOf="@+id/t_or"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/l_termsConditions"/>
+        app:layout_constraintBottom_toTopOf="@+id/t_sozlesme"/>
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Create an account"
+        android:text="Hesap Oluştur"
         android:onClick="clickCreateAnAccouunt"
         app:layout_constraintLeft_toLeftOf="@+id/i_createanaccount"
         app:layout_constraintRight_toRightOf="@+id/i_createanaccount"
         app:layout_constraintTop_toTopOf="@+id/i_createanaccount"
         android:gravity="center"
+        android:textSize="18sp"
+        android:fontFamily="@font/josefin_sans_light"
         android:textColor="@color/colorPrimaryPink"
-        android:translationY="-2dp"
+        android:translationY="-5dp"
         app:layout_constraintBottom_toBottomOf="@+id/i_createanaccount"/>
 
-    <LinearLayout
-        android:id="@+id/l_termsConditions"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/t_sozlesme"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/i_createanaccount"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginHorizontal="20dp"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="By signing up, you are agree with our"
-            android:textSize="12sp"
-            android:textColor="@color/colorTextPrimaryPurple"
-            android:fontFamily="@font/josefin_sans_medium"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="Terms Conditions"
-            android:textSize="12sp"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/colorTextPrimaryPurple"
-            android:fontFamily="@font/josefin_sans_bold"/>
-
-    </LinearLayout>
+        android:gravity="center"
+        android:fontFamily="@font/josefin_sans_light"
+        android:layout_marginBottom="20dp"
+        android:textSize="14sp"
+        android:textColor="@color/textPrimaryColor"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,11 +17,11 @@ public class makeAlert {
             final PrettyDialog pDialog = new PrettyDialog(context);
             pDialog.setTitle(title)
                     .setIcon(R.drawable.pdlg_icon_close)
-                    .setIconTint(R.color.pdlg_color_red)
+                    .setIconTint(R.color.secondtextcolor)
                     .setMessage(messages)
-                    .addButton( "Ok",
+                    .addButton( "Tamam",
                             R.color.pdlg_color_white,
-                            R.color.pdlg_color_red,
+                            R.color.secondtextcolor,
                             new PrettyDialogCallback() {
                                 @Override
                                 public void onClick() {
@@ -35,11 +35,11 @@ public class makeAlert {
             final PrettyDialog pDialog = new PrettyDialog(context);
             pDialog.setTitle(title)
                     .setIcon(R.drawable.pdlg_icon_success)
-                    .setIconTint(R.color.pdlg_color_green)
+                    .setIconTint(R.color.secondtextcolor)
                     .setMessage(messages)
-                    .addButton( "Ok",
+                    .addButton( "Tamam",
                             R.color.pdlg_color_white,
-                            R.color.pdlg_color_green,
+                            R.color.secondtextcolor,
                             new PrettyDialogCallback() {
                                 @Override
                                 public void onClick() {

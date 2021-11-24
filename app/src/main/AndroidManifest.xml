@@ -20,12 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.ActivityWebview"
+            android:exported="false" />
+        <activity
             android:name=".activities.ActivityProfileEditForm"
             android:exported="true" />
         <activity
             android:name=".activities.ActivityProfileEdit2"
             android:exported="true" />
-        <activity android:name=".activities.ActivityFriendMessage" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -40,26 +42,16 @@
         <activity
             android:name=".activities.ActivityAvatar"
             android:theme="@style/MyFullScreenTheme" />
-        <activity android:name=".activities.ActivityFriends" />
-        <activity android:name=".activities.ActivityIstek" />
-
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.ActivityCategory2_Detail2" />
-        <activity android:name=".activities.ActivityCategory2_Answer" />
-        <activity android:name=".activities.ActivityCategory2_List" />
-        <activity android:name=".activities.ActivityCategory2" />
         <activity android:name=".activities.ActivityChat" />
-        <activity android:name=".activities.InformationActivity" />
         <activity
             android:name=".activities.ActivityLogin1"
             android:theme="@style/MyFullScreenTheme" />
-        <activity android:name=".activities.ActivityLogin2" />
-        <activity android:name=".activities.ActivityCategory3" />
-        <activity android:name=".activities.OnBoardingActivity" android:theme="@style/MyFullScreenTheme"/>
-        <activity android:name=".activities.ActivityCategory2_ShowAnswers" />
+        <activity
+            android:name=".activities.OnBoardingActivity"
+            android:theme="@style/MyFullScreenTheme" />
         <activity android:name=".activities.ActivityRegister1" />
         <activity android:name=".activities.ActivityRegister2" />
-        <activity android:name=".activities.main_screen" />
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/MyFullScreenTheme">

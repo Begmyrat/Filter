@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".activities.OnBoardingActivity">
 
 
@@ -32,7 +33,7 @@
                 android:id="@+id/tvSkip"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/dinpromedium"
+                android:fontFamily="@font/josefin_sans_semi_bold"
                 android:gravity="start"
                 android:text="Atla"
                 android:textColor="#8a939e" />
@@ -58,7 +59,7 @@
                 android:id="@+id/tvNext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/dinpromedium"
+                android:fontFamily="@font/josefin_sans_semi_bold"
                 android:gravity="end"
                 android:text="Sonraki"
                 android:textColor="@color/secondtextcolor" />

@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/discover"
-        android:icon="@drawable/discover"
-        android:title="Discover"/>
+        android:icon="@drawable/kesfet"
+        android:title="Keşfet"/>
 
     <item
         android:id="@+id/messages"
         android:icon="@drawable/messages"
-        android:title="Messages"/>
+        android:title="Mesajlar"/>
 
     <item
         android:id="@+id/describe"
-        android:icon="@drawable/describe"
-        android:title="Describe"/>
+        android:icon="@drawable/tarifet"
+        android:title="Tarif Et"/>
 
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/profil_selected"
-        android:title="My Profile"/>
+        android:icon="@drawable/profil"
+        android:title="Profilim"/>
 
 
 

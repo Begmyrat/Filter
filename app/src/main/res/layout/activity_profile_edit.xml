@@ -45,6 +45,7 @@
             android:id="@+id/i_avatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:transitionName="iProfileTransition"
             android:scaleType="centerCrop"
             android:src="@drawable/avatar"/>
 
@@ -55,6 +56,7 @@
         android:layout_width="43dp"
         android:layout_height="30dp"
         android:text="%25"
+        android:transitionName="tPercentageTransition"
         android:gravity="center"
         android:fontFamily="@font/josefin_sans_regular"
         android:textSize="14sp"
@@ -72,6 +74,7 @@
         android:layout_height="wrap_content"
         android:text="John Doe"
         android:textSize="24sp"
+        android:transitionName="tUsernameTransition"
         android:textColor="@color/textPrimaryColor"
         android:fontFamily="@font/josefin_sans_semi_bold"
         app:layout_constraintLeft_toRightOf="@+id/c_avatar"
@@ -109,6 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:alpha="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t_fillYourProfile">

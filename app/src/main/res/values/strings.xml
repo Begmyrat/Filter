@@ -56,11 +56,10 @@
 
     </string-array>
 
-    <string name="ob_desc1">OEDAŞ uygulaması ile kolayca arıza ihbarında bulunabilir ve bölgenizdeki  planlı kesinti ve arızaları tüm detaylarıyla birlikte tek ekranda görüntüleyebilirsiniz.</string>
-    <string name="ob_desc2">Adresinizdeki planlı kesintileri harita üzerinden görüntüleyebilir ve durumunu takip edebilirsiniz </string>
-    <string name="ob_desc3">Elektrik kesintisi, aydınlatma sorunları gibi durumlarda arızanızı hızlıca bize bildirebilirsiniz </string>
-    <string name="ob_desc4">Oluşturduğunuz arıza kayıtlarının uygulama üzerinden anlık olarak takip edebilir, hangi aşamada olduğunu görüntüleyebilirsiniz.</string>
-    <string name="ob_desc5">Güncel haberler ve duyurulardan ilk siz haberdar olabilirsiniz.</string>
+    <string name="ob_desc1">Canın mı sıkılıyor? Zaman geçirecek biri olsa fena olmaz mı?\nİşte fltr tam sana göre!</string>
+    <string name="ob_desc2">Bana ilgi alanlarından ve tam şuan neler yaptığından, tanışmak istediğin kişilerden bahsedebilirsin.\nSana uygun ve benzer kullanıcıları filtreleyebilirim.</string>
+    <string name="ob_desc3">Aradığını buldun mu? Özgürce mesajlas!</string>
+    <string name="ob_desc4">Sence de artık buluşmanın zamanı gelmedi mi?</string>
 
     <string name="ob_header1">Hoş Geldİnİz!</string>
     <string name="ob_header2">Planlı kesİntİlerden haberdar olun!</string>
@@ -83,19 +82,19 @@
     <!-- Fragment Profile -->
     <string name="FragmentProfile_friends">Arkadaşlar</string>
     <string name="FragmentProfile_requests">İstekler</string>
-    <string name="FragmentProfile_newMatches">Profil bilgilerinize yakın eşleşmeler</string>
-    <string name="FragmentProfile_hi">Selam</string>
-    <string name="FragmentProfile_whatAreWeDoing">Neler yapıyorsun?</string>
-    <string name="FragmentProfile_iAmAt">Şurada</string>
-    <string name="FragmentProfile_iAmDoing">Şunu yapıyorum</string>
+    <string name="FragmentProfile_newMatches">Profiline uygun eşleşmeler</string>
+    <string name="FragmentProfile_hi">Merhaba,</string>
+    <string name="FragmentProfile_whatAreWeDoing">Ne yapıyorsun?</string>
+    <string name="FragmentProfile_iAmAt">Şuradayım...</string>
+    <string name="FragmentProfile_iAmDoing">... yapıyorum</string>
     <string name="FragmentProfile_discover">Keşfet</string>
-    <string name="FragmentProfile_username">Kullanıcı adın</string>
-    <string name="FragmentProfile_findPeople">Kullanıcı adı</string>
-    <string name="FragmentProfile_match">Eşleştir</string>
+    <string name="FragmentProfile_username">Kullanıcı Adım</string>
+    <string name="FragmentProfile_findPeople">Kullanıcı Adı</string>
+    <string name="FragmentProfile_match">Eşleş</string>
     <string name="FragmentProfile_history">Geçmiş</string>
 
     <!-- Fragment Describe  -->
-    <string name="FragmentDescribe_message">This module is coming soon...</string>
+    <string name="FragmentDescribe_message">Bu özellik çok yakında gelecek...</string>
 
     <!-- Fragment Messages -->
     <string name="FragmentMessages_messages">Mesajlar</string>
@@ -106,7 +105,7 @@
     <string name="FragmentDiscover_activity">Aktivite eklenmedi</string>
     <string name="FragmentDiscover_location">Konum eklenmedı</string>
     <string name="FragmentDiscover_time">Tarih eklenmedi</string>
-    <string name="FragmentDiscover_seeWhatOthersAreDoing">Diğerlerinin\nne yaptığını gör</string>
+    <string name="FragmentDiscover_seeWhatOthersAreDoing">Yakındakiler Neler\nYapıyor</string>
     <string name="FragmentDiscover_searchFriend">Ara (arkadaş)</string>
     <string name="FragmentDiscover_searchAll">Ara (hepsi)</string>
 
@@ -150,5 +149,8 @@
     <string name="ActivityProfileEdit_food">Yemek</string>
     <string name="ActivityProfileEdit_favoriteMeal">En Sevdiğiniz Öğün</string>
     <string name="ActivityProfileEdit_favoriteFood">Yemeye Doyamadığınız Yemek</string>
+
+
+    <string name="sozlesme" translatable="false">&lt;b>&lt;u>Üyelik özleşmesini ve Gizlilik Politikası&lt;/u>&lt;/b>\'nı okudum, kabul ediyorum.</string>
 
 </resources>

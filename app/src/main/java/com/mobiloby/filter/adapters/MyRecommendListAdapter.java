@@ -78,7 +78,7 @@ public class MyRecommendListAdapter extends RecyclerView.Adapter<MyRecommendList
                     .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getAvatar_id())
                     .centerCrop()
                     .circleCrop()
-                    .placeholder(R.drawable.ic_f_char)
+                    .placeholder(R.drawable.filtryenilogo)
                     .into(holder.i_avatar);
         }catch (Exception e){
 

@@ -85,7 +85,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                 .with(this)
                 .load("https:mobiloby.com/_filter/assets/profile/" + userProfileUrl)
                 .centerCrop()
-                .placeholder(R.drawable.ic_f_char)
+                .placeholder(R.drawable.filtryenilogo)
                 .into(binding.iAvatar);
 
         getInfo();
@@ -128,6 +128,8 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
         getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground));// set status background white
 
+        binding.scrollview.animate().setDuration(1000).alpha(1);
+
         extras = getIntent().getExtras();
         if(extras!=null){
             username = extras.getString("username");
@@ -144,7 +146,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         setTitles();
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -195,15 +197,15 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         optionsList.add("Mühendis,Doktor,Sanatçı");     // job
         optionsList.add("");    // dream job
         optionsList.add("Mor,Kırmızı,Sarı,Siyah");  // fav color
-        optionsList.add("0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");   // fav number
+        optionsList.add("0,1,2,3,4,5,6,7,8,9");   // fav number
         optionsList.add("İkizler,Boğa,Aslan");  // zodiac sign
-        optionsList.add("Hip-Hop,Jazz,Rock");   // fav music genre
+        optionsList.add("Jazz,Rock,Klasik,Blues,Elektronik,Halk Müziği,Arabesk,Türk Pop,Yabancı Pop,Punk,Podcast,RnB");   // fav music genre
         optionsList.add("");    // fav artist
-        optionsList.add("At,Kitap,Spor");    // hobby
+        optionsList.add("Yemek Yapmak,Doğa Yürüyüşü,Resim Heykel Sanat,Koşmak,Dans Etmek,Yoga,Okumak,Video Oyunları,Bahçe İşleri,Tahta İşlemeciliği,Spor,Seyahat Etmek,Balık Tutmak,Fotoğrafçılık,Günlük Tutmak,Lego Yapmak,Oyuncak,Koleksiyon,Enstrüman,Tasarım Yapmak,Yüzmek,Hayal Kurmak,Amatör Radyoculuk,Kumar Oynamak,Örgü Örmek,Yabancı Dil,Araba,At Binmek,DJ,Şarkı Söylemek,Müzik");    // hobby
         optionsList.add("");    // talents
-        optionsList.add("Aşk,Siyaset,Tarih");    // fav book genre
+        optionsList.add("Dünya Klasikleri,Roman,Hikaye,Şiir,Felsefe Psikoloji,Korku Gerilim,Polisiye Macera,Biyografi,Bilim Kurgu,Aşk,Araştırma İnceleme,Dergi,Teknoloji,Moda,Kültür Sanat,Türk Klasikleri,Sosyoloji,Deneme,Fantastik,Kişisel Gelişim,Efsane,Mitoloji,Yemek,Sağlık");    // fav book genre
         optionsList.add("");    // fav book
-        optionsList.add("Aksiyon,Bilim Kurgu,Gerilim");    // fav movie genre
+        optionsList.add("Aksiyon,Bilim Kurgu,Korku Gerilim,Belgesel,Komedi,Fantastik,Romantik,Müzikal,Western,Dram");    // fav movie genre
         optionsList.add("");    // fav movie
         optionsList.add("");    // fav theatre
         optionsList.add("Kahvaltı,Öğle Yemeği,Akşam Yemeği");    // fav meal genre
@@ -348,7 +350,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
             }
             else if(clickedItemIndex==27){
                 // close
-                finish();
+                super.onBackPressed();
             }
             else if(clickedItemIndex==28){
                 // finish
@@ -488,6 +490,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                                 binding.tFillYourProfile.setText("En iyi eşleşme için profilini doldur.");
                                 binding.tContinue.setVisibility(View.VISIBLE);
                                 binding.iContinue.setVisibility(View.VISIBLE);
+                                setDataToUI();
                             }
                             else if(!username.equals(usernameSelf) && isHidden==0 && !friendStatus.equals("1")){
                                 //t_fillYourProfile
@@ -614,7 +617,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                     pushNotification(""+usernameSelf+" size istek gönderdi.");
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", getApplicationContext(), true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", getApplicationContext(), true);
                 }
 
             }

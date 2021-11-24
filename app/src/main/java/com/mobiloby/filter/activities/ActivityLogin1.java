@@ -12,8 +12,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.mobiloby.filter.R;
 import com.mobiloby.filter.helpers.JSONParser;
@@ -44,15 +47,15 @@ public class ActivityLogin1 extends AppCompatActivity {
 
     EditText e_username, e_password;
     Toast toast;
-    TextView alerttext;
+    TextView alerttext, t_subtitle;
     View toastlayout;
     JSONParser jsonParser;
     JSONObject jsonObject;
-//    ImageView i_balloon;
     ImageView i_fltr;
     String username, password;
     SharedPreferences preferences;
     int maxLength = 10;
+    TextView t_sozlesme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -61,35 +64,16 @@ public class ActivityLogin1 extends AppCompatActivity {
 
         prepareMe();
 
-//        e_username.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-//        e_username.addTextChangedListener(new TextWatcher() {
-//
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                if(s.length()>4 && s.length()<15)
-//                    findViewById(R.id.phoneacceptbut).setVisibility(View.VISIBLE);
-//                else
-//                    findViewById(R.id.phoneacceptbut).setVisibility(View.INVISIBLE);
-//
-//                if(s.length()>15) {
-//                    e_username.setText(s.subSequence(0, 15));
-//                    alerttext.setText("En az 4 ve en fazla 15 rakamlı olacak şekilde kullanıcı adınızı giriniz.");
-//                    toast.setView(toastlayout);
-//                    toast.show();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-////                if (s.length() > 0)
-////                    if (s.charAt(0) != '5'){
-////                        alerttext.setText("Eksik veya hatalı giriş yaptınız!");
-////                        toast.setView(toastlayout);
-////                        toast.show();}
-//            }
-//        });
+        t_sozlesme = findViewById(R.id.t_sozlesme);
+        t_sozlesme.setText(Html.fromHtml(getString(R.string.sozlesme)));
+        t_sozlesme.setMovementMethod(LinkMovementMethod.getInstance());
+
+        t_sozlesme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ActivityWebview.class));
+            }
+        });
     }
 
     private void prepareMe() {
@@ -98,9 +82,9 @@ public class ActivityLogin1 extends AppCompatActivity {
         int width  = Resources.getSystem().getDisplayMetrics().widthPixels;
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-
-//        i_balloon = findViewById(R.id.i_filtryenilogo);
         i_fltr = findViewById(R.id.i_fltr);
+        t_subtitle = findViewById(R.id.t_subtitle);
+        t_subtitle.setText("Paylaş, Filtrele ve Eşleş.\nÖzgürce Mesajlaş!");
 
         if(height<1780){
 //            i_balloon.getLayoutParams().width = dpToPx(70, this);
@@ -154,7 +138,7 @@ public class ActivityLogin1 extends AppCompatActivity {
 
     private void getUser() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -215,17 +199,16 @@ public class ActivityLogin1 extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             else{
-                                makeAlert.uyarıVer("Filter", "Kullanıcı adı veya şifre hatalı.", ActivityLogin1.this, true);
+                                makeAlert.uyarıVer("Fltr", "Kullanıcı adı veya şifre hatalı.", ActivityLogin1.this, true);
                             }
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(ActivityLogin1.this, "error jiimRecommend", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Kullanıcı adı veya şifre hatalı.", ActivityLogin1.this, true);
+                    makeAlert.uyarıVer("Fltr", "Kullanıcı adı veya şifre hatalı.", ActivityLogin1.this, true);
                 }
 
             }

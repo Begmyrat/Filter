@@ -66,7 +66,7 @@ public class MyAvatarListAdapter extends RecyclerView.Adapter<MyAvatarListAdapte
                     .load("https:mobiloby.com/_filter/assets/profile/" + list.get(position).getUrl())
                     .centerCrop()
                     .circleCrop()
-                    .placeholder(R.drawable.ic_f_char)
+                    .placeholder(R.drawable.filtryenilogo)
                     .into(holder.icon);
         }catch (Exception e){
 

@@ -104,23 +104,14 @@
             android:backgroundTint="@color/colorWhite"
             android:paddingHorizontal="10dp">
 
-            <ImageView
-                android:id="@+id/i_keyboard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_keyboard" />
-
             <EditText
                 android:id="@+id/e_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Type a message"
-                android:textColorHint="@color/colorChatRightBox"
-                android:layout_toRightOf="@+id/i_keyboard"
+                android:textColorHint="@color/black"
                 android:layout_marginHorizontal="5dp"
-                android:textColor="@color/colorChatRightBox"
+                android:textColor="@color/black"
                 android:fontFamily="@font/josefin_sans_regular"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_centerVertical="true"/>

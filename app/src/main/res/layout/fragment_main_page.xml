@@ -8,7 +8,6 @@
     tools:context=".fragments.FragmentProfilePage">
 
 
-
     <ImageView
         android:id="@+id/i_settings"
         android:layout_width="30dp"
@@ -23,6 +22,7 @@
         android:id="@+id/i_profile"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:transitionName="iProfileTransition"
         android:src="@drawable/editprofileicon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/i_settings"
@@ -35,6 +35,7 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
         android:text=""
+        android:transitionName="tUsernameTransition"
         android:gravity="center"
         android:textSize="24sp"
         android:textColor="#612c63"
@@ -88,6 +89,7 @@
         android:translationY="-10dp"
         android:background="@drawable/profil_percentage"
         android:text="%100"
+        android:transitionName="tPercentageTransition"
         android:elevation="2dp"
         android:gravity="center"
         android:textSize="10sp"
@@ -102,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:text="@string/FragmentProfile_friends"
+        android:text="Arkadaşlar"
         android:textColor="#612c63"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -117,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:text="@string/FragmentProfile_requests"
+        android:text="İstekler"
         android:textColor="#612c63"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -182,7 +184,7 @@
             android:layout_marginRight="20dp"
             android:alpha="0.6"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/colorDarkGray"/>
+            android:textColor="@color/black"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
@@ -202,7 +204,7 @@
         android:layout_height="wrap_content"
         app:tabGravity="fill"
         android:layout_marginTop="10dp"
-        app:tabRippleColor="@color/colorDarkGray"
+        app:tabRippleColor="@color/black"
         app:tabIconTint="#612c63"
         app:tabBackground="@drawable/tablayout_selector"
         app:tabIndicatorColor="#612c63"

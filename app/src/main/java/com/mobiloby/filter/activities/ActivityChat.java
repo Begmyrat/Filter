@@ -96,7 +96,7 @@ public class ActivityChat extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -117,7 +117,7 @@ public class ActivityChat extends AppCompatActivity {
                     .with(getApplicationContext())
                     .load("https://mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
                     .centerCrop()
-                    .placeholder(R.drawable.ic_f_char)
+                    .placeholder(R.drawable.filtryenilogo)
                     .into(i_avatar);
         }
 
@@ -206,7 +206,7 @@ public class ActivityChat extends AppCompatActivity {
                     getChats();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
                 }
 
             }
@@ -326,10 +326,8 @@ public class ActivityChat extends AppCompatActivity {
                 e_message.setText("");
 
                 if (res.equals("1")) {
-                    Toast.makeText(ActivityChat.this, "gonderdik", Toast.LENGTH_SHORT).show();
                 }
                 else{
-//                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
                 }
 
             }
@@ -342,97 +340,6 @@ public class ActivityChat extends AppCompatActivity {
 //        recyclerView.scrollToPosition(chatObjects.size()-1);
     }
 
-    public void clickMore(View view) {
-        popupDelete();
-    }
-
-    public void popupDelete(){
-        builder = new Dialog(this, R.style.AlertDialogCustom);
-        View view;
-        view = LayoutInflater.from(this).inflate(R.layout.popup_istek_kabul, null);
-
-        TextView t_username = view.findViewById(R.id.t_username);
-        t_username.setText(friend_username);
-        TextView t_subtitle = view.findViewById(R.id.t_subtitle);
-        t_subtitle.setText("Arkadaşınızı gerçekten de silmek istiyor musunuz?");
-        TextView t_reddet = view.findViewById(R.id.t_reddet);
-        t_reddet.setText("Hayır");
-        TextView t_kabulEt = view.findViewById(R.id.t_kabulEt);
-        t_kabulEt.setText("Evet");
-        LinearLayout l_profile = view.findViewById(R.id.l_profile);
-        l_profile.setVisibility(View.GONE);
-        LinearLayout l_answers = view.findViewById(R.id.l_answers);
-        l_answers.setVisibility(View.GONE);
-
-        builder.setCancelable(true);
-        builder.setContentView(view);
-        builder.show();
-    }
-
-    public void clickReddet(View view) {
-        builder.dismiss();
-    }
-
-    public void clickKabulEt(View view) {
-        builder.dismiss();
-        // delete friend
-        deleteFriend();
-    }
-
-    private void deleteFriend() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
-        progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMax(100);
-
-        chatObjects.clear();
-
-        final String url = "https://mobiloby.com/_filter/delete_friend.php";
-
-        new AsyncTask<String, Void, String>() {
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                jsonParser = new JSONParser();
-
-                HashMap<String, String> jsonData = new HashMap<>();
-
-                jsonData.put("user_name_unique", username);
-                jsonData.put("friend_user_name_unique", friend_username);
-
-                int success = 0;
-                try {
-
-                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
-
-                    success = jsonObject.getInt("success");
-
-                } catch (Exception ex) {
-                    if (ex.getMessage() != null) {
-                        Log.e("", ex.getMessage());
-                    }
-                }
-                return String.valueOf(success);
-            }
-
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected void onPostExecute(String res) {
-
-                progressDialog.dismiss();
-
-                if (res.equals("1") || res.equals("2") || res.equals("3")) {
-                    finish();
-                }
-                else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", ActivityChat.this, true);
-                }
-
-            }
-        }.execute(null, null, null);
-    }
 
     public void clickAvatar(View view) {
         Intent intent = new Intent(getApplicationContext(), ActivityProfileEdit2.class);

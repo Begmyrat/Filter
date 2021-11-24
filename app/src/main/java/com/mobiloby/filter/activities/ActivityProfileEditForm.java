@@ -63,7 +63,7 @@ public class ActivityProfileEditForm extends AppCompatActivity implements MyRecy
         getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorBackground));// set status background white
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Filter");
+        progressDialog.setTitle("Fltr");
         progressDialog.setMessage("İşleminiz gerçekleştiriliyor...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMax(100);
@@ -162,7 +162,7 @@ public class ActivityProfileEditForm extends AppCompatActivity implements MyRecy
                     finish();
                 }
                 else{
-                    makeAlert.uyarıVer("Filter", "Bir hata oldu. Lütfen tekrar deneyiniz.", getApplicationContext(), true);
+                    makeAlert.uyarıVer("Fltr", "Bir hata oldu. Lütfen tekrar deneyiniz.", getApplicationContext(), true);
                 }
 
             }

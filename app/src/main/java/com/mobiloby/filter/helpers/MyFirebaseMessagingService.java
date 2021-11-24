@@ -126,7 +126,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //                .setColor(Color.RED)
 //                .setLights(Color.RED, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setSmallIcon(R.drawable.ic_f_char);
+                .setSmallIcon(R.drawable.filtryenilogo);
 
         try {
             String picture_url = data.get("picture_url");

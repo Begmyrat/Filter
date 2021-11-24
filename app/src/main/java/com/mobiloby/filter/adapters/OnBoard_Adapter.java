@@ -45,8 +45,8 @@ public class OnBoard_Adapter extends PagerAdapter {
         ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_onboard);
         imageView.setImageResource(item.getImageID());
 
-        TextView tv_title = (TextView) itemView.findViewById(R.id.tv_header);
-        tv_title.setText(item.getTitle());
+//        TextView tv_title = (TextView) itemView.findViewById(R.id.tv_header);
+//        tv_title.setText(item.getTitle());
 
         TextView tv_content = (TextView) itemView.findViewById(R.id.tv_desc);
         tv_content.setText(item.getDescription());

@@ -96,54 +96,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-//        for(int i=0;i<fragmentList.size();i++){
-//            ft.add(R.id.fragment_container, fragmentList.get(i));
-//        }
-//        ft.commit();
-
         bottomNavigationView.setSelectedItemId(R.id.profile);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
-//    public void popup(String title){
-//        builder = new Dialog(this, R.style.AlertDialogCustom);
-//        View view;
-//        view = LayoutInflater.from(this).inflate(R.layout.popup_uyari, null);
-//        TextView t_title = view.findViewById(R.id.e_info);
-//        t_title.setText(title);
-//        builder.setCancelable(true);
-//        builder.setContentView(view);
-//        builder.show();
-//    }
-//
-//    public void clickTamam(View view) {
-//        builder.dismiss();
-//    }
-
-    public void clickIstekler(View view) {
-        startActivity(new Intent(this, ActivityIstek.class));
-    }
-
-    public void clickFriends(View view) {
-        Intent intent = new Intent(getApplicationContext(), ActivityFriends.class);
-        startActivity(intent);
-    }
-
-    public void clickMessage(View view) {
-        startActivity(new Intent(this, ActivityFriendMessage.class));
-    }
-
-//    public void clickProfileTop(View view) {
-//        Intent intent = new Intent(this, InformationActivity.class);
-//        intent.putExtra("username", username);
-//        startActivity(intent);
-//    }
-
     public void initNavButtons(){
-        bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.discover);
+        bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.kesfet);
         bottomNavigationView.getMenu().getItem(1).setIcon(R.drawable.messages);
-        bottomNavigationView.getMenu().getItem(2).setIcon(R.drawable.describe);
+        bottomNavigationView.getMenu().getItem(2).setIcon(R.drawable.tarifet);
         bottomNavigationView.getMenu().getItem(3).setIcon(R.drawable.profil);
     }
 
@@ -159,22 +120,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         initNavButtons();
 
         if(item.getItemId() == R.id.discover){
-            item.setIcon(R.drawable.discover_selected);
+//            item.setIcon(R.drawable.discover_selected);
             viewPager.setCurrentItem(0, false);
             return true;
         }
         else if(item.getItemId() == R.id.messages){
-            item.setIcon(R.drawable.messages_selected);
+//            item.setIcon(R.drawable.messages_selected);
             viewPager.setCurrentItem(1, false);
             return true;
         }
         else if(item.getItemId() == R.id.describe){
-            item.setIcon(R.drawable.describe_selected);
+//            item.setIcon(R.drawable.describe_selected);
             viewPager.setCurrentItem(2, false);
             return true;
         }
         else if(item.getItemId() == R.id.profile){
-            item.setIcon(R.drawable.profil_selected);
+//            item.setIcon(R.drawable.profil_selected);
             viewPager.setCurrentItem(3, false);
             return true;
         }
@@ -183,15 +144,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void changeCurrentItem(int index){
-        initNavButtons();
-        if(index==0)
-            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.discover_selected);
-        else if(index==1)
-            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.messages_selected);
-        else if(index==2)
-            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.describe_selected);
-        else if(index==3)
-            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.profil_selected);
+//        initNavButtons();
+//        if(index==0)
+//            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.discover_selected);
+//        else if(index==1)
+//            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.messages_selected);
+//        else if(index==2)
+//            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.describe_selected);
+//        else if(index==3)
+//            bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.profil_selected);
 
         viewPager.setCurrentItem(index, false);
     }

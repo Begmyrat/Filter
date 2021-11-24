@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/josefin_sans_semi_bold"
             android:text="Bolmasa yene guk diyayerin"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/secondtextcolor"
             android:textSize="16sp" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:gravity="right"
             android:foregroundGravity="right"
             android:layout_below="@+id/t_chatLeft"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/secondtextcolor"
             android:fontFamily="@font/josefin_sans_regular"
             android:textSize="14sp"/>
 
