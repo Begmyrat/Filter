@@ -102,7 +102,7 @@ public class ActivityAvatar extends AppCompatActivity implements MyAvatarListAda
 
                 username_unique = extras.getString("username");
                 user_password = extras.getString("password");
-                t_continue.setText("Kayıt Ol");
+                t_continue.setText("Tamamla");
             }
         }
         displayMetrics = new DisplayMetrics();

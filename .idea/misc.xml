@@ -58,6 +58,8 @@
         <entry key="app/src/main/res/drawable/info_box_background_fill5.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/info_box_background_fill8.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/input_background.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/item_selected_bg.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/drawable/item_unselected_bg.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/drawable/non_selected_item_dot.xml" value="0.2972222222222222" />
         <entry key="app/src/main/res/drawable/orange_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/orange_background_selected.xml" value="0.18611111111111112" />
@@ -103,6 +105,11 @@
         <entry key="app/src/main/res/layout/activity_category4.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_current_searches.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_describe_aksesuarim.xml" value="0.1954858454475899" />
+        <entry key="app/src/main/res/layout/activity_describe_gozlerim.xml" value="0.1954858454475899" />
+        <entry key="app/src/main/res/layout/activity_describe_konum.xml" value="0.1954858454475899" />
+        <entry key="app/src/main/res/layout/activity_describe_sac.xml" value="0.1954858454475899" />
+        <entry key="app/src/main/res/layout/activity_describe_ten.xml" value="0.19032134659525632" />
         <entry key="app/src/main/res/layout/activity_friend_message.xml" value="0.25317028985507245" />
         <entry key="app/src/main/res/layout/activity_friend_profile.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_friends.xml" value="0.25" />
@@ -121,12 +128,15 @@
         <entry key="app/src/main/res/layout/activity_webview.xml" value="0.266796875" />
         <entry key="app/src/main/res/layout/alertbox.xml" value="0.1" />
         <entry key="app/src/main/res/layout/customtab.xml" value="0.2857789855072464" />
-        <entry key="app/src/main/res/layout/fragment_describe_page.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_describe_page.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_describe_sac.xml" value="0.1954858454475899" />
         <entry key="app/src/main/res/layout/fragment_discover_page.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_main_page.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_messages_page.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_tab_ben.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_tab_friends.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/fragment_tab_messages.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/fragment_tab_o.xml" value="0.22882513661202186" />
         <entry key="app/src/main/res/layout/fragment_tab_social.xml" value="0.2336065573770492" />
         <entry key="app/src/main/res/layout/fragment_tab_to_do.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_list_avatars.xml" value="0.3233695652173913" />
@@ -145,8 +155,10 @@
         <entry key="app/src/main/res/layout/item_list_wanted_similar.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/layout_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_answers.xml" value="0.25557244174265453" />
+        <entry key="app/src/main/res/layout/list_item_describe.xml" value="0.23087431693989072" />
         <entry key="app/src/main/res/layout/list_item_horizontal_rec.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_infobox.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/list_item_sac.xml" value="0.1954858454475899" />
         <entry key="app/src/main/res/layout/list_item_social_history.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_todo_header.xml" value="0.284375" />
         <entry key="app/src/main/res/layout/list_item_todo_result.xml" value="0.284375" />

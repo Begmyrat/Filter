@@ -189,7 +189,7 @@ public class FragmentDiscoverPage extends Fragment implements MyTodoResultListAd
 //                            if(minutes>0){
 //                                message += " " + minutes + "d";
 //                            }
-                            t_time.setText(todo_minutes);
+                            t_time.setText("Kalan zaman " + todo_minutes);
                             t_location.setText(todo_loc);
                             t_activity.setText(todo_desc);
                         }

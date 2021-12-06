@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Filter</string>
+    <string name="app_name">Fltr</string>
     <string name="title_activity_onboard">ActivityOnboard</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -47,18 +47,197 @@
 
     <string-array name="cities">
 
-        <item>Seçiniz</item>
-        <item>Adana</item>
-        <item>Amasya</item>
-        <item>Ankara</item>
-        <item>Istanbul</item>
-        <item>Konya</item>
+        <item>ADANA</item>
+        <item>ADIYAMAN</item>
+        <item>AFYONKARAHİSAR</item>
+        <item>AĞRI</item>
+        <item>AMASYA</item>
+        <item>ANKARA</item>
+        <item>ANTALYA</item>
+        <item>ARTVİN</item>
+        <item>AYDIN</item>
+        <item>BALIKESİR</item>
+        <item>BİLECİK</item>
+        <item>BİNGÖL</item>
+        <item>BİTLİS</item>
+        <item>BOLU</item>
+        <item>BURDUR</item>
+        <item>BURSA</item>
+        <item>ÇANAKKALE</item>
+        <item>ÇANKIRI</item>
+        <item>ÇORUM</item>
+        <item>DENİZLİ</item>
+        <item>DİYARBAKIR</item>
+        <item>EDİRNE</item>
+        <item>ELAZIĞ</item>
+        <item>ERZİNCAN</item>
+        <item>ERZURUM</item>
+        <item>ESKİŞEHİR</item>
+        <item>GAZİANTEP</item>
+        <item>GİRESUN</item>
+        <item>GÜMÜŞHANE</item>
+        <item>HAKKARİ</item>
+        <item>HATAY</item>
+        <item>ISPARTA</item>
+        <item>MERSİN</item>
+        <item>İSTANBUL</item>
+        <item>İZMİR</item>
+        <item>KARS</item>
+        <item>KASTAMONU</item>
+        <item>KAYSERİ</item>
+        <item>KIRKLARELİ</item>
+        <item>KIRŞEHİR</item>
+        <item>KOCAELİ</item>
+        <item>KONYA</item>
+        <item>KÜTAHYA</item>
+        <item>MALATYA</item>
+        <item>MANİSA</item>
+        <item>KAHRAMANMARAŞ</item>
+        <item>MARDİN</item>
+        <item>MUĞLA</item>
+        <item>MUŞ</item>
+        <item>NEVŞEHİR</item>
+        <item>NİĞDE</item>
+        <item>ORDU</item>
+        <item>RİZE</item>
+        <item>SAKARYA</item>
+        <item>SAMSUN</item>
+        <item>SİİRT</item>
+        <item>SİNOP</item>
+        <item>SİVAS</item>
+        <item>TEKİRDAĞ</item>
+        <item>TOKAT</item>
+        <item>TRABZON</item>
+        <item>TUNCELİ</item>
+        <item>ŞANLIURFA</item>
+        <item>UŞAK</item>
+        <item>VAN</item>
+        <item>YOZGAT</item>
+        <item>ZONGULDAK</item>
+        <item>AKSARAY</item>
+        <item>BAYBURT</item>
+        <item>KARAMAN</item>
+        <item>KIRIKKALE</item>
+        <item>BATMAN</item>
+        <item>ŞIRNAK</item>
+        <item>BARTIN</item>
+        <item>ARDAHAN</item>
+        <item>IĞDIR</item>
+        <item>YALOVA</item>
+        <item>KARABÜK</item>
+        <item>KİLİS</item>
+        <item>OSMANİYE</item>
+        <item>DÜZCE</item>
+
+    </string-array>
+
+    <string-array name="meslekler">
+
+        <item>Acil Tıp Teknisyeni</item>
+        <item>Aktüer</item>
+        <item>Antropolog</item>
+        <item>Arkeolog</item>
+        <item>Astronom</item>
+        <item>Avukat Yardımcısı</item>
+        <item>Ayak Hastalıkları Uzmanı</item>
+        <item>Bilgisayar Programcısı</item>
+        <item>Bilgisayar Sistem Analisti</item>
+        <item>Bilirkişi</item>
+        <item>Biyolog</item>
+        <item>Biyomedikal Mühendisliği</item>
+        <item>Cam Ustası</item>
+        <item>Cerrah</item>
+        <item>Cilt Bakım Uzmanı</item>
+        <item>Çevre Mühendisi</item>
+        <item>Diş Sağlığı Uzmanı</item>
+        <item>Dişçi</item>
+        <item>Diyetisyen</item>
+        <item>Duvar Ustası</item>
+        <item>Eczacı</item>
+        <item>Elektrik Mühendisi</item>
+        <item>Elektrikçi</item>
+        <item>Endüstri Mühendisliği</item>
+        <item>Endüstriyel Makine Tamircileri</item>
+        <item>Endüstriyel Tasarımcı</item>
+        <item>Etkinlik Koordinatörü</item>
+        <item>Fizikçi</item>
+        <item>Fizyolog</item>
+        <item>Fizyoterapist</item>
+        <item>Gözlükçü</item>
+        <item>Haberleşme Cihazları Mekanik Tamircileri</item>
+        <item>Halkla İlişkiler Yöneticisi</item>
+        <item>Havacılık ve Uzay Mühendisi</item>
+        <item>Hekim</item>
+        <item>Hekim Yardımcısı</item>
+        <item>Hemşire</item>
+        <item>İlkokul Öğretmeni</item>
+        <item>İnsan Kaynakları Müdürü</item>
+        <item>İnşaat Mühendisi</item>
+        <item>İnşaat/ Yapı Müfettişi</item>
+        <item>İstatistikçi</item>
+        <item>İş Güvenliği</item>
+        <item>İşveren</item>
+        <item>Jeolog</item>
+        <item>Kanalizasyon Tesisi Operatör</item>
+        <item>Kayropraktik Uzmanı</item>
+        <item>Konuşma Bozuklukları Uzmanı</item>
+        <item>Kredi Yöneticisi</item>
+        <item>Kütüphaneci</item>
+        <item>Lojistik</item>
+        <item>Mahkeme Yazıcısı</item>
+        <item>Makine Mühendisliği</item>
+        <item>Mali Planlayıcı</item>
+        <item>Matematikçi</item>
+        <item>Meslek Danışmanı</item>
+        <item>Mesleki Terapist</item>
+        <item>Meteoroloji Uzmanı</item>
+        <item>Mimar</item>
+        <item>Muhasebeci</item>
+        <item>Muhasebeci</item>
+        <item>Müze Müdürü</item>
+        <item>Nükleer Arındırma Teknisyeni</item>
+        <item>Nükleer Mühendisliği</item>
+        <item>Odyolog</item>
+        <item>Okul Müdürü</item>
+        <item>Online Satış Müdürü</item>
+        <item>Optometrist</item>
+        <item>Ortodonti Uzmanı</item>
+        <item>Otomobil Bakım Servisi</item>
+        <item>Pazar Araştırma Analisti</item>
+        <item>Petrol Mühendisliği</item>
+        <item>Psikiyatrist</item>
+        <item>Psikolog</item>
+        <item>Resepsiyonist</item>
+        <item>Saç Stilisti</item>
+        <item>Sigorta Acentası</item>
+        <item>Sigortacı</item>
+        <item>Solunum Terapisti</item>
+        <item>Sosyal Hizmet Uzmanı</item>
+        <item>Sosyal ve Topluluk Müdürü/ Yöneticisi</item>
+        <item>Sosyolog</item>
+        <item>Şartlı Tahliye Memuru</item>
+        <item>Tarihçi</item>
+        <item>Teknik Yazar</item>
+        <item>Tesisatçı</item>
+        <item>Tıbbi Kayıtlar Teknisyeni</item>
+        <item>Tıbbi Laboratuar Teknisyeni</item>
+        <item>Tıbbi Teknolog</item>
+        <item>Üniversite Profesörü</item>
+        <item>Vergi Tahsildarı</item>
+        <item>Veteriner</item>
+        <item>Web Geliştirici</item>
+        <item>Yargıç</item>
+        <item>Yazılım Mühendisliği</item>
+        <item>Yönetici Asistanı</item>
+        <item>Yönetim Danışmanı</item>
+        <item>Zararlılarla Mücadele İşcisi</item>
+        <item>Zoolog</item>
 
     </string-array>
 
     <string name="ob_desc1">Canın mı sıkılıyor? Zaman geçirecek biri olsa fena olmaz mı?\nİşte fltr tam sana göre!</string>
     <string name="ob_desc2">Bana ilgi alanlarından ve tam şuan neler yaptığından, tanışmak istediğin kişilerden bahsedebilirsin.\nSana uygun ve benzer kullanıcıları filtreleyebilirim.</string>
-    <string name="ob_desc3">Aradığını buldun mu? Özgürce mesajlas!</string>
+    <string name="ob_desc3">Aradığını buldun mu? Özgürce mesajlaş!</string>
     <string name="ob_desc4">Sence de artık buluşmanın zamanı gelmedi mi?</string>
 
     <string name="ob_header1">Hoş Geldİnİz!</string>
@@ -84,28 +263,28 @@
     <string name="FragmentProfile_requests">İstekler</string>
     <string name="FragmentProfile_newMatches">Profiline uygun eşleşmeler</string>
     <string name="FragmentProfile_hi">Merhaba,</string>
-    <string name="FragmentProfile_whatAreWeDoing">Ne yapıyorsun?</string>
+    <string name="FragmentProfile_whatAreWeDoing">neler yapıyorsun?</string>
     <string name="FragmentProfile_iAmAt">Şuradayım...</string>
     <string name="FragmentProfile_iAmDoing">... yapıyorum</string>
     <string name="FragmentProfile_discover">Keşfet</string>
     <string name="FragmentProfile_username">Kullanıcı Adım</string>
     <string name="FragmentProfile_findPeople">Kullanıcı Adı</string>
     <string name="FragmentProfile_match">Eşleş</string>
-    <string name="FragmentProfile_history">Geçmiş</string>
+    <string name="FragmentProfile_history">Liste</string>
 
     <!-- Fragment Describe  -->
-    <string name="FragmentDescribe_message">Bu özellik çok yakında gelecek...</string>
+    <string name="FragmentDescribe_message">Gördüğünüz kişiyi tarif ederek bulabileceğiniz bu özellik çok yakında burada olacak</string>
 
     <!-- Fragment Messages -->
     <string name="FragmentMessages_messages">Mesajlar</string>
     <string name="FragmentMessages_confirm">Kabul et</string>
-    <string name="FragmentMessages_search">ara</string>
+    <string name="FragmentMessages_search">Ara</string>
 
     <!-- Fragment Discover -->
-    <string name="FragmentDiscover_activity">Aktivite eklenmedi</string>
-    <string name="FragmentDiscover_location">Konum eklenmedı</string>
-    <string name="FragmentDiscover_time">Tarih eklenmedi</string>
-    <string name="FragmentDiscover_seeWhatOthersAreDoing">Yakındakiler Neler\nYapıyor</string>
+    <string name="FragmentDiscover_activity">Etkinlik eklemediniz</string>
+    <string name="FragmentDiscover_location">Lokasyon eklemediniz</string>
+    <string name="FragmentDiscover_time"></string>
+    <string name="FragmentDiscover_seeWhatOthersAreDoing">Kullanıcılar neler yapıyor</string>
     <string name="FragmentDiscover_searchFriend">Ara (arkadaş)</string>
     <string name="FragmentDiscover_searchAll">Ara (hepsi)</string>
 

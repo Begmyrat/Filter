@@ -20,6 +20,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.ActivityDescribeKonum"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityDescribeAksesuarim"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityDescribeGozlerim"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityDescribeTen"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityDescribeSac"
+            android:exported="false" />
+        <activity
             android:name=".activities.ActivityWebview"
             android:exported="false" />
         <activity
@@ -43,7 +58,15 @@
             android:name=".activities.ActivityAvatar"
             android:theme="@style/MyFullScreenTheme" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.ActivityChat" />
+        <activity
+            android:name=".activities.ActivityChat"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="OPEN_ACTIVITY_1" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.ActivityLogin1"
             android:theme="@style/MyFullScreenTheme" />

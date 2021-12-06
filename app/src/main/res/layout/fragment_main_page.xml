@@ -22,7 +22,6 @@
         android:id="@+id/i_profile"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:transitionName="iProfileTransition"
         android:src="@drawable/editprofileicon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/i_settings"
@@ -31,7 +30,7 @@
 
     <TextView
         android:id="@+id/t_username"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
         android:text=""
@@ -75,6 +74,7 @@
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             android:src="@drawable/avatar"
+            android:transitionName="iProfileTransition"
             app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
             app:layout_constraintLeft_toLeftOf="@+id/circularProgressBar"
             app:layout_constraintRight_toRightOf="@+id/circularProgressBar"

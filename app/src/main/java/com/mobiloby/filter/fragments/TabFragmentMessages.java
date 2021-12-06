@@ -73,6 +73,12 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
     public void initList(){
         friendList.clear();
         friendList.addAll(friendListAll);
@@ -82,7 +88,7 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
     public void performSearch(String input){
         friendList.clear();
         for(int i=0;i<friendListAll.size();i++){
-            if(friendListAll.get(i).getUsername().contains(input) || input.contains(friendListAll.get(i).getUsername())){
+            if(friendListAll.get(i).getUsername().toLowerCase().contains(input.toLowerCase()) || input.toLowerCase().contains(friendListAll.get(i).getUsername().toLowerCase())){
                 friendList.add(friendListAll.get(i));
             }
         }
@@ -197,11 +203,11 @@ public class TabFragmentMessages extends Fragment implements MyFriendListAdapter
                             }
                             else{
                                 String oldMessageDate = hashMapDate.get(friend_user_name);
-                                if(last_message_id_left.equals("") && oldMessageDate.compareTo(last_message_id_right)<0){
+                                if(last_message_id_left.equals("0") && oldMessageDate.compareTo(last_message_id_right)<0){
                                     hashMap.put(friend_user_name, last_message_right);
                                     hashMapDate.put(friend_user_name, last_message_id_right);
                                 }
-                                else if(last_message_id_right.equals("") && oldMessageDate.compareTo(last_message_id_left)<0){
+                                else if(last_message_id_right.equals("0") && oldMessageDate.compareTo(last_message_id_left)<0){
                                     hashMap.put(friend_user_name, last_message_left);
                                     hashMapDate.put(friend_user_name, last_message_id_left);
                                 }

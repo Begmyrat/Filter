@@ -415,7 +415,7 @@ public class FragmentProfilePage extends Fragment implements MyRecommendListAdap
                 intent.putExtra("userProfileUrl", userProfileUrl);
 
                 Pair[] pairs = new Pair[3];
-                pairs[0] = new Pair<View, String>(i_profile, "iProfileTransition");
+                pairs[0] = new Pair<View, String>(i_avatar, "iProfileTransition");
                 pairs[1] = new Pair<View, String>(t_username, "tUsernameTransition");
                 pairs[2] = new Pair<View, String>(t_percentage, "tPercentageTransition");
 

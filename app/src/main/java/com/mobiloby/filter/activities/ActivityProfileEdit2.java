@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -182,11 +183,27 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         titleList.add("Yemeye doyamadığınız yemek");
     }
 
+
     private void setOptions() {
 
         optionsList.add("");       // name Surname
         optionsList.add("...-1980,1981-1985,1986-1990,1991-1995,1996-2000,2001-2005,2005-..."); // date of birth
-        optionsList.add("Ankara,İstanbul,İzmir");   // from
+
+        String cities = "";
+        String[] array = getResources().getStringArray(R.array.cities);
+        for(int i=0;i<array.length-1;i++){
+            cities += array[i] + ",";
+        }
+        cities += array[array.length-1];
+
+        String meslekler = "";
+        String[] arrayMeslek = getResources().getStringArray(R.array.meslekler);
+        for(int i=0;i<arrayMeslek.length-1;i++){
+            meslekler += arrayMeslek[i] + ",";
+        }
+        meslekler += arrayMeslek[arrayMeslek.length-1];
+
+        optionsList.add(cities);   // from
         optionsList.add("...-1.50,1.51-1.60,1.61-1.70,1.71-1.80,1.81-1.90,1.91-...");       // height
         optionsList.add("...-45,46-50,51-55,56-60,61-65,66-70,71-75,76-80,81-85,86-90,91-95,96-...");   // weight
         optionsList.add("Var,Yok"); // tatto
@@ -194,11 +211,12 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
         optionsList.add("");    // middle school
         optionsList.add("");    // high school
         optionsList.add("");    // university
-        optionsList.add("Mühendis,Doktor,Sanatçı");     // job
+        optionsList.add(meslekler);     // job
         optionsList.add("");    // dream job
-        optionsList.add("Mor,Kırmızı,Sarı,Siyah");  // fav color
+
+        optionsList.add("Kırmızı,Sarı,Mavi,Yeşil,Turuncu,Mor,Beyaz,Pembe,Kahverengi,Gri,Siyah,Eflatun,Bej rengi,Gümüş rengi,Altın rengi");  // fav color
         optionsList.add("0,1,2,3,4,5,6,7,8,9");   // fav number
-        optionsList.add("İkizler,Boğa,Aslan");  // zodiac sign
+        optionsList.add("KOÇ,BOĞA,İKİZLER,YENGEÇ,ASLAN,BAŞAK,TERAZİ,AKREP,YAY,OĞLAK,KOVA,BALIK");  // zodiac sign
         optionsList.add("Jazz,Rock,Klasik,Blues,Elektronik,Halk Müziği,Arabesk,Türk Pop,Yabancı Pop,Punk,Podcast,RnB");   // fav music genre
         optionsList.add("");    // fav artist
         optionsList.add("Yemek Yapmak,Doğa Yürüyüşü,Resim Heykel Sanat,Koşmak,Dans Etmek,Yoga,Okumak,Video Oyunları,Bahçe İşleri,Tahta İşlemeciliği,Spor,Seyahat Etmek,Balık Tutmak,Fotoğrafçılık,Günlük Tutmak,Lego Yapmak,Oyuncak,Koleksiyon,Enstrüman,Tasarım Yapmak,Yüzmek,Hayal Kurmak,Amatör Radyoculuk,Kumar Oynamak,Örgü Örmek,Yabancı Dil,Araba,At Binmek,DJ,Şarkı Söylemek,Müzik");    // hobby
@@ -374,7 +392,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
             insertFriend();
         }
         else if(view.getId() == R.id.t_changeYourAvatar && friendStatus.equals("1")){
-
+            deleteFriend();
         }
         else if(view.getId() == R.id.i_cross){
             finish();
@@ -430,7 +448,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                             friendStatus = c.getString("is_friend");
                             if(!usernameSelf.equals(username)){
                                 if(friendStatus.equals("1")){
-                                    binding.tChangeYourAvatar.setText("Arkadaşsınız");
+                                    binding.tChangeYourAvatar.setText("Takibi bırak");
                                     isFriend = true;
                                 }
                                 else if(friendStatus.equals("3")){
@@ -515,7 +533,7 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
 
     private void updateProfil() {
         progressDialog.show();
-        infoList.clear();
+
         final String url = "https://mobiloby.com/_filter/update_profile_hidden.php";
 
         isHidden = (isHidden+1)%2;
@@ -671,6 +689,70 @@ public class ActivityProfileEdit2 extends AppCompatActivity implements View.OnCl
                 }
                 else{
                     ShowToastMessage.show(activity, "Arkadaş eklemede bir hata oldu. Tekrar deneyiniz.");
+                }
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private void deleteFriend() {
+
+        progressDialog.show();
+
+        final String url = "https://mobiloby.com/_filter/delete_friend.php";
+
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                jsonParser = new JSONParser();
+
+                HashMap<String, String> jsonData = new HashMap<>();
+
+                jsonData.put("user_name_unique", usernameSelf);
+                jsonData.put("friend_user_name_unique", username);
+
+                int success = 0;
+                try {
+
+                    jsonObject = new JSONObject(jsonParser.sendPostRequestForImage(url, jsonData));
+
+                    success = jsonObject.getInt("success");
+
+                } catch (Exception ex) {
+                    if (ex.getMessage() != null) {
+                        Log.e("", ex.getMessage());
+                    }
+                }
+                return String.valueOf(success);
+            }
+
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected void onPostExecute(String res) {
+
+                progressDialog.dismiss();
+
+                if (res.equals("1")) {
+//                    ShowToastMessage.show(activity, "Arkadaş eklendi");
+//                    pushNotification(""+usernameSelf+" sizi arkadaş olarak ekledi.");
+//                    getInfo();
+                    ShowToastMessage.show(activity, "Takip brakldi");
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    };
+                    Handler handler = new Handler();
+                    handler.postDelayed(runnable, 1000);
+
+                }
+                else{
+                    ShowToastMessage.show(activity, "Takibi bırakmada bir hata oldu. Tekrar deneyiniz.");
                 }
 
             }

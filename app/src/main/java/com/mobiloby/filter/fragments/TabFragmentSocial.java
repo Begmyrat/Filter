@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,7 +68,7 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tab_social, container, false);
         activity = (MainActivity) getActivity();
-
+        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         prepareMe();
 
 //        getCurrentSearches();
@@ -138,9 +139,9 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
             i_facebook.getLayoutParams().height = dpToPx(40, activity);
         }
         else if(i_snapchat.equals(v)){
-            social_type = "snapchat";
+            social_type = "linkedin";
             initButtons();
-            i_snapchat.setImageResource(R.drawable.snapchat_active);
+            i_snapchat.setImageResource(R.drawable.linkedin_active);
             i_snapchat.getLayoutParams().width = dpToPx(40, activity);
             i_snapchat.getLayoutParams().height = dpToPx(40, activity);
         }
@@ -206,7 +207,7 @@ public class TabFragmentSocial extends Fragment implements View.OnClickListener,
     public void initButtons(){
         i_instagram.setImageResource(R.drawable.instagram_passive);
         i_facebook.setImageResource(R.drawable.facebook_passive);
-        i_snapchat.setImageResource(R.drawable.snapchat_passive);
+        i_snapchat.setImageResource(R.drawable.linkedin_passive);
         i_twitter.setImageResource(R.drawable.twitter_passive);
         i_tiktok.setImageResource(R.drawable.tiktok_passive);
 

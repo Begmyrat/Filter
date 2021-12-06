@@ -80,7 +80,7 @@ public class TabFragmentFriends extends Fragment implements MyFriendListAdapter.
     public void performSearch(String input){
         friendList.clear();
         for(int i=0;i<friendListAll.size();i++){
-            if(friendListAll.get(i).getUsername().contains(input) || input.contains(friendListAll.get(i).getUsername())){
+            if(friendListAll.get(i).getUsername().toLowerCase().contains(input.toLowerCase()) || input.toLowerCase().contains(friendListAll.get(i).getUsername().toLowerCase())){
                 friendList.add(friendListAll.get(i));
             }
         }

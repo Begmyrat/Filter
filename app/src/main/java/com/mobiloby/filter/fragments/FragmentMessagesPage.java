@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -41,6 +42,7 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
     MessageViewModel viewModel;
     EditText e_search;
     boolean isMessagesFragment = true;
+    public TextView t_messages;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +51,8 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
         activity = (MainActivity) getActivity();
 
         prepareMe();
+
+        t_messages = view.findViewById(R.id.t_messages);
 
         e_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -98,8 +102,10 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
 
                 if(position==0){
                     isMessagesFragment = true;
+                    t_messages.setText("Mesajlar");
                 }
                 else{
+                    t_messages.setText("Arkadaşlar");
                     isMessagesFragment = false;
                 }
 
@@ -165,9 +171,11 @@ public class FragmentMessagesPage extends Fragment implements TabLayout.OnTabSel
         e_search.clearFocus();
         if(tab.getPosition()==0){
             isMessagesFragment = true;
+            t_messages.setText("Mesajlar");
         }
         else{
             isMessagesFragment = false;
+            t_messages.setText("Arkadaşlar");
         }
         viewPager.setCurrentItem(tab.getPosition());
     }

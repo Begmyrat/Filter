@@ -7,17 +7,134 @@
     android:background="@color/colorBackground"
     tools:context=".fragments.FragmentDescribePage">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/c_avatar"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="41dp"
+        android:layout_marginTop="40dp"
+        app:cardElevation="2dp">
+
+        <ImageView
+            android:id="@+id/i_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:transitionName="iProfileTransition"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar"/>
+
+    </androidx.cardview.widget.CardView>
+
     <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/FragmentDescribe_message"
-        android:fontFamily="@font/josefin_sans_semi_bold"
-        android:textColor="@color/textPrimaryColor"
-        android:textSize="18sp"
+        android:id="@+id/t_percentage"
+        android:layout_width="43dp"
+        android:layout_height="30dp"
+        android:text="%25"
+        android:transitionName="tPercentageTransition"
         android:gravity="center"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:textSize="14sp"
+        android:textColor="@color/secondtextcolor"
+        android:elevation="2dp"
+        android:background="@drawable/profil_percentage"
+        app:layout_constraintTop_toBottomOf="@+id/c_avatar"
+        app:layout_constraintLeft_toLeftOf="@id/c_avatar"
+        app:layout_constraintRight_toRightOf="@+id/c_avatar"
+        android:translationY="-15dp"/>
+
+    <TextView
+        android:id="@+id/t_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="John Doe"
+        android:textSize="24sp"
+        android:transitionName="tUsernameTransition"
+        android:textColor="@color/textPrimaryColor"
+        android:fontFamily="@font/josefin_sans_semi_bold"
+        app:layout_constraintLeft_toRightOf="@+id/c_avatar"
+        app:layout_constraintTop_toTopOf="@+id/c_avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/c_avatar"
+        android:layout_marginLeft="20dp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabRippleColor="@color/black"
+        app:tabIconTint="#612c63"
+        app:tabTextAppearance="@style/CustomTextAppearanceTab"
+        app:tabBackground="@drawable/tablayout_selector"
+        app:tabIndicatorColor="#612c63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t_percentage"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintBottom_toTopOf="@id/i_kaydet"/>
+
+    <ImageButton
+        android:id="@+id/i_kaydet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@+id/i_gecmis"
+        android:background="@drawable/kaydet_active"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="40dp"/>
+
+    <TextView
+        android:id="@+id/t_kaydet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:text="Kaydet"
+        android:fontFamily="@font/josefin_sans_light"
+        android:textColor="@color/buttonwhite"
+        android:gravity="center"
+        android:translationY="-2dp"
+        android:elevation="2dp"
+        app:layout_constraintLeft_toLeftOf="@id/i_kaydet"
+        app:layout_constraintRight_toRightOf="@id/i_kaydet"
+        app:layout_constraintTop_toTopOf="@id/i_kaydet"
+        app:layout_constraintBottom_toBottomOf="@id/i_kaydet"/>
+
+    <ImageView
+        android:id="@+id/i_gecmis"
+        android:layout_width="148dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintLeft_toRightOf="@+id/i_kaydet"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/i_kaydet"
+        android:src="@drawable/history"/>
+
+    <TextView
+        android:id="@+id/t_gecmis"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:text="Geçmiş"
+        android:fontFamily="@font/josefin_sans_light"
+        android:textColor="@color/textPrimaryColor"
+        android:gravity="center"
+        android:translationY="-2dp"
+        android:translationX="-8dp"
+        android:elevation="2dp"
+        app:layout_constraintLeft_toLeftOf="@id/i_gecmis"
+        app:layout_constraintRight_toRightOf="@id/i_gecmis"
+        app:layout_constraintTop_toTopOf="@id/i_gecmis"
+        app:layout_constraintBottom_toBottomOf="@id/i_gecmis"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

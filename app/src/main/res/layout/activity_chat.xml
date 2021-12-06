@@ -108,13 +108,13 @@
                 android:id="@+id/e_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Type a message"
-                android:textColorHint="@color/black"
+                android:layout_centerVertical="true"
                 android:layout_marginHorizontal="5dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/josefin_sans_regular"
                 android:backgroundTint="@android:color/transparent"
-                android:layout_centerVertical="true"/>
+                android:fontFamily="@font/josefin_sans_regular"
+                android:hint="Mesaj yazınız"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
         </RelativeLayout>
 

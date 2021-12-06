@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="40dp"
+    android:background="@color/colorBackground"
+    tools:context=".activities.ActivityDescribeSac">
+
+    <ImageView
+        android:id="@+id/i_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_arrow_left"/>
+
+    <TextView
+        android:id="@+id/t_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/i_back"
+        app:layout_constraintBottom_toBottomOf="@+id/i_back"
+        app:layout_constraintLeft_toRightOf="@+id/i_back"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:text="Benim saçlarım..."
+        android:textColor="@color/textPrimaryColor"
+        android:textSize="20sp"
+        android:fontFamily="@font/josefin_sans_regular"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t_title"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -105,8 +105,15 @@ public class ActivityProfileEditForm extends AppCompatActivity implements MyRecy
 
     @Override
     public void onItemClick(View view, int position) {
-        index = position;
-        adapter.selected_pos = position;
+
+        if(index==position){
+            index = -1;
+            adapter.selected_pos = -1;
+        }
+        else{
+            index = position;
+            adapter.selected_pos = position;
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -116,7 +123,10 @@ public class ActivityProfileEditForm extends AppCompatActivity implements MyRecy
         final String url = "https://mobiloby.com/_filter/update_user_profile.php";
         String icerik = "";
         if(isDropDown){
-            icerik = answers.get(index);
+            if(index!=-1)
+                icerik = answers.get(index);
+            else
+                icerik = "";
         }
         else{
             icerik = binding.eInfo.getText().toString();

@@ -69,7 +69,7 @@ public class MySocialRecycleListAdapter extends RecyclerView.Adapter<MySocialRec
                 holder.i_avatar.setImageResource(R.drawable.facebook_active);
             }
             else{
-                holder.i_avatar.setImageResource(R.drawable.twitter_active);
+                holder.i_avatar.setImageResource(R.drawable.linkedin_active);
             }
 //        }
 

@@ -79,14 +79,46 @@ public class ActivityChat extends AppCompatActivity {
         context = getApplicationContext();
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        getChats();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+//        t_username.setText(friend_username);
+
+        if(extras!=null){
+
+            user_player_id_other = extras.getString("pusher_id");
+            friend_username = extras.getString("pusher_name");
+            user_profile_url_other = extras.getString("pusher_profile_url");
+
+            if(user_player_id_other==null || user_player_id_other.equals("")){
+                user_player_id_other = extras.getString("user_player_id_other");
+                friend_username = extras.getString("username_friend");
+                user_profile_url_other = extras.getString("user_profile_url_other");
+            }
+
+            username = extras.getString("username");
+            if(username == null || username.equals("")){
+                username = preferences.getString("username_unique", "");
+            }
+//            friend_username = extras.getString("username_friend");
+//            user_player_id_other = extras.getString("user_player_id_other");
+            user_profile_url = extras.getString("avatar_id");
+//            user_profile_url_other = extras.getString("user_profile_url_other");
+
+            Glide
+                    .with(getApplicationContext())
+                    .load("https://mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
+                    .centerCrop()
+                    .placeholder(R.drawable.filtryenilogo)
+                    .into(i_avatar);
+
+        }
         t_username.setText(friend_username);
+
+        getChats();
     }
 
     private void prepareMe() {
@@ -106,20 +138,20 @@ public class ActivityChat extends AppCompatActivity {
         hashSet = new HashSet<>();
         extras = getIntent().getExtras();
 
-        if(extras!=null){
-            username = extras.getString("username");
-            friend_username = extras.getString("username_friend");
-            user_player_id_other = extras.getString("user_player_id_other");
-            user_profile_url = extras.getString("user_profile_url");
-            user_profile_url_other = extras.getString("user_profile_url_other");
-
-            Glide
-                    .with(getApplicationContext())
-                    .load("https://mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
-                    .centerCrop()
-                    .placeholder(R.drawable.filtryenilogo)
-                    .into(i_avatar);
-        }
+//        if(extras!=null){
+//            username = extras.getString("username");
+//            friend_username = extras.getString("username_friend");
+//            user_player_id_other = extras.getString("user_player_id_other");
+//            user_profile_url = extras.getString("user_profile_url");
+//            user_profile_url_other = extras.getString("user_profile_url_other");
+//
+//            Glide
+//                    .with(getApplicationContext())
+//                    .load("https://mobiloby.com/_filter/assets/profile/" + user_profile_url_other)
+//                    .centerCrop()
+//                    .placeholder(R.drawable.filtryenilogo)
+//                    .into(i_avatar);
+//        }
 
         recyclerView = findViewById(R.id.recyclerview_chat);
         chatObjects = new ArrayList<>();
